@@ -2,19 +2,13 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Route;
+use App\Utils\FileUtils;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Routing\Router;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    /**
-     * This namespace is applied to your controller routes.
-     *
-     * In addition, it is set as the URL generator's root namespace.
-     *
-     * @var string
-     */
-    protected $namespace = 'App\Http\Controllers';
+    protected $namespace = '';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -33,47 +27,66 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function map()
+    public function map(Router $router)
     {
-        $this->mapApiRoutes();
+        $this->resourceParameters($router);
 
-        $this->mapWebRoutes();
-
-        //
+        $this->web($router);
     }
 
-    /**
-     * Define the "web" routes for the application.
-     *
-     * These routes all receive session state, CSRF protection, etc.
-     *
-     * @return void
-     */
-    protected function mapWebRoutes()
+    protected function resourceParameters(Router $router)
     {
-        Route::group([
-            'middleware' => 'web',
-            'namespace' => $this->namespace,
-        ], function ($router) {
-            require base_path('routes/web.php');
+        $router->singularResourceParameters();
+    }
+
+    protected function web(Router $router)
+    {
+        $router->group(['middleware' => 'web'], function (Router $router) {
+            $this->app($router);
+            $this->dashboard($router);
         });
     }
 
-    /**
-     * Define the "api" routes for the application.
-     *
-     * These routes are typically stateless.
-     *
-     * @return void
-     */
-    protected function mapApiRoutes()
+    protected function app(Router $router)
     {
-        Route::group([
-            'middleware' => 'api',
-            'namespace' => $this->namespace,
-            'prefix' => 'api',
-        ], function ($router) {
-            require base_path('routes/api.php');
+        $router->group([
+            'middleware' => 'app',
+            'as'         => 'app::',
+        ], function (Router $router) {
+            foreach (FileUtils::getPhpFilesInDirectory(routes_path('web/app')) as $fileInfo) {
+                require $fileInfo->getRealPath();
+            }
+
+            $router->group([
+                'prefix' => 'api',
+                'as'     => 'api.',
+            ], function (Router $router) {
+                foreach (FileUtils::getPhpFilesInDirectory(routes_path('web/app/api')) as $fileInfo) {
+                    require $fileInfo->getRealPath();
+                }
+            });
+        });
+    }
+
+    protected function dashboard(Router $router)
+    {
+        $router->group([
+            'middleware' => 'dahsboard',
+            'prefix'     => 'dahsboard',
+            'as'         => 'dahsboard::',
+        ], function (Router $router) {
+            foreach (FileUtils::getPhpFilesInDirectory(routes_path('web/dashboard')) as $fileInfo) {
+                require $fileInfo->getRealPath();
+            }
+
+            $router->group([
+                'prefix' => 'api',
+                'as'     => 'api.',
+            ], function (Router $router) {
+                foreach (FileUtils::getPhpFilesInDirectory(routes_path('web/dashboard/api')) as $fileInfo) {
+                    require $fileInfo->getRealPath();
+                }
+            });
         });
     }
 }

@@ -7,7 +7,6 @@ class WorkLog extends BaseModel
 {
     protected $fillable = [
         'ends_at',
-        'name',
         'project_id',
         'starts_at',
         'user_id',
