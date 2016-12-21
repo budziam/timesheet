@@ -1,12 +1,16 @@
 <?php
 namespace App\Http\Controllers\App;
 
-use App\Http\Controllers\Controller;
+use App\Bases\BaseController;
 
-class ProjectController extends Controller
+class ProjectController extends BaseController
 {
     public function index()
     {
-        return view('app.project.index');
+        $componentData = [
+            'projectsUrl' => route('app.api.projects.index'),
+        ];
+
+        return view('app.pages.projects.index', compact('componentData'));
     }
 }

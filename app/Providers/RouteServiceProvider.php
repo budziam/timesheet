@@ -44,6 +44,7 @@ class RouteServiceProvider extends ServiceProvider
         $router->group(['middleware' => 'web'], function (Router $router) {
             $this->app($router);
             $this->dashboard($router);
+            $this->auth($router);
         });
     }
 
@@ -51,19 +52,15 @@ class RouteServiceProvider extends ServiceProvider
     {
         $router->group([
             'middleware' => 'app',
-            'as'         => 'app::',
+            'as'         => 'app.',
         ], function (Router $router) {
-            foreach (FileUtils::getPhpFilesInDirectory(routes_path('web/app')) as $fileInfo) {
-                require $fileInfo->getRealPath();
-            }
+            $this->includeFiles('web/app', $router);
 
             $router->group([
                 'prefix' => 'api',
                 'as'     => 'api.',
             ], function (Router $router) {
-                foreach (FileUtils::getPhpFilesInDirectory(routes_path('web/app/api')) as $fileInfo) {
-                    require $fileInfo->getRealPath();
-                }
+                $this->includeFiles('web/app/api', $router);
             });
         });
     }
@@ -73,20 +70,33 @@ class RouteServiceProvider extends ServiceProvider
         $router->group([
             'middleware' => 'dahsboard',
             'prefix'     => 'dahsboard',
-            'as'         => 'dahsboard::',
+            'as'         => 'dahsboard.',
         ], function (Router $router) {
-            foreach (FileUtils::getPhpFilesInDirectory(routes_path('web/dashboard')) as $fileInfo) {
-                require $fileInfo->getRealPath();
-            }
+            $this->includeFiles('web/dashboard', $router);
 
             $router->group([
                 'prefix' => 'api',
                 'as'     => 'api.',
             ], function (Router $router) {
-                foreach (FileUtils::getPhpFilesInDirectory(routes_path('web/dashboard/api')) as $fileInfo) {
-                    require $fileInfo->getRealPath();
-                }
+                $this->includeFiles('web/dashboard/api', $router);
             });
         });
+    }
+
+    protected function auth(Router $router)
+    {
+        $router->group([
+            'prefix' => 'auth',
+            'as'     => 'auth.',
+        ], function (Router $router) {
+            require routes_path('web/auth.php');
+        });
+    }
+
+    protected function includeFiles($path, Router $router)
+    {
+        foreach (FileUtils::getPhpFilesInDirectory(routes_path($path)) as $fileInfo) {
+            require $fileInfo->getRealPath();
+        }
     }
 }

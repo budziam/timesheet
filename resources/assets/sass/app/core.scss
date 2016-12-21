@@ -1,0 +1,41 @@
+// Fonts
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+// Select2
+@import "node_modules/select2/src/scss/core";
+
+.navbar-brand {
+  font-weight: bold;
+}
+
+.btn-logout {
+  width: 100%;
+  padding: 3px 20px;
+  text-align: left;
+}
+
+.project-search {
+  .search {
+    margin-bottom: 20px;
+  }
+
+  .results {
+    .panel {
+      margin-bottom: 8px;
+
+      .panel-heading {
+        cursor: pointer;
+
+        .label:not(:first-child) {
+          margin-left: 2px;
+        }
+      }
+    }
+  }
+}
