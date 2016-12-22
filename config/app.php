@@ -182,6 +182,7 @@ return [
          * 3rd party
          */
         Collective\Html\HtmlServiceProvider::class,
+        Spatie\Fractal\FractalServiceProvider::class,
 
     ],
 

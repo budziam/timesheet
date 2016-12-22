@@ -9,7 +9,7 @@ window._ = require('lodash');
 
 window.$ = window.jQuery = require('jquery');
 require('bootstrap-sass');
-require('select2');
+require('select2/dist/js/select2.full');
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -32,15 +32,10 @@ Vue.http.interceptors.push((request, next) => {
     next();
 });
 
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
-
-// import Echo from "laravel-echo"
-
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: 'your-pusher-key'
-// });
+Vue.http.interceptors.push((request, next)  => {
+    next((response) => {
+        if (response.ok === false) {
+            alert(response.status + ': ' + response.statusText);
+        }
+    });
+});

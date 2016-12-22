@@ -7,5 +7,11 @@ const app = new Vue({
 
     components: {
         ProjectSearch
+    },
+
+    beforeMount() {
+        $.fn.select2.defaults.set("theme", "bootstrap");
+        $.fn.select2.defaults.set("containerCssClass", ":all:");
+        $.fn.select2.defaults.set("width", null);
     }
 });

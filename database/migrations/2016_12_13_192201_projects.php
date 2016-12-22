@@ -16,12 +16,16 @@ class Projects extends Migration
             $table->timestamp('ends_at');
             $table->timestamps();
         });
+        DB::statement('ALTER TABLE ' . Project::table() . ' ADD FULLTEXT full(name)');
+
 
         Schema::create(ProjectGroup::table(), function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->timestamps();
         });
+        DB::statement('ALTER TABLE ' . ProjectGroup::table() . ' ADD FULLTEXT full(name)');
+
 
         Schema::create('project_project_group', function (Blueprint $table) {
             $table->unsignedInteger('project_id');

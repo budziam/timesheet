@@ -32,14 +32,14 @@ $factory->define(User::class, function (Generator $faker) {
 
 $factory->define(Project::class, function (Generator $faker) {
     return [
-        'name'    => $faker->words(3, true),
+        'name'    => ucfirst($faker->words(3, true)),
         'ends_at' => $faker->dateTimeBetween('-2 months', '+1 year'),
     ];
 });
 
 $factory->define(ProjectGroup::class, function (Generator $faker) {
     return [
-        'name' => $faker->word,
+        'name' => ucfirst($faker->word),
     ];
 });
 

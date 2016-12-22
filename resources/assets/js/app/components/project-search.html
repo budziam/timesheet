@@ -1,20 +1,19 @@
 <div class="container project-search">
     <div class="row search">
-        <div class="col-lg-6">
+        <div class="col-md-6">
             <input type="text"
                    name="search"
                    class="form-control input-lg"
                    placeholder="Filter projects"
                    v-model="search"
-                   debounce="500"
             >
         </div>
 
-        <div class="col-lg-6">
+        <div class="col-md-6">
             <select id="groups"
                     name="groups"
-                    class="form-control"
-                    multiple="true"
+                    class="form-control input-lg"
+                    :multiple="true"
                     v-model="groups"
                     ref="groups"
             >

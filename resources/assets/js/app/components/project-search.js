@@ -10,64 +10,18 @@ export default {
             selectNode: {},
             search: '',
             groups: [],
-            projects: [
-                {
-                    id: 1,
-                    name: 'Alfred',
-                    groups: [
-                        {
-                            name: 'Aba'
-                        },
-                        {
-                            name: 'Moja'
-                        },
-                        {
-                            name: 'Min'
-                        },
-                        {
-                            name: 'Staty'
-                        },
-                    ]
-                },
-                {
-                    id: 2,
-                    name: 'Alfred',
-                    groups: [
-                        {
-                            name: 'Aba'
-                        },
-                        {
-                            name: 'Moja'
-                        }
-                    ]
-                },
-                {
-                    id: 3,
-                    name: 'Alfred',
-                    groups: [
-                        {
-                            name: 'Aba'
-                        },
-                        {
-                            name: 'Min'
-                        },
-                        {
-                            name: 'Staty'
-                        },
-                    ]
-                }
-            ]
+            projects: []
         }
     },
 
     mounted() {
         this.selectNode = $(this.$refs.groups);
 
-        var options = {
-            tags: true
-        };
+        this.selectNode.select2({
+            placeholder: 'Select groups'
+        });
 
-        this.selectNode.select2(options);
+        this.refreshProjects();
     },
 
     methods: {
@@ -77,12 +31,25 @@ export default {
 
         getProjectIdHref(project) {
             return '#' + this.getProjectId(project);
+        },
+
+        /**
+         * Refreshes projects list
+         */
+        refreshProjects() {
+            this.$http.get(this.data.projectsUrl, {
+                search: this.search,
+                groups: this.groups
+            })
+                .then(function (response) {
+                    this.projects = response.body;
+                });
         }
     },
 
     watch: {
-        search(newVal) {
-            console.log('Changes: ' + newVal);
+        search() {
+            this.refreshProjects();
         }
     }
 }
