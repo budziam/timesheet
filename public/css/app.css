@@ -9078,10 +9078,6 @@ button.close {
   margin-bottom: 8px;
 }
 
-.project-search .results .panel .panel-heading {
-  cursor: pointer;
-}
-
 .project-search .results .panel .panel-heading .label:not(:first-child) {
   margin-left: 2px;
 }
