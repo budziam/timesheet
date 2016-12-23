@@ -3,19 +3,17 @@ namespace App\Http\Controllers\App\Api;
 
 use App\Bases\BaseController;
 use App\Http\Requests\App\ProjectIndexRequest;
-use App\Models\Project;
+use App\Repositories\ProjectRepository;
 use App\Transformers\ProjectTransformer;
 
 class ProjectController extends BaseController
 {
-    public function index(ProjectIndexRequest $request)
+    public function index(ProjectIndexRequest $request, ProjectRepository $repository)
     {
         $search = $request->input('search', '');
+        $groups = $request->input('groups', []);
 
-        $projects = Project::with('groups')
-            ->whereRaw('MATCH(name) AGAINST(?) > -1', [$search])
-            ->orderByRaw('MATCH(name) AGAINST(?) DESC', [$search])
-            ->get();
+        $projects = $repository->search($search, $groups);
 
         return fractal()
             ->collection($projects, new ProjectTransformer);

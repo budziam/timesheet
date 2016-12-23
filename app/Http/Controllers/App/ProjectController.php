@@ -9,6 +9,7 @@ class ProjectController extends BaseController
     {
         $componentData = [
             'projectsUrl' => route('app.api.projects.index'),
+            'projectGroupsUrl' => route('app.api.project-groups.index'),
         ];
 
         return view('app.pages.projects.index', compact('componentData'));

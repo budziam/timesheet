@@ -3,13 +3,12 @@ namespace App\Http\Requests\App;
 
 use App\Bases\BaseRequest;
 
-class ProjectIndexRequest extends BaseRequest
+class ProjectGroupIndexRequest extends BaseRequest
 {
     public function rules()
     {
         return [
-            'search' => 'string',
-            'groups' => 'array',
+            'q' => 'string',
         ];
     }
 }

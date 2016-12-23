@@ -39,3 +39,6 @@ Vue.http.interceptors.push((request, next)  => {
         }
     });
 });
+
+Vue.http.options.emulateHTTP = true;
+Vue.http.options.emulateJSON = true;
