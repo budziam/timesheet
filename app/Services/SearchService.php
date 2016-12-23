@@ -18,7 +18,8 @@ class SearchService
                 ->latest('id');
         }
 
-        return $query->whereRaw('MATCH(?) AGAINST(?)', [$column, $search])
-            ->orderByRaw('MATCH(?) AGAINST(?) DESC', [$column, $search]);
+        return $query
+            ->whereRaw("MATCH({$column}) AGAINST(?)", [$search])
+            ->orderByRaw("MATCH({$column}) AGAINST(?) DESC", [$search]);
     }
 }
