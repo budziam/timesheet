@@ -1,12 +1,14 @@
 require('../bootstrap');
 
 import ProjectSearch from './components/project-search';
+import WorkLogCreate from './components/work-log-create';
 
 const app = new Vue({
     el: '#app',
 
     components: {
-        ProjectSearch
+        ProjectSearch,
+        WorkLogCreate
     },
 
     beforeMount() {

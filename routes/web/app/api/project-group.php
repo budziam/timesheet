@@ -2,8 +2,9 @@
 
 /** @var \Illuminate\Routing\Router $router */
 
-use App\Http\Controllers\App\Api\ProjectGroupController;
+use App\Http\Controllers\App\Api\ProjectGroupSearchController;
 
-$router->resource('project-groups', ProjectGroupController::class, [
-    'only' => ['index'],
+$router->get('search/project-groups/select2', [
+    'as'   => 'search.project-groups.select2',
+    'uses' => ProjectGroupSearchController::class . '@select2',
 ]);

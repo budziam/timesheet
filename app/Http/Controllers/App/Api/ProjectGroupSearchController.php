@@ -2,19 +2,18 @@
 namespace App\Http\Controllers\App\Api;
 
 use App\Bases\BaseController;
-use App\Http\Requests\App\ProjectGroupIndexRequest;
-use App\Repositories\ProjectGroupRepository;
+use App\Http\Requests\App\ProjectGroupSearchSelect2Request;
+use App\Services\ProjectGroupSearchService;
 use App\Transformers\SearchSelectTransformer;
 
-class ProjectGroupController extends BaseController
+class ProjectGroupSearchController extends BaseController
 {
-    public function index(ProjectGroupIndexRequest $request, ProjectGroupRepository $repository)
+    public function select2(ProjectGroupSearchSelect2Request $request, ProjectGroupSearchService $repository)
     {
         $search = $request->input('q', '');
 
-        $query = $repository->searchModeSelect($search);
-
-        $pagination = $query->paginate();
+        $pagination = $repository->searchSelect2($search)
+            ->paginate();
 
         $items = fractal()
             ->collection($pagination->items(), new SearchSelectTransformer)

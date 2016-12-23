@@ -1,0 +1,16 @@
+<select :id="id"
+        :name="name"
+        :class="classes"
+        :disabled="disabled"
+        :multiple="isMultiple"
+        style="width: 100%"
+        ref="select"
+>
+    <option v-if="displayEmptyOption"></option>
+    <option v-for="(text, key) in normalizedOptions"
+            :value="key"
+            :selected="realValue.contains(key)"
+    >
+        {{ text }}
+    </option>
+</select>

@@ -8,8 +8,9 @@ class ProjectController extends BaseController
     public function index()
     {
         $componentData = [
-            'projectsUrl' => route('app.api.projects.index'),
-            'projectGroupsUrl' => route('app.api.project-groups.index'),
+            'projectsUrl'      => route('app.api.search.projects.default'),
+            'projectGroupsUrl' => route('app.api.search.project-groups.select2'),
+            'workLogUrl'       => route('app.work-logs.create'),
         ];
 
         return view('app.pages.projects.index', compact('componentData'));

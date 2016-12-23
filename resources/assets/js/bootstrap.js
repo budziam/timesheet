@@ -1,4 +1,3 @@
-
 window._ = require('lodash');
 
 /**
@@ -8,6 +7,8 @@ window._ = require('lodash');
  */
 
 window.$ = window.jQuery = require('jquery');
+require('./functions');
+
 require('bootstrap-sass');
 require('select2/dist/js/select2.full');
 
@@ -42,3 +43,5 @@ Vue.http.interceptors.push((request, next)  => {
 
 Vue.http.options.emulateHTTP = true;
 Vue.http.options.emulateJSON = true;
+
+Vue.component('vue-select', require('./common/components/select'));

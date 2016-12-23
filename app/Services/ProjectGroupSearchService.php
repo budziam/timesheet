@@ -1,10 +1,9 @@
 <?php
-namespace App\Repositories;
+namespace App\Services;
 
 use App\Models\ProjectGroup;
-use App\Services\SearchService;
 
-class ProjectGroupRepository
+class ProjectGroupSearchService
 {
     /** @var SearchService */
     protected $searchService;
@@ -18,7 +17,7 @@ class ProjectGroupRepository
      * @param string $search
      * @return \Eloquent
      */
-    public function searchModeSelect($search)
+    public function searchSelect2($search)
     {
         $query = ProjectGroup::query();
 

@@ -1,10 +1,9 @@
 <?php
-namespace App\Repositories;
+namespace App\Services;
 
 use App\Models\Project;
-use App\Services\SearchService;
 
-class ProjectRepository
+class ProjectSearchService
 {
     /** @var SearchService */
     protected $searchService;
@@ -19,7 +18,7 @@ class ProjectRepository
      * @param array  $groups
      * @return \Illuminate\Database\Eloquent\Collection|Project[]
      */
-    public function search($search, array $groups = [])
+    public function searchDefault($search, array $groups = [])
     {
         $query = Project::with('groups')
             ->active();
@@ -34,5 +33,19 @@ class ProjectRepository
         }
 
         return $query->get();
+    }
+
+    /**
+     * @param string $search
+     * @return \Eloquent
+     */
+    public function searchSelect2($search)
+    {
+        $query = Project::query();
+
+        $this->searchService
+            ->filterQuery($query, 'name', $search);
+
+        return $query;
     }
 }

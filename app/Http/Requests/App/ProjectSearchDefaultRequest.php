@@ -3,7 +3,7 @@ namespace App\Http\Requests\App;
 
 use App\Bases\BaseRequest;
 
-class ProjectIndexRequest extends BaseRequest
+class ProjectSearchDefaultRequest extends BaseRequest
 {
     public function rules()
     {

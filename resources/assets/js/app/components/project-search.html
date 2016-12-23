@@ -10,16 +10,14 @@
         </div>
 
         <div class="col-md-6">
-            <select id="groups"
-                    name="groups"
-                    class="form-control input-lg"
-                    :multiple="true"
-                    v-model="groups"
-                    ref="groups"
+            <vue-select name="groups"
+                        classes="form-control input-lg"
+                        :multiple="true"
+                        :url="data.projectGroupsUrl"
+                        placeholder="Select groups"
+                        v-model="groups"
             >
-                <option value="ala">Ala</option>
-                <option value="beata">Beata</option>
-            </select>
+            </vue-select>
         </div>
     </div>
 
@@ -43,7 +41,13 @@
                         </div>
 
                         <div class="col-xs-6 text-right">
-                            <a href="#" class="btn btn-sm btn-default" role="button">Log work</a>
+                            <a class="btn btn-sm btn-default"
+                               role="button"
+                               :href="getWorkLogUrl(project)"
+                               target="_blank"
+                            >
+                                Log work
+                            </a>
                         </div>
                     </div>
                 </div>
