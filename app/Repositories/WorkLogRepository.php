@@ -5,7 +5,7 @@ use App\Models\User;
 
 class WorkLogRepository
 {
-    public function create(User $user)
+    public function create(User $user, array $attributes = [])
     {
 
     }

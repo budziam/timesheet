@@ -9,5 +9,15 @@ export default {
         return {
             project: {}
         }
+    },
+
+    mounted() {
+        this.initDate();
+    },
+
+    methods: {
+        initDate() {
+            this.$refs.date.value = moment().format('YYYY-MM-DD');
+        }
     }
 }
