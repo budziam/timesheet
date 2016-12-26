@@ -9082,4 +9082,8 @@ button.close {
   margin-left: 2px;
 }
 
+.work-logs-create #form_description {
+  resize: vertical;
+}
+
 /*# sourceMappingURL=app.css.map */

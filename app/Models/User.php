@@ -45,6 +45,9 @@ class User extends Authenticatable
         'password',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany|WorkLog
+     */
     public function workLogs()
     {
         return $this->hasMany(WorkLog::class);

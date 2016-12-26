@@ -48,7 +48,7 @@ $factory->define(WorkLog::class, function (Generator $faker) {
     $endsAt = $startsAt->copy()->addMinutes($faker->numberBetween(30, 60 * 8));
 
     return [
-        'ends_at'   => $endsAt,
-        'starts_at' => $startsAt,
+        'ends_at'     => $endsAt,
+        'starts_at'   => $startsAt,
     ];
 });

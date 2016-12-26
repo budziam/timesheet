@@ -2,6 +2,7 @@
 
 use App\Models\Project;
 use App\Models\User;
+use App\Models\WorkLog;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -43,7 +44,7 @@ class UserSeeder extends Seeder
             ->limit(rand(0, 5))
             ->get()
             ->each(function (Project $project) use ($user) {
-                factory(\App\Models\WorkLog::class, rand(1, 20))
+                factory(WorkLog::class, rand(1, 20))
                     ->create([
                         'project_id' => $project->getKey(),
                         'user_id'    => $user->getKey(),

@@ -7,6 +7,7 @@ window._ = require('lodash');
  */
 
 window.$ = window.jQuery = require('jquery');
+// require('jquery-ui');
 window.moment = require('moment');
 require('./functions');
 
@@ -21,6 +22,7 @@ require('select2/dist/js/select2.full');
 
 window.Vue = require('vue');
 require('vue-resource');
+require('./common/event');
 
 /**
  * We'll register a HTTP interceptor to attach the "CSRF" header to each of
@@ -34,15 +36,8 @@ Vue.http.interceptors.push((request, next) => {
     next();
 });
 
-Vue.http.interceptors.push((request, next)  => {
-    next((response) => {
-        if (response.ok === false) {
-            alert(response.status + ': ' + response.statusText);
-        }
-    });
-});
-
 Vue.http.options.emulateHTTP = true;
 Vue.http.options.emulateJSON = true;
 
-Vue.component('vue-select', require('./common/components/select'));
+Vue.component('v-select', require('./common/components/select'));
+Vue.component('v-form', require('./common/components/form'));

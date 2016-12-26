@@ -1,5 +1,9 @@
+import FormMixin from '../mixins/form';
+
 export default {
     template: require('html!./work-log-create.html'),
+
+    mixins: [FormMixin],
 
     props: {
         data: Object
@@ -7,7 +11,7 @@ export default {
 
     data() {
         return {
-            project: {}
+            project: ''
         }
     },
 

@@ -3,7 +3,7 @@ module.exports = {
 
     props: {
         name: String,
-        classes: String,
+        class: String,
         placeholder: String,
         disabled: [Boolean, String],
         required: [Boolean, String],
@@ -38,6 +38,10 @@ module.exports = {
 
         normalizedOptions() {
             return $.extend({}, this.options);
+        },
+
+        normalizedClass() {
+            return this.class;
         }
     },
 

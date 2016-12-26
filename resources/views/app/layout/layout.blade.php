@@ -23,8 +23,11 @@
     @include('app.layout.includes.navbar')
 
     @yield('content')
+
+    <loader></loader>
 </div>
 
 {!! Html::script(source('js/app.js')) !!}
+{!! Html::script('http://code.jquery.com/ui/1.12.1/jquery-ui.min.js') !!}
 </body>
 </html>
