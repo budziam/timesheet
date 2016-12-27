@@ -3,6 +3,7 @@ require('../bootstrap');
 import Loader from './components/loader';
 import ProjectSearch from './components/project-search';
 import WorkLogCreate from './components/work-log-create';
+import WorkLogIndex from './components/work-log-index';
 
 window.vueApp = new Vue({
     el: '#app',
@@ -10,7 +11,8 @@ window.vueApp = new Vue({
     components: {
         Loader,
         ProjectSearch,
-        WorkLogCreate
+        WorkLogCreate,
+        WorkLogIndex
     },
 
     beforeMount() {

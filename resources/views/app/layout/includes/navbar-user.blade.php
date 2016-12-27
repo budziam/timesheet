@@ -2,6 +2,9 @@
     <li>
         <a href="{{ $projectsUrl }}">@lang('t.Projects')</a>
     </li>
+    <li>
+        <a href="{{ $workLogsUrl }}">@lang('t.Work logs')</a>
+    </li>
 </ul>
 
 <ul class="nav navbar-nav navbar-right">

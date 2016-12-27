@@ -6,6 +6,15 @@ use App\Models\Project;
 
 class WorkLogController extends BaseController
 {
+    public function index()
+    {
+        $componentData = [
+            //
+        ];
+
+        return view('app.pages.work-logs.index', compact('componentData'));
+    }
+
     public function create()
     {
         $componentData = [

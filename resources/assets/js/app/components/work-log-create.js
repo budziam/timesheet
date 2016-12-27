@@ -15,15 +15,7 @@ export default {
         }
     },
 
-    mounted() {
-        this.initDate();
-    },
-
     methods: {
-        initDate() {
-            this.$refs.date.value = moment().format('YYYY-MM-DD');
-        },
-
         onSuccess() {
             window.location.replace(this.data.projectsUrl);
         }

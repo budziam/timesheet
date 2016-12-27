@@ -32,8 +32,9 @@ $factory->define(User::class, function (Generator $faker) {
 
 $factory->define(Project::class, function (Generator $faker) {
     return [
-        'name'    => ucfirst($faker->words(3, true)),
-        'ends_at' => $faker->dateTimeBetween('-2 months', '+1 year'),
+        'name'        => ucfirst($faker->words(3, true)),
+        'description' => $faker->paragraphs(5, true),
+        'ends_at'     => $faker->dateTimeBetween('-2 months', '+1 year'),
     ];
 });
 
@@ -48,7 +49,7 @@ $factory->define(WorkLog::class, function (Generator $faker) {
     $endsAt = $startsAt->copy()->addMinutes($faker->numberBetween(30, 60 * 8));
 
     return [
-        'ends_at'     => $endsAt,
-        'starts_at'   => $startsAt,
+        'ends_at'   => $endsAt,
+        'starts_at' => $startsAt,
     ];
 });

@@ -14,7 +14,7 @@
                       class="form-control input-lg"
                       :multiple="true"
                       :url="data.projectGroupsUrl"
-                      :placeholder="$trans('Select groups')"
+                      :placeholder="$trans('Wybierz asortyment')"
                       v-model="groups"
             >
             </v-select>
@@ -56,7 +56,7 @@
                     </div>
                 </div>
                 <div :id="getProjectId(project)" class="panel-collapse collapse">
-                    <div class="panel-body">Panel Body</div>
+                    <div class="panel-body" v-text="project.description"></div>
                 </div>
             </div>
         </div>

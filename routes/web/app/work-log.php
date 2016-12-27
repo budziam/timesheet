@@ -5,5 +5,5 @@
 use App\Http\Controllers\App\WorkLogController;
 
 $router->resource('work-logs', WorkLogController::class, [
-    'only' => ['create'],
+    'only' => ['index', 'create'],
 ]);

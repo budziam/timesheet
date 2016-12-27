@@ -28,8 +28,9 @@ class ComposerServiceProvider extends BaseServiceProvider
 
         \View::composer('app.layout.includes.navbar-user', function (View $view) {
             $view->with([
-                'logoutUrl' => route('auth.logout'),
+                'logoutUrl'   => route('auth.logout'),
                 'projectsUrl' => route('app.projects.index'),
+                'workLogsUrl' => route('app.work-logs.index'),
             ]);
         });
     }

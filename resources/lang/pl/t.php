@@ -13,6 +13,6 @@ return [
     'Project'         => 'Zlecenie',
     'Projects'        => 'Zlecenia',
     'Remember Me'     => 'Zapamiętaj',
-    'Select groups'   => 'Wybierz grupy',
     'Start time'      => 'Godzina rozpoczęcia',
+    'Work logs'       => 'Godziny pracy',
 ];

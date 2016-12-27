@@ -13,6 +13,7 @@ class Projects extends Migration
         Schema::create(Project::table(), function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->text('description');
             $table->timestamp('ends_at');
             $table->timestamps();
         });
