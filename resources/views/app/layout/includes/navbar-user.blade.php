@@ -1,6 +1,6 @@
 <ul class="nav navbar-nav">
     <li>
-        <a href="{{ $projectsUrl }}">Projects</a>
+        <a href="{{ $projectsUrl }}">@lang('t.Projects')</a>
     </li>
 </ul>
 
@@ -21,7 +21,7 @@
                 <form action="{{ $logoutUrl }}" method="POST">
                     {{ csrf_field() }}
 
-                    <button type="submit" class="btn btn-link btn-logout">Logout</button>
+                    <button type="submit" class="btn btn-link btn-logout">@lang('t.Logout')</button>
                 </form>
             </li>
         </ul>

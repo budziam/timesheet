@@ -7,12 +7,13 @@ window._ = require('lodash');
  */
 
 window.$ = window.jQuery = require('jquery');
-// require('jquery-ui');
-window.moment = require('moment');
-require('./functions');
 
 require('bootstrap-sass');
 require('select2/dist/js/select2.full');
+require('select2/dist/js/i18n/pl');
+
+window.moment = require('moment');
+require('./functions');
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -41,3 +42,7 @@ Vue.http.options.emulateJSON = true;
 
 Vue.component('v-select', require('./common/components/select'));
 Vue.component('v-form', require('./common/components/form'));
+
+Vue.use(require('./common/translation'), {
+    url: Laravel.url + '/api/translations'
+});

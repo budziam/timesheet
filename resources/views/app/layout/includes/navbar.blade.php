@@ -8,7 +8,7 @@
                     aria-expanded="false"
                     aria-controls="navbar"
             >
-                <span class="sr-only">Toggle navigation</span>
+                <span class="sr-only"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>

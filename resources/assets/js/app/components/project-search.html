@@ -4,18 +4,18 @@
             <input type="text"
                    name="search"
                    class="form-control input-lg"
-                   placeholder="Filter projects"
+                   :placeholder="$trans('Filter projects')"
                    v-model="search"
             >
         </div>
 
         <div class="col-md-6">
             <v-select name="groups"
-                        classes="form-control input-lg"
-                        :multiple="true"
-                        :url="data.projectGroupsUrl"
-                        placeholder="Select groups"
-                        v-model="groups"
+                      class="form-control input-lg"
+                      :multiple="true"
+                      :url="data.projectGroupsUrl"
+                      :placeholder="$trans('Select groups')"
+                      v-model="groups"
             >
             </v-select>
         </div>
@@ -30,13 +30,15 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <a class="panel-title" data-toggle="collapse" :href="getProjectIdHref(project)">
-                                        <strong>{{ project.name }}</strong>
+                                        <strong v-text="project.name"></strong>
                                     </a>
                                 </div>
 
                                 <div class="col-sm-12">
-                                    <span class="label label-info" v-for="group in project.groups">
-                                        {{ group.name }}
+                                    <span class="label label-info"
+                                          v-for="group in project.groups"
+                                          v-text="group.name"
+                                    >
                                     </span>
                                 </div>
                             </div>
@@ -47,8 +49,8 @@
                                role="button"
                                :href="getWorkLogUrl(project)"
                                target="_blank"
+                               v-text="$trans('Log work')"
                             >
-                                Log work
                             </a>
                         </div>
                     </div>

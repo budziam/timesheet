@@ -78,11 +78,10 @@ module.exports = {
 
         onFormValidationError(response) {
             $.each(response, this.displayValidationError.bind(this));
-            $(this.$el).find('.invalid:focusable').first().focus();
         },
 
         displayValidationError(key, value) {
-            var element = $(this.$el).find("[id='form_" + key + "']");
+            var element = $(this.$el).find('#' + this.getElementId(key));
 
             if (!element.length) {
                 return;
@@ -120,6 +119,10 @@ module.exports = {
                 });
 
             return obj;
+        },
+
+        getElementId(key) {
+            return 'form_' + key;
         }
     }
 };

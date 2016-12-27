@@ -9,8 +9,9 @@ class WorkLogController extends BaseController
     public function create()
     {
         $componentData = [
-            'projectsUrl'      => route('app.api.search.projects.select2'),
-            'worklogsStoreUrl' => route('app.api.work-logs.store'),
+            'projectsUrl'       => route('app.projects.index'),
+            'projectsSearchUrl' => route('app.api.search.projects.select2'),
+            'worklogsStoreUrl'  => route('app.api.work-logs.store'),
         ];
 
         $this->injectProject($componentData);

@@ -9,9 +9,7 @@ class WorkLogController extends BaseController
 {
     public function store(WorkLogStoreRequest $request, WorkLogRepository $repository)
     {
-        return $this->responseSuccess();
-
-        $repository->create(auth()->user(), $request->project, $request->allTransformed());
+        $repository->create(auth()->user(), $request->project, $request->allTransformed()->all());
 
         return $this->responseSuccess();
     }

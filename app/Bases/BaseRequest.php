@@ -59,7 +59,7 @@ abstract class BaseRequest extends FormRequest
     }
 
     /**
-     * Instead of modifying request directly, use this method to get modyfied request data
+     * Instead of modifying request directly, use this method to get modified request data
      *
      * @return \Illuminate\Support\Collection
      */

@@ -3,7 +3,6 @@ module.exports = {
 
     props: {
         name: String,
-        class: String,
         placeholder: String,
         disabled: [Boolean, String],
         required: [Boolean, String],
@@ -38,10 +37,6 @@ module.exports = {
 
         normalizedOptions() {
             return $.extend({}, this.options);
-        },
-
-        normalizedClass() {
-            return this.class;
         }
     },
 
@@ -87,7 +82,7 @@ module.exports = {
             var options = {
                 placeholder: this.placeholder || '', // Without empty string, select2 has mindfuck while trying to clear selected option
                 allowClear: !this.isMultiple,
-                width: 'off' // It ruins form select width with prefix
+                language: Laravel.lang
             };
 
             if (this.url) {

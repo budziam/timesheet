@@ -22,6 +22,10 @@ export default {
     methods: {
         initDate() {
             this.$refs.date.value = moment().format('YYYY-MM-DD');
+        },
+
+        onSuccess() {
+            window.location.replace(this.data.projectsUrl);
         }
     }
 }

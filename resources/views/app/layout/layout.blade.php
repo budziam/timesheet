@@ -14,6 +14,8 @@
     <script>
         window.Laravel = <?php echo json_encode([
                 'csrfToken' => csrf_token(),
+                'url'       => url('/'),
+                'lang'      => App::getLocale()
         ]); ?>
     </script>
 </head>
@@ -28,6 +30,5 @@
 </div>
 
 {!! Html::script(source('js/app.js')) !!}
-{!! Html::script('http://code.jquery.com/ui/1.12.1/jquery-ui.min.js') !!}
 </body>
 </html>
