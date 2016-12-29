@@ -6,14 +6,17 @@
     <div class="container">
         <div class="row form-group">
             <div class="col-xs-12 form-group">
-                <label for="form_project" v-text="$trans('Project')"></label>
-                <v-select name="project_id"
+                <label for="form_project_id" v-text="$trans('Project')"></label>
+                <v-select id="form_project_id"
+                          name="project_id"
                           class="form-control input-lg"
                           :url="data.projectsSearchUrl"
-                          :options="data.projectOptions"
-                          :selected="data.projectSelected"
                           v-model="project"
                 >
+                    <option v-for="(value, key) in data.projectOptions"
+                            :value="key"
+                            v-text="value"
+                    ></option>
                 </v-select>
             </div>
         </div>

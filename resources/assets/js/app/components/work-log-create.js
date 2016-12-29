@@ -11,7 +11,7 @@ export default {
 
     data() {
         return {
-            project: ''
+            project: this.data.projectSelected
         }
     },
 

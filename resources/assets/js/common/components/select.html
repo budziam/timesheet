@@ -1,15 +1,6 @@
-<select :id="id"
-        :name="name"
-        :disabled="disabled"
-        :multiple="isMultiple"
+<select :multiple="isMultiple"
         style="width: 100%"
-        ref="select"
 >
     <option v-if="displayEmptyOption"></option>
-    <option v-for="(text, key) in normalizedOptions"
-            :value="key"
-            :selected="realValue.includes(key)"
-            v-text="text"
-    >
-    </option>
+    <slot></slot>
 </select>

@@ -1,3 +1,5 @@
+import debounce from "debounce";
+
 export default {
     template: require('html!./project-search.html'),
 
@@ -47,9 +49,9 @@ export default {
     },
 
     watch: {
-        search() {
+        search: debounce(function () {
             this.refreshProjects();
-        },
+        }, 200),
 
         groups() {
             this.refreshProjects();

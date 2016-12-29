@@ -2,60 +2,39 @@ module.exports = {
     template: require('html!./select.html'),
 
     props: {
-        name: String,
+        value: null,
         placeholder: String,
-        disabled: [Boolean, String],
-        required: [Boolean, String],
-        selected: [Array, String, Number],
-        options: [Object, Array],
         multiple: [Boolean, String],
         url: String,
     },
 
-    data() {
-        return {
-            initialized: false,
-
-            selectNode: {},
-            selectedItemDetails: {},
-            realValue: []
-        }
-    },
-
     computed: {
-        id() {
-            return 'form_' + this.nameToId(this.name);
-        },
-
         displayEmptyOption() {
             return !this.isMultiple && !!this.placeholder;
         },
 
         isMultiple() {
             return !!this.multiple;
-        },
-
-        normalizedOptions() {
-            return $.extend({}, this.options);
         }
     },
 
     mounted() {
-        this.updateValue(this.normalizeValue(this.selected));
+        var component = this;
 
-        this.selectNode = $(this.$refs.select);
-
-        this.initSelect2();
-        this.registerEvents();
+        $(this.$el)
+            .val(this.value)
+            .select2(this.getOptions())
+            .on('change', function () {
+                component.$emit('input', $(this).val());
+            });
     },
 
-    beforeDestroy() {
-        this.updateValue(undefined);
+    destroyed() {
+        $(this.$el).off().select2('destroy')
     },
 
     methods: {
         updateValue(value) {
-            this.realValue = value;
             var emitValue = value;
 
             if (typeof value !== 'undefined' && !this.isMultiple) {
@@ -65,20 +44,7 @@ module.exports = {
             this.$emit('input', emitValue);
         },
 
-        reInitSelect2() {
-            this.selectNode
-                .select2('destroy');
-
-            this.initialized = false;
-
-            setTimeout(this.initSelect2.bind(this), 1);
-        },
-
-        initSelect2() {
-            if (this.initialized) {
-                return;
-            }
-
+        getOptions() {
             var options = {
                 placeholder: this.placeholder || '', // Without empty string, select2 has mindfuck while trying to clear selected option
                 allowClear: !this.isMultiple,
@@ -109,76 +75,17 @@ module.exports = {
                 };
             }
 
-            this.selectNode
-                .select2(options);
-
-            this.selectNode
-                .val(this.realValue)
-                .trigger("change");
-
-            this.initialized = true;
-        },
-
-        registerEvents() {
-            var component = this;
-
-            this.selectNode
-                .on('select2:select', function (e) {
-                    component.selectedItemDetails = e.params.data;
-                })
-                .on('change', function () {
-                    var selected = component.selectNode
-                        .find(':selected')
-                        .map(function (i, element) {
-                            return element.value;
-                        })
-                        .toArray();
-
-                    component.updateValue(selected);
-                });
-        },
-
-        normalizeValue(value) {
-            if ($.isArray(value)) {
-                return value;
-            }
-
-            if (typeof value === 'undefined') {
-                return [];
-            }
-
-            if (value === null) {
-                return [];
-            }
-
-            return [value];
-        },
-
-        nameToId(name) {
-            return this.nameToDotted(name).replace(/\.$/, '');
-        },
-
-        nameToDotted(name) {
-            return str_replace(['.', '[', ']'], ['_', '.', ''], name);
+            return options;
         }
     },
 
     watch: {
-        options() {
-            if (!this.initialized) {
-                return;
-            }
-
-            this.reInitSelect2();
+        value(value) {
+            $(this.$el).val(value);
         },
 
         url() {
-            if (!this.initialized) {
-                return;
-            }
-
-            this.updateValue([]);
-            this.reInitSelect2();
+            $(this.$el).select2(this.getOptions());
         }
     }
 };
