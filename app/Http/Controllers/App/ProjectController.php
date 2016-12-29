@@ -10,7 +10,7 @@ class ProjectController extends BaseController
         $componentData = [
             'projectsUrl'      => route('app.api.search.projects.default'),
             'projectGroupsUrl' => route('app.api.search.project-groups.select2'),
-            'workLogUrl'       => route('app.work-logs.create'),
+            'workLogUrl'       => route('app.work-logs.sync'),
         ];
 
         return view('app.pages.projects.index', compact('componentData'));

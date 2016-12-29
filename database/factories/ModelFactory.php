@@ -17,6 +17,7 @@ use App\Models\Project;
 use App\Models\ProjectGroup;
 use App\Models\User;
 use App\Models\WorkLog;
+use Carbon\Carbon;
 use Faker\Generator;
 
 $factory->define(User::class, function (Generator $faker) {
@@ -45,11 +46,9 @@ $factory->define(ProjectGroup::class, function (Generator $faker) {
 });
 
 $factory->define(WorkLog::class, function (Generator $faker) {
-    $startsAt = \Carbon\Carbon::instance($faker->dateTimeBetween('-1 week', 'now'));
-    $endsAt = $startsAt->copy()->addMinutes($faker->numberBetween(30, 60 * 8));
-
     return [
-        'ends_at'   => $endsAt,
-        'starts_at' => $startsAt,
+        'date' => Carbon::instance($faker->dateTimeBetween('-1 week', 'now')),
+        'time' => $faker->numberBetween(30 * 60, 8 * 60 * 60),
+        'type' => $faker->randomElement([WorkLog::TYPE_OFFICE, WorkLog::TYPE_FIELDWORK]),
     ];
 });

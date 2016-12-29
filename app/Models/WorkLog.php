@@ -9,8 +9,9 @@ use App\Bases\BaseModel;
  * @property int                      $id
  * @property int                      $user_id
  * @property int                      $project_id
- * @property \Carbon\Carbon           $starts_at
- * @property \Carbon\Carbon           $ends_at
+ * @property \Carbon\Carbon           $date
+ * @property integer                  $time
+ * @property integer                  $type
  * @property \Carbon\Carbon           $created_at
  * @property \Carbon\Carbon           $updated_at
  * @property-read \App\Models\Project $project
@@ -18,25 +19,28 @@ use App\Bases\BaseModel;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\WorkLog whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\WorkLog whereUserId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\WorkLog whereProjectId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\WorkLog whereStartsAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\WorkLog whereEndsAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\WorkLog whereDate($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\WorkLog whereTime($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\WorkLog whereType($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\WorkLog whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\WorkLog whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Bases\BaseModel firstOrFail()
  * @mixin \Eloquent
  */
 class WorkLog extends BaseModel
 {
+    const TYPE_OFFICE = 1;
+    const TYPE_FIELDWORK = 2;
+
     protected $fillable = [
-        'ends_at',
+        'date',
         'project_id',
-        'starts_at',
+        'time',
+        'type',
         'user_id',
     ];
 
     protected $dates = [
-        'ends_at',
-        'starts_at',
+        'date',
     ];
 
     public function project()

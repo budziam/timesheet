@@ -15,8 +15,9 @@ class WorkLogs extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('project_id');
-            $table->timestamp('starts_at');
-            $table->timestamp('ends_at')->nullable();
+            $table->timestamp('date');
+            $table->unsignedInteger('time');
+            $table->unsignedInteger('type');
             $table->timestamps();
 
             $table->foreign('user_id')
