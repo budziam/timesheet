@@ -7,46 +7,39 @@ module.exports = {
         events: Array
     },
 
-    data()
-    {
-        return {
-            cal: null
-        }
-    },
-
     mounted()
     {
-        var component = this;
-        this.cal = $(this.$el);
+        $(this.$el).fullCalendar(this.getArgs());
+    },
 
-        var args = {
-            lang: Laravel.lang,
-            header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'month,agendaWeek,agendaDay'
-            },
-            height: "auto",
-            allDaySlot: false,
-            slotEventOverlap: false,
-            timeFormat: 'HH:mm',
+    methods: {
+        getArgs() {
+            var component = this;
 
-            events: component.events,
+            return {
+                lang: Laravel.lang,
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month'
+                },
+                height: "auto",
+                allDaySlot: false,
+                slotEventOverlap: false,
+                timeFormat: 'HH:mm',
 
-            dayClick(date)
-            {
-                component.$emit('dayClicked', date);
-                component.cal.fullCalendar('gotoDate', date.start);
-                component.cal.fullCalendar('changeView', 'agendaDay');
-            },
+                events: component.events,
 
-            eventClick(event)
-            {
-                component.$emit('eventClicked', event);
-            }
-        };
+                dayClick(date)
+                {
+                    component.$emit('dayClicked', date);
+                },
 
-        this.cal.fullCalendar(args);
-
+                eventClick(event)
+                {
+                    component.$emit('eventClicked', event);
+                }
+            };
+        }
     }
 };

@@ -1,9 +1,5 @@
-import FormMixin from '../mixins/form';
-
 export default {
     template: require('html!./work-log-sync.html'),
-
-    mixins: [FormMixin],
 
     props: {
         data: Object
@@ -11,13 +7,25 @@ export default {
 
     data() {
         return {
-            project: this.data.projectSelected
+            project: this.data.projectSelected,
+            workLogs: []
         }
     },
 
     methods: {
-        onSuccess() {
-            window.location.replace(this.data.projectsUrl);
+        updateCalendar() {
+            var url = this.data.projectsWorkLogsUrl.replace('~project~', this.project);
+
+            this.$http.get(url)
+                .then(function (response) {
+                    this.workLogs = response.body;
+                });
+        }
+    },
+
+    watch: {
+        project() {
+            this.updateCalendar();
         }
     }
 }

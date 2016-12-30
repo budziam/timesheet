@@ -20,6 +20,8 @@ class WorkLogs extends Migration
             $table->unsignedInteger('type');
             $table->timestamps();
 
+            $table->unique(['user_id', 'project_id', 'date', 'type']);
+
             $table->foreign('user_id')
                 ->references('id')
                 ->on(User::table())

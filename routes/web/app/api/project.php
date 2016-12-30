@@ -15,7 +15,12 @@ $router->get('search/projects/select2', [
     'uses' => ProjectSearchController::class . '@select2',
 ]);
 
-$router->post('projects/{project}/work-logs', [
+$router->get('projects/{project}/work-logs', [
+    'as'   => 'projects.work-logs.index',
+    'uses' => ProjectWorkLogController::class . '@index',
+]);
+
+$router->post('projects/{project}/work-logs/sync', [
     'as'   => 'projects.work-logs.sync',
     'uses' => ProjectWorkLogController::class . '@sync',
 ]);

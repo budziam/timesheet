@@ -3,6 +3,7 @@
 use App\Models\Project;
 use App\Models\User;
 use App\Models\WorkLog;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -11,7 +12,7 @@ class UserSeeder extends Seeder
     {
         switch (app()->environment()) {
             case 'local':
-                $this->seedAdminUser();
+                $this->seedFakeWorkLogs($this->seedAdminUser());
                 $this->seedFakeUsers();
                 break;
 
@@ -23,7 +24,7 @@ class UserSeeder extends Seeder
 
     protected function seedAdminUser()
     {
-        User::create([
+        return User::create([
             'name'     => 'admin',
             'password' => bcrypt(''),
         ]);
@@ -43,11 +44,31 @@ class UserSeeder extends Seeder
             ->limit(rand(0, 5))
             ->get()
             ->each(function (Project $project) use ($user) {
-                factory(WorkLog::class, rand(1, 20))
-                    ->create([
-                        'project_id' => $project->getKey(),
-                        'user_id'    => $user->getKey(),
-                    ]);
+                $date = Carbon::now()->subMonths(3);
+
+                while ($date->lt(Carbon::now())) {
+                    $type = rand(1, 2);
+
+                    factory(WorkLog::class)
+                        ->create([
+                            'date'       => $date->copy()->startOfDay(),
+                            'type'       => $type,
+                            'project_id' => $project->getKey(),
+                            'user_id'    => $user->getKey(),
+                        ]);
+
+                    if (rand() % 2) {
+                        factory(WorkLog::class)
+                            ->create([
+                                'date'       => $date->copy()->startOfDay(),
+                                'type'       => $type % 2 + 1,
+                                'project_id' => $project->getKey(),
+                                'user_id'    => $user->getKey(),
+                            ]);
+                    }
+
+                    $date->addDays(rand(1, 4));
+                }
             });
     }
 }
