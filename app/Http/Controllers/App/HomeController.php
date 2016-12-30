@@ -7,8 +7,10 @@ class HomeController extends BaseController
 {
     public function index()
     {
-        $this->navbar->setActive('home');
+        $componentData = [
+            'workLogsSearchUrl'       => route('app.api.search.work-logs.fullcalendar'),
+        ];
 
-        return view('app.pages.home.index');
+        return view('app.pages.home.index', compact('componentData'));
     }
 }

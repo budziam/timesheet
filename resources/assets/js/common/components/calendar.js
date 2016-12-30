@@ -4,11 +4,11 @@ module.exports = {
     template: '<div></div>',
 
     props: {
+        url: [String, Object],
         events: Array
     },
 
-    mounted()
-    {
+    mounted() {
         $(this.$el).fullCalendar(this.getArgs());
     },
 
@@ -16,19 +16,17 @@ module.exports = {
         getArgs() {
             var component = this;
 
-            return {
+            var args = {
                 lang: Laravel.lang,
                 header: {
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'month'
+                    right: 'month,agendaDay'
                 },
                 height: "auto",
                 allDaySlot: false,
                 slotEventOverlap: false,
                 timeFormat: 'HH:mm',
-
-                events: component.events,
 
                 dayClick(date)
                 {
@@ -40,6 +38,31 @@ module.exports = {
                     component.$emit('eventClicked', event);
                 }
             };
+
+            if (this.url) {
+                if (typeof this.url === 'string') {
+                    args.events = {
+                        type: 'GET',
+                        url: this.url
+                    }
+                } else {
+                    args.events = {
+                        type: 'GET',
+                        url: this.url.url,
+                        data() {
+                            return component.url.data;
+                        }
+                    }
+                }
+            }
+
+            return args;
+        }
+    },
+
+    watch: {
+        url() {
+            $(this.$el).fullCalendar('refetchEvents');
         }
     }
 };

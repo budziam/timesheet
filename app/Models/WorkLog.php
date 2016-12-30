@@ -19,7 +19,6 @@ use App\Bases\BaseModel;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\WorkLog whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\WorkLog whereUserId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\WorkLog whereProjectId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\WorkLog whereDate($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\WorkLog whereTime($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\WorkLog whereType($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\WorkLog whereCreatedAt($value)
@@ -51,5 +50,13 @@ class WorkLog extends BaseModel
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function timePretty()
+    {
+        $hours = (int)floor($this->time / 60 / 60);
+        $minutes = (int)floor(($this->time % 3600) / 60);
+
+        return "{$hours}g {$minutes}m";
     }
 }
