@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Bases\BaseController;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends BaseController
 {
@@ -28,5 +29,17 @@ class LoginController extends BaseController
     public function showLoginForm()
     {
         return view('auth.login');
+    }
+
+    protected function validateLogin(Request $request)
+    {
+        $this->validate($request, [
+            $this->username() => 'required',
+        ]);
+    }
+
+    public function username()
+    {
+        return 'name';
     }
 }

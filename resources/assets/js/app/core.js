@@ -2,7 +2,7 @@ require('../bootstrap');
 
 import Loader from './components/loader';
 import ProjectSearch from './components/project-search';
-import WorkLogCreate from './components/work-log-create';
+import WorkLogSync from './components/work-log-sync';
 import WorkLogIndex from './components/work-log-index';
 
 window.vueApp = new Vue({
@@ -11,7 +11,7 @@ window.vueApp = new Vue({
     components: {
         Loader,
         ProjectSearch,
-        WorkLogCreate,
+        WorkLogSync,
         WorkLogIndex
     },
 

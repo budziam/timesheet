@@ -7,6 +7,8 @@ class ProjectController extends BaseController
 {
     public function index()
     {
+        $this->navbar->setActive('projects');
+
         $componentData = [
             'projectsUrl'      => route('app.api.search.projects.default'),
             'projectGroupsUrl' => route('app.api.search.project-groups.select2'),

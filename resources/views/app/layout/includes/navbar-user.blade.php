@@ -1,9 +1,9 @@
 <ul class="nav navbar-nav">
-    <li>
+    <li class="{{ $navbar->check('projects') }}">
         <a href="{{ $projectsUrl }}">@lang('t.Projects')</a>
     </li>
-    <li>
-        <a href="{{ $workLogsUrl }}">@lang('t.Work logs')</a>
+    <li class="{{ $navbar->check('work-logs.sync') }}">
+        <a href="{{ $workLogsUrl }}">@lang('t.Manage work logs')</a>
     </li>
 </ul>
 

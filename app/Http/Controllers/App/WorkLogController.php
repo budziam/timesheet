@@ -17,6 +17,8 @@ class WorkLogController extends BaseController
 
     public function sync()
     {
+        $this->navbar->setActive('work-logs.sync');
+
         $componentData = [
             'projectsUrl'             => route('app.projects.index'),
             'projectsSearchUrl'       => route('app.api.search.projects.select2'),
@@ -25,7 +27,7 @@ class WorkLogController extends BaseController
 
         $this->injectProject($componentData);
 
-        return view('app.pages.work-logs.create', compact('componentData'));
+        return view('app.pages.work-logs.sync', compact('componentData'));
     }
 
     protected function injectProject(array &$componentData)

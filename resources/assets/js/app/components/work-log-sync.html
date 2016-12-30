@@ -1,0 +1,27 @@
+<v-form method="POST" :action="data.worklogsStoreUrl" class="work-logs-create"
+        @work="isOccupied = true"
+        @done="isOccupied = false"
+        @success="onSuccess"
+>
+    <div class="container">
+        <div class="row form-group">
+            <div class="col-xs-12 form-group">
+                <label for="form_project_id" v-text="$trans('Project')"></label>
+                <v-select id="form_project_id"
+                          name="project_id"
+                          class="form-control input-lg"
+                          :placeholder="$trans('Wybierz zlecenie')"
+                          :url="data.projectsSearchUrl"
+                          v-model="project"
+                >
+                    <option v-for="(value, key) in data.projectOptions"
+                            :value="key"
+                            v-text="value"
+                    ></option>
+                </v-select>
+            </div>
+        </div>
+
+        <v-calendar></v-calendar>
+    </div>
+</v-form>
