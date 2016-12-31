@@ -23,7 +23,7 @@ class WorkLogController extends BaseController
             'projectsUrl'             => route('app.projects.index'),
             'projectsSearchUrl'       => route('app.api.search.projects.select2'),
             'projectsWorkLogsSyncUrl' => route('app.api.projects.work-logs.sync', ['~project~']),
-            'workLogsSearchUrl'       => route('app.api.search.work-logs.fullcalendar'),
+            'workLogsSearchUrl'       => route('app.api.search.work-logs.fullcalendar-sync'),
         ];
 
         $this->injectProject($componentData);

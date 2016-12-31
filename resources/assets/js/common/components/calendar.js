@@ -36,6 +36,15 @@ module.exports = {
                 eventClick(event)
                 {
                     component.$emit('eventClicked', event);
+                },
+
+                eventRender(event, element) {
+                    element.find('.fc-content').append(`
+                    <div class="fc-body">
+                        Fieldwork: ${event.time_fieldwork}<br />
+                        Office: ${event.time_office}
+                    </div>
+                    `)
                 }
             };
 

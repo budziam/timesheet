@@ -41,31 +41,18 @@ class UserSeeder extends Seeder
     protected function seedFakeWorkLogs(User $user)
     {
         Project::inRandomOrder()
-            ->limit(rand(0, 5))
+            ->limit(rand(0, 15))
             ->get()
             ->each(function (Project $project) use ($user) {
-                $date = Carbon::now()->subMonths(3);
+                $date = Carbon::now()->subMonths(2);
 
                 while ($date->lt(Carbon::now())) {
-                    $type = rand(1, 2);
-
                     factory(WorkLog::class)
                         ->create([
                             'date'       => $date->copy()->startOfDay(),
-                            'type'       => $type,
                             'project_id' => $project->getKey(),
                             'user_id'    => $user->getKey(),
                         ]);
-
-                    if (rand() % 2) {
-                        factory(WorkLog::class)
-                            ->create([
-                                'date'       => $date->copy()->startOfDay(),
-                                'type'       => $type % 2 + 1,
-                                'project_id' => $project->getKey(),
-                                'user_id'    => $user->getKey(),
-                            ]);
-                    }
 
                     $date->addDays(rand(1, 4));
                 }

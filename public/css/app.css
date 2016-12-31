@@ -10493,4 +10493,17 @@ be a descendant of the grid when it is being dragged.
   margin-left: 2px;
 }
 
+.work-log .fc-event .fc-content {
+  text-align: center;
+}
+
+.work-log .fc-event .fc-content .fc-title {
+  font-weight: bold;
+}
+
+.work-log .fc-event .fc-content .fc-body {
+  text-align: left;
+  margin-top: 8px;
+}
+
 /*# sourceMappingURL=app.css.map */

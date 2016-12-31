@@ -46,8 +46,8 @@ $factory->define(ProjectGroup::class, function (Generator $faker) {
 
 $factory->define(WorkLog::class, function (Generator $faker) {
     return [
-        'date' => Carbon::instance($faker->dateTimeBetween('-1 week', 'now'))->startOfDay(),
-        'time' => $faker->numberBetween(30 * 60, 8 * 60 * 60),
-        'type' => $faker->randomElement([WorkLog::TYPE_OFFICE, WorkLog::TYPE_FIELDWORK]),
+        'date'           => Carbon::instance($faker->dateTimeBetween('-1 week', 'now'))->startOfDay(),
+        'time_fieldwork' => $faker->boolean(80) ? $faker->numberBetween(30 * 60, 8 * 60 * 60) : 0,
+        'time_office'    => $faker->boolean(80) ? $faker->numberBetween(30 * 60, 8 * 60 * 60) : 0,
     ];
 });

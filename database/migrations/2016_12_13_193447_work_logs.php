@@ -16,11 +16,11 @@ class WorkLogs extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('project_id');
             $table->timestamp('date');
-            $table->unsignedInteger('time');
-            $table->unsignedInteger('type');
+            $table->unsignedInteger('time_fieldwork');
+            $table->unsignedInteger('time_office');
             $table->timestamps();
 
-            $table->unique(['user_id', 'project_id', 'date', 'type']);
+            $table->unique(['user_id', 'project_id', 'date']);
 
             $table->foreign('user_id')
                 ->references('id')

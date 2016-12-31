@@ -37,3 +37,20 @@
     }
   }
 }
+
+.work-log {
+  .fc-event {
+    .fc-content {
+      text-align: center;
+
+      .fc-title {
+        font-weight: bold;
+      }
+
+      .fc-body {
+        text-align: left;
+        margin-top: 8px;
+      }
+    }
+  }
+}
