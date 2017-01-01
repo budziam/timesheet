@@ -50,6 +50,26 @@
       .fc-body {
         text-align: left;
         margin-top: 8px;
+
+        .view {
+          display: block;
+        }
+
+        .edit {
+          display: none;
+        }
+      }
+    }
+
+    &.fc-edit .fc-content {
+      .fc-body {
+        .view {
+          display: none;
+        }
+
+        .edit {
+          display: block;
+        }
       }
     }
   }

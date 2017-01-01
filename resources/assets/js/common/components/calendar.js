@@ -28,21 +28,33 @@ module.exports = {
                 slotEventOverlap: false,
                 timeFormat: 'HH:mm',
 
-                dayClick(date)
+                dayClick(date, allDay, jsEvent, view)
                 {
                     component.$emit('dayClicked', date);
                 },
 
-                eventClick(event)
+                eventClick(calEvent, jsEvent, view)
                 {
-                    component.$emit('eventClicked', event);
+                    $(jsEvent.currentTarget).addClass('fc-edit');
+
+                    component.$emit('eventClicked', calEvent);
                 },
 
                 eventRender(event, element) {
                     element.find('.fc-content').append(`
                     <div class="fc-body">
-                        Fieldwork: ${event.time_fieldwork}<br />
-                        Office: ${event.time_office}
+                        <div class="view">
+                            Fieldwork: ${event.time_fieldwork}<br />
+                            Office: ${event.time_office}
+                        </div>
+                        <div class="edit">
+                            <label for="time_office">Office</label><br />
+                            <input id="time_office" name="time_office"><br />
+                            <br/>
+                            
+                            <label for="time_office">Fieldwork</label><br />
+                            <input id="time_office" name="time_fieldwork">
+                        </div>
                     </div>
                     `)
                 }

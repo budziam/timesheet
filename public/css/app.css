@@ -10506,4 +10506,20 @@ be a descendant of the grid when it is being dragged.
   margin-top: 8px;
 }
 
+.work-log .fc-event .fc-content .fc-body .view {
+  display: block;
+}
+
+.work-log .fc-event .fc-content .fc-body .edit {
+  display: none;
+}
+
+.work-log .fc-event.fc-edit .fc-content .fc-body .view {
+  display: none;
+}
+
+.work-log .fc-event.fc-edit .fc-content .fc-body .edit {
+  display: block;
+}
+
 /*# sourceMappingURL=app.css.map */
