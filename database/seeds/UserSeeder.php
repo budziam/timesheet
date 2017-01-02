@@ -41,7 +41,7 @@ class UserSeeder extends Seeder
     protected function seedFakeWorkLogs(User $user)
     {
         Project::inRandomOrder()
-            ->limit(rand(0, 15))
+            ->limit(rand(0, 6))
             ->get()
             ->each(function (Project $project) use ($user) {
                 $date = Carbon::now()->subMonths(2);
@@ -54,7 +54,9 @@ class UserSeeder extends Seeder
                             'user_id'    => $user->getKey(),
                         ]);
 
-                    $date->addDays(rand(1, 4));
+                    do {
+                        $date->addDays(rand(1, 3));
+                    } while ($date->isWeekend());
                 }
             });
     }

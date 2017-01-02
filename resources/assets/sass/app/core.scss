@@ -39,7 +39,12 @@
 }
 
 .work-log {
+  margin-bottom: 15px;
+
   .fc-event {
+    background-color: #616161;
+    border: 1px solid #424242;
+
     .fc-content {
       text-align: center;
 
@@ -50,27 +55,14 @@
       .fc-body {
         text-align: left;
         margin-top: 8px;
-
-        .view {
-          display: block;
-        }
-
-        .edit {
-          display: none;
-        }
       }
     }
+  }
 
-    &.fc-edit .fc-content {
-      .fc-body {
-        .view {
-          display: none;
-        }
-
-        .edit {
-          display: block;
-        }
-      }
+  .fc-day {
+    .fc-work-time {
+      color: #dd2c00;
+      padding: 2px;
     }
   }
 }

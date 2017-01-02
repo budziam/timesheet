@@ -3,7 +3,6 @@ namespace App\Http\Controllers\App\Api;
 
 use App\Bases\BaseController;
 use App\Models\WorkLog;
-use App\Transformers\WorkLogFullcalendarSyncTransformer;
 use App\Transformers\WorkLogFullcalendarTransformer;
 
 class WorkLogSearchController extends BaseController
@@ -27,6 +26,6 @@ class WorkLogSearchController extends BaseController
             ->whereDate('date', '<=', request('end'));
 
         return fractal()
-            ->collection($query->get(), new WorkLogFullcalendarSyncTransformer);
+            ->collection($query->get(), new WorkLogFullcalendarTransformer);
     }
 }

@@ -10493,6 +10493,15 @@ be a descendant of the grid when it is being dragged.
   margin-left: 2px;
 }
 
+.work-log {
+  margin-bottom: 15px;
+}
+
+.work-log .fc-event {
+  background-color: #616161;
+  border: 1px solid #424242;
+}
+
 .work-log .fc-event .fc-content {
   text-align: center;
 }
@@ -10506,20 +10515,9 @@ be a descendant of the grid when it is being dragged.
   margin-top: 8px;
 }
 
-.work-log .fc-event .fc-content .fc-body .view {
-  display: block;
-}
-
-.work-log .fc-event .fc-content .fc-body .edit {
-  display: none;
-}
-
-.work-log .fc-event.fc-edit .fc-content .fc-body .view {
-  display: none;
-}
-
-.work-log .fc-event.fc-edit .fc-content .fc-body .edit {
-  display: block;
+.work-log .fc-day .fc-work-time {
+  color: #dd2c00;
+  padding: 2px;
 }
 
 /*# sourceMappingURL=app.css.map */
