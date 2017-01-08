@@ -1,24 +1,69 @@
 require('fullcalendar');
 require('fullcalendar/dist/locale/pl');
 
+import ModalTime from './modal-time';
+
 module.exports = {
-    template: '<div></div>',
+    template: require('html!./core.html'),
+
+    components: {
+        ModalTime
+    },
 
     props: {
-        url: [String, Object],
-        events: Array
+        url: [String, Object]
+    },
+
+    data() {
+        return {
+            showTimeEdit: false,
+            editEvent: {},
+            editEventRaw: {},
+        }
     },
 
     mounted() {
-        $(this.$el).fullCalendar(this.getArgs());
+        $(this.$refs.cal).fullCalendar(this.getArgs());
     },
 
     methods: {
+        displayEventEdit(event) {
+            this.showTimeEdit = true;
+            this.editEventRaw = event;
+            this.editEvent = {
+                project: event.title,
+                timeFieldwork: this.timePretty(event.time_fieldwork),
+                timeOffice: this.timePretty(event.time_office),
+            };
+        },
+
+        hideEventEdit() {
+            this.showTimeEdit = false;
+            this.editEvent = {};
+        },
+
+        updateEvent(data) {
+            this.editEventRaw.time_fieldwork = this.prettyToInt(data.fieldwork);
+            this.editEventRaw.time_office = this.prettyToInt(data.office);
+
+            $(this.$refs.cal).fullCalendar('updateEvent', this.editEventRaw);
+        },
+
         timePretty(time) {
             var hours = Math.floor(time / 60 / 60);
             var minutes = Math.floor((time % 3600) / 60);
 
             return `${hours}g ${minutes}m`;
+        },
+
+        prettyToInt(time) {
+            var pattern = /(?:([0-9]+)\s*g)?\s*(?:([0-9]+)\s*m)?/;
+            var result = pattern.exec(time);
+
+            var hours = parseInt(result[1]) || 0;
+            var minutes = parseInt(result[2]) || 0;
+
+            return hours * 3600 + minutes * 60;
         },
 
         getArgs() {
@@ -39,12 +84,14 @@ module.exports = {
 
                 dayClick(date, allDay, jsEvent, view)
                 {
-                    component.$emit('dayClicked', date);
+                    component.$emit('dayClicked', date, allDay, jsEvent, view);
                 },
 
                 eventClick(calEvent, jsEvent, view)
                 {
-                    component.$emit('eventClicked', calEvent);
+                    component.displayEventEdit(calEvent);
+
+                    component.$emit('eventClicked', calEvent, jsEvent, view);
                 },
 
                 dayRender(date, cell) {
@@ -110,7 +157,7 @@ module.exports = {
 
     watch: {
         url() {
-            $(this.$el).fullCalendar('refetchEvents');
+            $(this.$refs.cal).fullCalendar('refetchEvents');
         }
     }
 };

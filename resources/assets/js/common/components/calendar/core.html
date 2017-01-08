@@ -1,0 +1,8 @@
+<div>
+    <div ref="cal"></div>
+    <modal-time v-if="showTimeEdit"
+                @update="updateEvent"
+                @close="hideEventEdit"
+                :event="editEvent"
+    ></modal-time>
+</div>

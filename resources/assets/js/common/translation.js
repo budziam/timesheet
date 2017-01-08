@@ -38,11 +38,7 @@ module.exports = {
      * @returns string
      */
     trans(key, args = {}) {
-        var message = this.getValueForKey(key);
-
-        if (message === null) {
-            return key;
-        }
+        var message = this.getValueForKey(key) || key;
 
         /*
          Make the place-holder replacements on a line.
