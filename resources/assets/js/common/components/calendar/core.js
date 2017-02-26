@@ -98,6 +98,8 @@ module.exports = {
                     cell.append(`
                         <div class="fc-work-time"></div>
                     `);
+
+                    component.$emit('dayRender', date, cell);
                 },
 
                 eventRender(event, element) {
@@ -127,10 +129,14 @@ module.exports = {
                         });
 
                     $.each(times, function (key, value) {
+                        let time = component.timePretty(value);
+
                         cal.el
                             .find('.fc-day[data-date="' + key + '"] .fc-work-time')
-                            .html(component.timePretty(value));
+                            .html(`<span>${time}</span>`);
                     });
+
+                    component.$emit('eventAfterAllRender', this);
                 }
             };
 

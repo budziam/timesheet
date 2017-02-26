@@ -10498,8 +10498,15 @@ be a descendant of the grid when it is being dragged.
 }
 
 .work-log .fc-event {
+  pointer-events: all;
   background-color: #616161;
   border: 1px solid #424242;
+  text-shadow: 1px 1px #000000;
+  opacity: 0.9;
+}
+
+.work-log .fc-event:hover {
+  opacity: 1.0;
 }
 
 .work-log .fc-event .fc-content {
@@ -10518,6 +10525,20 @@ be a descendant of the grid when it is being dragged.
 .work-log .fc-day .fc-work-time {
   color: #dd2c00;
   padding: 2px;
+}
+
+.work-log .fc-day .fc-work-time:empty ~ .fc-log-time {
+  display: block;
+}
+
+.work-log .fc-day .fc-log-time {
+  display: none;
+  pointer-events: all;
+  margin: 10px auto;
+}
+
+.work-log .fc-row .fc-content-skeleton {
+  pointer-events: none;
 }
 
 /*# sourceMappingURL=app.css.map */

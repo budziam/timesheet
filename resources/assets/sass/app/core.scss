@@ -42,8 +42,15 @@
   margin-bottom: 15px;
 
   .fc-event {
+    pointer-events: all;
     background-color: #616161;
     border: 1px solid #424242;
+    text-shadow: 1px 1px #000000;
+    opacity: 0.9;
+
+    &:hover {
+      opacity: 1.0;
+    }
 
     .fc-content {
       text-align: center;
@@ -63,6 +70,20 @@
     .fc-work-time {
       color: #dd2c00;
       padding: 2px;
+
+      &:empty ~ .fc-log-time {
+        display: block;
+      }
     }
+
+    .fc-log-time {
+      display: none;
+      pointer-events: all;
+      margin: 10px auto;
+    }
+  }
+
+  .fc-row .fc-content-skeleton {
+    pointer-events: none;
   }
 }
