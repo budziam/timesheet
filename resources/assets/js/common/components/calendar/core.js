@@ -50,26 +50,26 @@ module.exports = {
         },
 
         timePretty(time) {
-            var hours = Math.floor(time / 60 / 60);
-            var minutes = Math.floor((time % 3600) / 60);
+            let hours = Math.floor(time / 60 / 60);
+            let minutes = Math.floor((time % 3600) / 60);
 
             return `${hours}g ${minutes}m`;
         },
 
         prettyToInt(time) {
-            var pattern = /(?:([0-9]+)\s*g)?\s*(?:([0-9]+)\s*m)?/;
-            var result = pattern.exec(time);
+            let pattern = /(?:([0-9]+)\s*g)?\s*(?:([0-9]+)\s*m)?/;
+            let result = pattern.exec(time);
 
-            var hours = parseInt(result[1]) || 0;
-            var minutes = parseInt(result[2]) || 0;
+            let hours = parseInt(result[1]) || 0;
+            let minutes = parseInt(result[2]) || 0;
 
             return hours * 3600 + minutes * 60;
         },
 
         getArgs() {
-            var component = this;
+            let component = this;
 
-            var args = {
+            let args = {
                 locale: Laravel.lang,
                 header: {
                     left: 'prev,next today',
@@ -101,8 +101,8 @@ module.exports = {
                 },
 
                 eventRender(event, element) {
-                    var fieldwork = component.timePretty(event.time_fieldwork);
-                    var office = component.timePretty(event.time_office);
+                    let fieldwork = component.timePretty(event.time_fieldwork);
+                    let office = component.timePretty(event.time_office);
 
                     element.find('.fc-content').append(`
                         <div class="fc-body">
@@ -113,8 +113,8 @@ module.exports = {
                 },
 
                 eventAfterAllRender() {
-                    var cal = this;
-                    var times = {};
+                    let cal = this;
+                    let times = {};
 
                     this.calendar
                         .clientEvents()
