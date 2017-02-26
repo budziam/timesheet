@@ -19,7 +19,7 @@ module.exports = {
     },
 
     mounted() {
-        var component = this;
+        let component = this;
 
         $(this.$el)
             .val(this.value)
@@ -34,18 +34,8 @@ module.exports = {
     },
 
     methods: {
-        updateValue(value) {
-            var emitValue = value;
-
-            if (typeof value !== 'undefined' && !this.isMultiple) {
-                emitValue = value[0];
-            }
-
-            this.$emit('input', emitValue);
-        },
-
         getOptions() {
-            var options = {
+            let options = {
                 placeholder: this.placeholder || '', // Without empty string, select2 has mindfuck while trying to clear selected option
                 allowClear: !this.isMultiple,
                 language: Laravel.lang

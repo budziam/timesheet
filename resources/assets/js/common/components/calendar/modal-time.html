@@ -8,9 +8,7 @@
                 >
                     &times;
                 </button>
-                <h4 class="modal-title">
-                    {{ $trans('Edit :project hours', { project: event.project }) }}
-                </h4>
+                <h4 class="modal-title" v-text="title"></h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">

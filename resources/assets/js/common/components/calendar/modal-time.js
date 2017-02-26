@@ -2,27 +2,27 @@ module.exports = {
     template: require('html!./modal-time.html'),
 
     props: {
-        event: Object
+        event: Object,
+        title: String
     },
 
     data() {
         return {
-            office: this.event.timeOffice,
-            fieldwork: this.event.timeFieldwork,
-        }
+            office: this.event.office,
+            fieldwork: this.event.fieldwork,
+        };
     },
 
     mounted() {
-        var component = this;
+        let component = this;
 
         $(this.$el).modal();
 
         $(this.$el).on('hidden.bs.modal', () => {
-            component.$emit('update', {
+            component.$emit('close', {
                 fieldwork: this.fieldwork,
                 office: this.office,
             });
-            component.$emit('close');
         });
     }
 };

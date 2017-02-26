@@ -20,5 +20,12 @@
     <v-calendar v-if="project"
                 :url="workLogsUrl"
                 @dayRender="onDayRender"
+                ref="calendar"
     ></v-calendar>
+
+    <modal-time v-if="showEventAdd"
+                @close="onCloseEventAdd"
+                :event="eventAdd"
+                :title="$trans('Add :project hours', { project: project })"
+    ></modal-time>
 </div>

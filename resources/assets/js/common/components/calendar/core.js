@@ -16,37 +16,54 @@ module.exports = {
 
     data() {
         return {
-            showTimeEdit: false,
-            editEvent: {},
-            editEventRaw: {},
+            showEventEdit: false,
+            eventEdit: {},
+            eventEditRaw: {},
         }
     },
 
     mounted() {
-        $(this.$refs.cal).fullCalendar(this.getArgs());
+        $(this.$refs.calendar).fullCalendar(this.getArgs());
     },
 
     methods: {
         displayEventEdit(event) {
-            this.showTimeEdit = true;
-            this.editEventRaw = event;
-            this.editEvent = {
-                project: event.title,
-                timeFieldwork: this.timePretty(event.time_fieldwork),
-                timeOffice: this.timePretty(event.time_office),
+            console.log(event);
+
+            this.eventEditRaw = event;
+            this.eventEdit = {
+                fieldwork: this.timePretty(event.time_fieldwork),
+                office: this.timePretty(event.time_office),
             };
+            this.showEventEdit = true;
         },
 
-        hideEventEdit() {
-            this.showTimeEdit = false;
-            this.editEvent = {};
+        onCloseEventEdit(data) {
+            this.updateEvent(data);
+
+            this.showEventEdit = false;
+            this.eventEdit = {};
+            this.eventEditRaw = {};
+        },
+
+        createEvent(project, date, fieldwork, office) {
+            let event = {
+                title: '',
+                date: date,
+                time_fieldwork: this.prettyToInt(fieldwork),
+                time_office: this.prettyToInt(office),
+            };
+
+            $(this.$refs.calendar).fullCalendar('renderEvent', event, true);
         },
 
         updateEvent(data) {
-            this.editEventRaw.time_fieldwork = this.prettyToInt(data.fieldwork);
-            this.editEventRaw.time_office = this.prettyToInt(data.office);
+            let event = $.extend(this.eventEditRaw, {
+                time_fieldwork: this.prettyToInt(data.fieldwork),
+                time_office: this.prettyToInt(data.office),
+            });
 
-            $(this.$refs.cal).fullCalendar('updateEvent', this.editEventRaw);
+            $(this.$refs.calendar).fullCalendar('updateEvent', event);
         },
 
         timePretty(time) {
@@ -115,7 +132,7 @@ module.exports = {
                 },
 
                 eventAfterAllRender() {
-                    let cal = this;
+                    let calendar = this;
                     let times = {};
 
                     this.calendar
@@ -131,7 +148,7 @@ module.exports = {
                     $.each(times, function (key, value) {
                         let time = component.timePretty(value);
 
-                        cal.el
+                        calendar.el
                             .find('.fc-day[data-date="' + key + '"] .fc-work-time')
                             .html(`<span>${time}</span>`);
                     });
@@ -163,7 +180,7 @@ module.exports = {
 
     watch: {
         url() {
-            $(this.$refs.cal).fullCalendar('refetchEvents');
+            $(this.$refs.calendar).fullCalendar('refetchEvents');
         }
     }
 };
