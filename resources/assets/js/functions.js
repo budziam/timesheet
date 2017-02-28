@@ -21,7 +21,7 @@ global.str_replace = function (search, replace, subject, count) {
     //   example 2: str_replace(['{name}', 'l'], ['hello', 'm'], '{name}, lars');
     //   returns 2: 'hemmo, mars'
 
-    var i = 0,
+    let i = 0,
         j = 0,
         temp = '',
         repl = '',
@@ -64,7 +64,7 @@ global.ucfirst = function (str) {
     //   returns 1: 'Kevin van zonneveld'
 
     str += '';
-    var f = str.charAt(0).toUpperCase();
+    let f = str.charAt(0).toUpperCase();
 
     return f + str.substr(1)
 };

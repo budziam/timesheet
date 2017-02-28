@@ -3,10 +3,6 @@ import debounce from "debounce";
 export default {
     template: require('html!./project-search.html'),
 
-    props: {
-        data: Object
-    },
-
     data() {
         return {
             search: '',
@@ -29,14 +25,14 @@ export default {
         },
 
         getWorkLogUrl(project) {
-            return this.data.workLogUrl + '?project_id=' + project.id;
+            return '/work-logs/sync?project_id=' + project.id;
         },
 
         /**
          * Refreshes projects list
          */
         refreshProjects() {
-            this.$http.get(this.data.projectsUrl, {
+            axios.get('/api/search/projects/default', {
                 params: {
                     search: this.search,
                     groups: this.groups
@@ -44,7 +40,8 @@ export default {
             })
                 .then(function (response) {
                     this.projects = response.body;
-                });
+                })
+                .catch(response => Event.requestError(response));
         }
     },
 

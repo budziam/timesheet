@@ -22,23 +22,13 @@ require('./functions');
  */
 
 window.Vue = require('vue');
-require('vue-resource');
 require('./common/event');
 
-/**
- * We'll register a HTTP interceptor to attach the "CSRF" header to each of
- * the outgoing requests issued by this application. The CSRF middleware
- * included with Laravel will automatically verify the header's value.
- */
+window.axios = require('axios');
+window.axios.defaults.headers.common = {
+    'X-CSRF-TOKEN': Laravel.csrfToken
+};
 
-Vue.http.interceptors.push((request, next) => {
-    request.headers.set('X-CSRF-TOKEN', Laravel.csrfToken);
-
-    next();
-});
-
-Vue.http.options.emulateHTTP = true;
-Vue.http.options.emulateJSON = true;
 
 Vue.component('v-select', require('./common/components/select'));
 Vue.component('v-form', require('./common/components/form'));

@@ -9,12 +9,6 @@ class ProjectController extends BaseController
     {
         $this->navbar->setActive('projects');
 
-        $componentData = [
-            'projectsUrl'      => route('app.api.search.projects.default'),
-            'projectGroupsUrl' => route('app.api.search.project-groups.select2'),
-            'workLogUrl'       => route('app.work-logs.sync'),
-        ];
-
-        return view('app.pages.projects.index', compact('componentData'));
+        return view('app.pages.projects.index');
     }
 }

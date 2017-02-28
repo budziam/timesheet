@@ -7,10 +7,6 @@ class HomeController extends BaseController
 {
     public function index()
     {
-        $componentData = [
-            'workLogsSearchUrl'       => route('app.api.search.work-logs.fullcalendar'),
-        ];
-
-        return view('app.pages.home.index', compact('componentData'));
+        return view('app.pages.home.index');
     }
 }

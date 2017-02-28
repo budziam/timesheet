@@ -13,7 +13,7 @@
             <v-select name="groups"
                       class="form-control input-lg"
                       :multiple="true"
-                      :url="data.projectGroupsUrl"
+                      url="/api/search/project-groups/select2"
                       :placeholder="$trans('Wybierz asortyment')"
                       v-model="groups"
             >

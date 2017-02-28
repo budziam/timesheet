@@ -18,8 +18,9 @@ module.exports = {
     },
 
     fetchTranslations(url) {
-        this.Vue.http.get(url)
-            .then(this.onSuccess.bind(this));
+        axios.get(url)
+            .then(this.onSuccess.bind(this))
+            .catch(response => Event.requestError(response));
     },
 
     onSuccess(response) {
@@ -38,7 +39,7 @@ module.exports = {
      * @returns string
      */
     trans(key, args = {}) {
-        var message = this.getValueForKey(key) || key;
+        let message = this.getValueForKey(key) || key;
 
         /*
          Make the place-holder replacements on a line.
@@ -57,8 +58,8 @@ module.exports = {
     },
 
     getValueForKey(key) {
-        var collection = this.translations;
-        var keyExploded = key.split('.');
+        let collection = this.translations;
+        let keyExploded = key.split('.');
 
         $.each(keyExploded, function (i, key) {
             if (!collection.hasOwnProperty(key)) {
@@ -87,15 +88,15 @@ module.exports = {
      *    the root of the component tree.
      */
     update(vm) {
-        var i = vm._watchers.length;
+        let i = vm._watchers.length;
         while (i--) {
             vm._watchers[i].update(true); // shallow updates
         }
 
-        var children = vm.$children;
+        let children = vm.$children;
         i = children.length;
         while (i--) {
-            var child = children[i];
+            let child = children[i];
             this.update(child);
         }
     }

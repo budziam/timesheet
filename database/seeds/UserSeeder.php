@@ -41,7 +41,7 @@ class UserSeeder extends Seeder
     protected function seedFakeWorkLogs(User $user)
     {
         Project::inRandomOrder()
-            ->limit(rand(0, 6))
+            ->limit(rand(1, 6))
             ->get()
             ->each(function (Project $project) use ($user) {
                 $date = Carbon::now()->subMonths(2);

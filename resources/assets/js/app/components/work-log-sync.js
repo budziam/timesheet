@@ -13,8 +13,10 @@ module.exports = {
 
     data() {
         return {
-            project: this.data.projectSelected,
-            eventAdd: {},
+            projectId: this.data.projectSelected,
+            project: null,
+            eventAdd: null,
+            eventAddDate: null,
             showEventAdd: false,
         };
     },
@@ -39,6 +41,7 @@ module.exports = {
                 timeFieldwork: '',
                 timeOffice: '',
             };
+            this.eventAddDate = date;
             this.showEventAdd = true;
         },
 
@@ -46,23 +49,40 @@ module.exports = {
             this.addEvent(data);
 
             this.showEventAdd = false;
-            this.eventAdd = {};
+            this.eventAdd = null;
+            this.eventAddDate = null;
         },
 
         addEvent(data) {
             this.$refs.calendar
-                .createEvent(this.project, '', data.fieldwork, data.office);
+                .createEvent(this.project.name, this.eventAddDate, data.fieldwork, data.office);
         },
+
+        fetchProject() {
+            if (!this.projectId) {
+                this.project = null;
+                return;
+            }
+
+            let component = this;
+
+            axios.get('/api/projects/' + this.projectId)
+                .then((response) => {
+                    component.project = response.data;
+                })
+                .catch(response => Event.requestError(response));
+        }
     },
 
     computed: {
         workLogsUrl() {
-            return {
-                url: this.data.workLogsSearchUrl,
-                data: {
-                    project_id: this.project
-                }
-            };
+            return '/api/search/work-logs/fullcalendar-sync?project_id=' + this.projectId;
+        }
+    },
+
+    watch: {
+        projectId() {
+            this.fetchProject();
         }
     }
-}
+};

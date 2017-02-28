@@ -10,6 +10,10 @@ window.Event = new Vue({
 
         stopLoader() {
             this.$emit('stop-loader');
+        },
+
+        requestError(response) {
+            this.notify(response.status + ': ' + response.statusText);
         }
     }
 });

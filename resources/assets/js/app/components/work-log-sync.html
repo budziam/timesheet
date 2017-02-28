@@ -6,8 +6,8 @@
                       name="project_id"
                       class="form-control input-lg"
                       :placeholder="$trans('Wybierz zlecenie')"
-                      :url="data.projectsSearchUrl"
-                      v-model="project"
+                      url="/api/search/projects/select2"
+                      v-model="projectId"
             >
                 <option v-for="(value, key) in data.projectOptions"
                         :value="key"
@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    <v-calendar v-if="project"
+    <v-calendar v-if="projectId"
                 :url="workLogsUrl"
                 @dayRender="onDayRender"
                 ref="calendar"
@@ -26,6 +26,6 @@
     <modal-time v-if="showEventAdd"
                 @close="onCloseEventAdd"
                 :event="eventAdd"
-                :title="$trans('Add :project hours', { project: project })"
+                :title="$trans('Add :project hours', { project: project.name })"
     ></modal-time>
 </div>

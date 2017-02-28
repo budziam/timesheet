@@ -36,7 +36,7 @@ module.exports = {
             }
 
             this.beforeSend();
-            this.$http[this.normalizedMethod](this.action, this.getFormData())
+            axios[this.normalizedMethod](this.action, this.getFormData())
                 .then(this.onSuccess.bind(this))
                 .catch(this.onError.bind(this))
                 .finally(this.afterSend.bind(this));
@@ -73,7 +73,7 @@ module.exports = {
                 return;
             }
 
-            Event.notify(response.status + ': ' + response.statusText);
+            Event.requestError(response);
         },
 
         onFormValidationError(response) {

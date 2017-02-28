@@ -2,8 +2,13 @@
 
 /** @var \Illuminate\Routing\Router $router */
 
+use App\Http\Controllers\App\Api\ProjectController;
 use App\Http\Controllers\App\Api\ProjectSearchController;
 use App\Http\Controllers\App\Api\ProjectWorkLogController;
+
+$router->resource('projects', ProjectController::class, [
+    'only' => ['show'],
+]);
 
 $router->get('search/projects/default', [
     'as'   => 'search.projects.default',
