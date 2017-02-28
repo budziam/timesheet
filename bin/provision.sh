@@ -8,5 +8,5 @@ PROJECT_PATH="$( realpath "${BIN_PATH}/.." )"
 
 source "${PROJECT_PATH}/.env"
 
-#. ${PROVISION_PATH}/system.sh
+. ${PROVISION_PATH}/system.sh
 . ${PROVISION_PATH}/project.sh

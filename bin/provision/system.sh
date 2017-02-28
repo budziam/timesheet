@@ -39,4 +39,4 @@ sudo chmod -R 777 "${PROJECT_PATH}/storage"
 # Refresh / Reload
 sudo service apache2 restart
 sudo service mysql restart
-sudo apt autoremove
+sudo apt autoremove -y
