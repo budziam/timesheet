@@ -31,7 +31,7 @@ module.exports = {
     methods: {
         onSubmit() {
             if (this.isOccupied) {
-                Event.notify('Form is occupied');
+                Event.notifyInfo('Form is occupied');
                 return;
             }
 
@@ -67,7 +67,9 @@ module.exports = {
             this.$emit('success', response);
         },
 
-        onError(response) {
+        onError(error) {
+            let response = error.response;
+
             if (response.status == 422) {
                 this.onFormValidationError(response.data);
                 return;
@@ -81,7 +83,7 @@ module.exports = {
         },
 
         displayValidationError(key, value) {
-            var element = $(this.$el).find('#' + this.getElementId(key));
+            let element = $(this.$el).find('#' + this.getElementId(key));
 
             if (!element.length) {
                 return;
@@ -98,12 +100,12 @@ module.exports = {
         },
 
         getFormData: function () {
-            var obj = {};
+            let obj = {};
 
             $(this.$el).serializeArray()
                 .forEach(function (item) {
-                    var multiple = item.name.endsWith('[]');
-                    var name = multiple ? item.name.slice(0, -2) : item.name;
+                    let multiple = item.name.endsWith('[]');
+                    let name = multiple ? item.name.slice(0, -2) : item.name;
 
                     if (typeof obj[name] == 'undefined') {
                         obj[name] = multiple ? [item.value] : item.value;

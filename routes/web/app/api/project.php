@@ -4,7 +4,6 @@
 
 use App\Http\Controllers\App\Api\ProjectController;
 use App\Http\Controllers\App\Api\ProjectSearchController;
-use App\Http\Controllers\App\Api\ProjectWorkLogController;
 
 $router->resource('projects', ProjectController::class, [
     'only' => ['show'],
@@ -18,14 +17,4 @@ $router->get('search/projects/default', [
 $router->get('search/projects/select2', [
     'as'   => 'search.projects.select2',
     'uses' => ProjectSearchController::class . '@select2',
-]);
-
-$router->get('projects/{project}/work-logs', [
-    'as'   => 'projects.work-logs.index',
-    'uses' => ProjectWorkLogController::class . '@index',
-]);
-
-$router->post('projects/{project}/work-logs/sync', [
-    'as'   => 'projects.work-logs.sync',
-    'uses' => ProjectWorkLogController::class . '@sync',
 ]);

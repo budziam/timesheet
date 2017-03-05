@@ -12,16 +12,10 @@ class WorkLogFullcalendarTransformer extends TransformerAbstract
             'id'              => $workLog->id,
             'title'           => $workLog->project->name,
             'date'            => $workLog->date->toDateString(),
+            'project_id'      => $workLog->project->id,
             'time_fieldwork'  => $workLog->time_fieldwork,
             'time_office'     => $workLog->time_office,
-            'backgroundColor' => $this->colorFromName($workLog->project->name),
+            'backgroundColor' => $workLog->project->color,
         ];
-    }
-
-    protected function colorFromName($str)
-    {
-        $c = strtoupper(dechex(abs(crc32($str)) & 0x00FFFFFF));
-
-        return '#' . str_pad($c, 6, '0', STR_PAD_LEFT);
     }
 }

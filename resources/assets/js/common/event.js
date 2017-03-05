@@ -1,7 +1,19 @@
 window.Event = new Vue({
     methods: {
-        notify(message) {
-            this.$emit('notify', message);
+        notifySuccess(message, params) {
+            this.$emit('notify', 'success', message, params);
+        },
+
+        notifyInfo(message, params) {
+            this.$emit('notify', 'info', message, params);
+        },
+
+        notifyWarning(message, params) {
+            this.$emit('notify', 'warning', message, params);
+        },
+
+        notifyDanger(message, params) {
+            this.$emit('notify', 'danger', message, params);
         },
 
         startLoader() {
@@ -12,8 +24,10 @@ window.Event = new Vue({
             this.$emit('stop-loader');
         },
 
-        requestError(response) {
-            this.notify(response.status + ': ' + response.statusText);
+        requestError(error) {
+            if (error.response) {
+                this.notifyDanger(error.response.status + ': ' + error.response.statusText);
+            }
         }
     }
 });

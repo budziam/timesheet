@@ -23,7 +23,7 @@ class ProjectSeeder extends Seeder
 
     protected function seedFakeProjects()
     {
-        factory(Project::class, 20)->create()
+        factory(Project::class, 10)->create()
             ->each(function (Project $project) {
                 $groups = ProjectGroup::inRandomOrder()
                     ->limit(rand(0, 3))

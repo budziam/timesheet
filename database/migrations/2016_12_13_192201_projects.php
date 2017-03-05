@@ -2,7 +2,6 @@
 
 use App\Models\Project;
 use App\Models\ProjectGroup;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -14,6 +13,7 @@ class Projects extends Migration
             $table->increments('id');
             $table->string('name');
             $table->text('description');
+            $table->char('color', 16)->nullable();
             $table->timestamp('ends_at');
             $table->timestamps();
         });

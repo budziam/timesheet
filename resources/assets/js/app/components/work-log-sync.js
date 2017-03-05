@@ -21,19 +21,19 @@ module.exports = {
         };
     },
 
+    mounted() {
+        this.fetchProject();
+    },
+
     methods: {
         onDayRender(date, cell) {
-            let component = this;
-
             let title = this.$trans('Dodaj godziny');
 
-            let addButton = cell.append(`
-                <button class="btn btn-default fc-log-time">${title}</button>
-            `);
-
-            addButton.click(function () {
-                component.displayEventAdd(date);
-            });
+            $(`<button class="btn btn-default fc-log-time">${title}</button>`)
+                .appendTo(cell)
+                .click(function () {
+                    this.displayEventAdd(date);
+                }.bind(this));
         },
 
         displayEventAdd(date) {
@@ -41,7 +41,7 @@ module.exports = {
                 timeFieldwork: '',
                 timeOffice: '',
             };
-            this.eventAddDate = date;
+            this.eventAddDate = date.format();
             this.showEventAdd = true;
         },
 
@@ -55,7 +55,7 @@ module.exports = {
 
         addEvent(data) {
             this.$refs.calendar
-                .createEvent(this.project.name, this.eventAddDate, data.fieldwork, data.office);
+                .createEvent(this.eventAddDate, data.fieldwork, data.office, this.project);
         },
 
         fetchProject() {
@@ -70,7 +70,7 @@ module.exports = {
                 .then((response) => {
                     component.project = response.data;
                 })
-                .catch(response => Event.requestError(response));
+                .catch(error => Event.requestError(error));
         }
     },
 

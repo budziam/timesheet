@@ -20,7 +20,7 @@ module.exports = {
     fetchTranslations(url) {
         axios.get(url)
             .then(this.onSuccess.bind(this))
-            .catch(response => Event.requestError(response));
+            .catch(error => Event.requestError(error));
     },
 
     onSuccess(response) {

@@ -28,12 +28,10 @@ module.exports = {
 
     methods: {
         displayEventEdit(event) {
-            console.log(event);
-
-            this.eventEditRaw = event;
+            this.eventEditRaw = $.extend({}, event);
             this.eventEdit = {
-                fieldwork: this.timePretty(event.time_fieldwork),
-                office: this.timePretty(event.time_office),
+                fieldwork: this.timePretty(this.eventEditRaw.time_fieldwork),
+                office: this.timePretty(this.eventEditRaw.time_office),
             };
             this.showEventEdit = true;
         },
@@ -46,15 +44,33 @@ module.exports = {
             this.eventEditRaw = {};
         },
 
-        createEvent(project, date, fieldwork, office) {
+        createEvent(date, fieldwork, office, project) {
             let event = {
-                title: '',
+                title: project.name,
                 date: date,
+                project_id: project.id,
                 time_fieldwork: this.prettyToInt(fieldwork),
                 time_office: this.prettyToInt(office),
+                backgroundColor: project.color,
             };
 
-            $(this.$refs.calendar).fullCalendar('renderEvent', event, true);
+            if (event.time_fieldwork <= 0 && event.time_office <= 0) {
+                return false;
+            }
+
+            axios.post('/api/projects/' + event.project_id + '/work-logs', {
+                date: event.date,
+                time_fieldwork: event.time_fieldwork,
+                time_office: event.time_office,
+            })
+                .then(function (response) {
+                    event.id = response.data.id;
+
+                    $(this.$refs.calendar).fullCalendar('renderEvent', event, false);
+
+                    Event.notifySuccess('Work log was added properly');
+                }.bind(this))
+                .catch(error => Event.requestError(error));
         },
 
         updateEvent(data) {
@@ -63,12 +79,67 @@ module.exports = {
                 time_office: this.prettyToInt(data.office),
             });
 
-            $(this.$refs.calendar).fullCalendar('updateEvent', event);
+            if (event.time_fieldwork <= 0 && event.time_office <= 0) {
+                axios.delete('/api/work-logs/' + event.id)
+                    .then(function () {
+                        $(this.$refs.calendar).fullCalendar('removeEvents', event.id);
+
+                        Event.notifySuccess('Work log was removed');
+                    }.bind(this))
+                    .catch(error => Event.notifyDanger('Some problem occured while removing work log'));
+
+                return;
+            }
+
+            axios.patch('/api/work-logs/' + event.id, {
+                time_fieldwork: event.time_fieldwork,
+                time_office: event.time_office,
+            })
+                .then(function () {
+                    $(this.$refs.calendar).fullCalendar('updateEvent', event);
+
+                    Event.notifySuccess('Work log was updated');
+                }.bind(this))
+                .catch(error => Event.notifyDanger('Some problem occured while updating work log'));
+        },
+
+        renderAllWorkTime() {
+            let times = this.getDateTimeSum();
+
+            // Clear all work times
+            $(this.$refs.calendar)
+                .find('.fc-day .fc-work-time')
+                .html('');
+
+            $.each(times, function (key, value) {
+                let time = this.timePretty(value);
+
+                $(this.$refs.calendar)
+                    .find('.fc-day[data-date="' + key + '"] .fc-work-time')
+                    .html(`<span>${time}</span>`);
+            }.bind(this));
+        },
+
+        getDateTimeSum() {
+            let times = {};
+
+            $(this.$refs.calendar)
+                .fullCalendar('clientEvents')
+                .forEach(function (event) {
+                    if (!(event.date in times)) {
+                        times[event.date] = 0;
+                    }
+
+                    times[event.date] += event.time_fieldwork + event.time_office;
+                });
+
+            return times;
         },
 
         timePretty(time) {
             let hours = Math.floor(time / 60 / 60);
             let minutes = Math.floor((time % 3600) / 60);
+            minutes = str_pad(minutes, 2, '0', 'STR_PAD_LEFT');
 
             return `${hours}g ${minutes}m`;
         },
@@ -132,26 +203,7 @@ module.exports = {
                 },
 
                 eventAfterAllRender() {
-                    let calendar = this;
-                    let times = {};
-
-                    this.calendar
-                        .clientEvents()
-                        .forEach(function (event) {
-                            if (!(event.date in times)) {
-                                times[event.date] = 0;
-                            }
-
-                            times[event.date] += event.time_fieldwork + event.time_office;
-                        });
-
-                    $.each(times, function (key, value) {
-                        let time = component.timePretty(value);
-
-                        calendar.el
-                            .find('.fc-day[data-date="' + key + '"] .fc-work-time')
-                            .html(`<span>${time}</span>`);
-                    });
+                    component.renderAllWorkTime.bind(component)();
 
                     component.$emit('eventAfterAllRender', this);
                 }

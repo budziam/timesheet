@@ -32,6 +32,8 @@ export default {
          * Refreshes projects list
          */
         refreshProjects() {
+            let component = this;
+
             axios.get('/api/search/projects/default', {
                 params: {
                     search: this.search,
@@ -39,9 +41,9 @@ export default {
                 }
             })
                 .then(function (response) {
-                    this.projects = response.body;
+                    component.projects = response.data;
                 })
-                .catch(response => Event.requestError(response));
+                .catch(error => Event.requestError(error));
         }
     },
 

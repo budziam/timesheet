@@ -10,6 +10,7 @@ use Carbon\Carbon;
  * @property int                                                                      $id
  * @property string                                                                   $name
  * @property string                                                                   $description
+ * @property string                                                                   $color
  * @property \Carbon\Carbon                                                           $ends_at
  * @property \Carbon\Carbon                                                           $created_at
  * @property \Carbon\Carbon                                                           $updated_at
@@ -30,6 +31,7 @@ class Project extends BaseModel
     protected $fillable = [
         'name',
         'description',
+        'color',
         'ends_at',
     ];
 

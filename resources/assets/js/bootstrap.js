@@ -26,7 +26,8 @@ require('./common/event');
 
 window.axios = require('axios');
 window.axios.defaults.headers.common = {
-    'X-CSRF-TOKEN': Laravel.csrfToken
+    'X-CSRF-TOKEN': Laravel.csrfToken,
+    'X-Requested-With': 'XMLHttpRequest',
 };
 
 

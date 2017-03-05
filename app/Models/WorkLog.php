@@ -2,7 +2,6 @@
 namespace App\Models;
 
 use App\Bases\BaseModel;
-use App\Utils\WorkLogUtils;
 
 /**
  * App\Models\WorkLog

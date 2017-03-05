@@ -5,19 +5,19 @@ use App\Builders\ResponseBuilder;
 
 trait Responseable
 {
-    public function response($status = 'ok', $data = [])
+    public function response($status, $data = [])
     {
         return new ResponseBuilder($status, $data);
     }
 
-    public function responseSuccess()
+    public function responseSuccess($data = [], $httpCode = 200)
     {
-        return $this->response();
+        return response($data, $httpCode);
     }
 
     public function responseError($httpCode, $status = 'error', $data = [])
     {
-        return (new ResponseBuilder($status, $data))
+        return $this->response($status, $data)
             ->toResponse()
             ->setStatusCode($httpCode);
     }

@@ -8,8 +8,8 @@ module.exports = {
 
     data() {
         return {
-            office: this.event.office,
-            fieldwork: this.event.fieldwork,
+            office: this.event.office || '',
+            fieldwork: this.event.fieldwork || '',
         };
     },
 
@@ -19,10 +19,22 @@ module.exports = {
         $(this.$el).modal();
 
         $(this.$el).on('hidden.bs.modal', () => {
-            component.$emit('close', {
+            component.close();
+        });
+
+        $(this.$el).keyup((e) => {
+            if (e.which == 13) {
+                $(component.$el).modal('hide');
+            }
+        })
+    },
+
+    methods: {
+        close() {
+            this.$emit('close', {
                 fieldwork: this.fieldwork,
                 office: this.office,
             });
-        });
+        }
     }
 };
