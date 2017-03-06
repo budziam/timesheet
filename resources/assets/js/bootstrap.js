@@ -33,8 +33,7 @@ window.axios.defaults.headers.common = {
 
 Vue.component('v-select', require('./common/components/select'));
 Vue.component('v-form', require('./common/components/form'));
-Vue.component('v-calendar', require('./common/components/calendar/core'));
 
 Vue.use(require('./common/translation'), {
-    url: Laravel.url + '/api/translations'
+    url: '/api/translations'
 });

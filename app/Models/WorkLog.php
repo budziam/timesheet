@@ -12,6 +12,7 @@ use App\Bases\BaseModel;
  * @property \Carbon\Carbon           $date
  * @property integer                  $time_fieldwork
  * @property integer                  $time_office
+ * @property string                   $comment
  * @property \Carbon\Carbon           $created_at
  * @property \Carbon\Carbon           $updated_at
  * @property-read \App\Models\Project $project
@@ -21,6 +22,7 @@ use App\Bases\BaseModel;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\WorkLog whereProjectId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\WorkLog whereTimeFieldwork($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\WorkLog whereTimeOffice($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\WorkLog whereComment($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\WorkLog whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\WorkLog whereUpdatedAt($value)
  * @mixin \Eloquent
@@ -28,11 +30,16 @@ use App\Bases\BaseModel;
 class WorkLog extends BaseModel
 {
     protected $fillable = [
+        'comment',
         'date',
         'project_id',
         'time_fieldwork',
         'time_office',
         'user_id',
+    ];
+
+    protected $attributes = [
+        'comment' => '',
     ];
 
     protected $dates = [

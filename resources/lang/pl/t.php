@@ -3,6 +3,7 @@
 return [
     'Be right back'       => 'Niebawem wracamy',
     'Close'               => 'Zamknij',
+    'Comment'             => 'Komentarz',
     'Date'                => 'Data',
     'End time'            => 'Godzina zakończenia',
     'Edit :project hours' => 'Edycja godzin pracy przy zleceniu: :project',

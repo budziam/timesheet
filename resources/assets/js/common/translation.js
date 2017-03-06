@@ -39,6 +39,10 @@ module.exports = {
      * @returns string
      */
     trans(key, args = {}) {
+        if (key == null) {
+            throw 'Key has to be string';
+        }
+
         let message = this.getValueForKey(key) || key;
 
         /*
@@ -70,7 +74,7 @@ module.exports = {
             collection = collection[key];
         });
 
-        if (collection === null) {
+        if (collection == null) {
             return null;
         }
 

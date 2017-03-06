@@ -10,6 +10,7 @@ module.exports = {
         return {
             office: this.event.office || '',
             fieldwork: this.event.fieldwork || '',
+            comment: this.event.comment || '',
         };
     },
 
@@ -34,6 +35,7 @@ module.exports = {
             this.$emit('close', {
                 fieldwork: this.fieldwork,
                 office: this.office,
+                comment: this.comment,
             });
         }
     }

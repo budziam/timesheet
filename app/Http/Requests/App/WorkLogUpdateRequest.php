@@ -11,6 +11,7 @@ class WorkLogUpdateRequest extends BaseRequest
         return [
             'time_fieldwork' => 'required|integer',
             'time_office'    => 'required|integer',
+            'comment'        => 'string',
         ];
     }
 

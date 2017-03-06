@@ -15,10 +15,8 @@ trait Responseable
         return response($data, $httpCode);
     }
 
-    public function responseError($httpCode, $status = 'error', $data = [])
+    public function responseError($httpCode, $data = [])
     {
-        return $this->response($status, $data)
-            ->toResponse()
-            ->setStatusCode($httpCode);
+        return response($data, $httpCode);
     }
 }

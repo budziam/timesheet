@@ -3,7 +3,6 @@
 use App\Models\Project;
 use App\Models\User;
 use App\Models\WorkLog;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -18,6 +17,7 @@ class WorkLogs extends Migration
             $table->timestamp('date');
             $table->unsignedInteger('time_fieldwork');
             $table->unsignedInteger('time_office');
+            $table->text('comment');
             $table->timestamps();
 
             $table->unique(['user_id', 'project_id', 'date']);

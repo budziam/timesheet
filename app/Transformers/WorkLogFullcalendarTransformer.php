@@ -15,6 +15,7 @@ class WorkLogFullcalendarTransformer extends TransformerAbstract
             'project_id'      => $workLog->project->id,
             'time_fieldwork'  => $workLog->time_fieldwork,
             'time_office'     => $workLog->time_office,
+            'comment'         => $workLog->comment,
             'backgroundColor' => $workLog->project->color,
         ];
     }

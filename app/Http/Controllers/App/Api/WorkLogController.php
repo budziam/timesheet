@@ -13,6 +13,7 @@ class WorkLogController extends BaseController
         $workLog->update([
             'time_fieldwork' => $request->get('time_fieldwork'),
             'time_office'    => $request->get('time_office'),
+            'comment'        => $request->get('comment'),
         ]);
 
         return $this->responseSuccess();

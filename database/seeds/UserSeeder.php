@@ -32,7 +32,7 @@ class UserSeeder extends Seeder
 
     protected function seedFakeUsers()
     {
-        factory(User::class, 10)->create()
+        factory(User::class, 3)->create()
             ->each(function (User $user) {
                 $this->seedFakeWorkLogs($user);
             });
@@ -41,7 +41,7 @@ class UserSeeder extends Seeder
     protected function seedFakeWorkLogs(User $user)
     {
         Project::inRandomOrder()
-            ->limit(rand(1, 6))
+            ->limit(rand(2, 6))
             ->get()
             ->each(function (Project $project) use ($user) {
                 $date = Carbon::now()->subMonths(2);
@@ -49,7 +49,7 @@ class UserSeeder extends Seeder
                 while ($date->lt(Carbon::now())) {
                     factory(WorkLog::class)
                         ->create([
-                            'date'       => $date->copy()->startOfDay(),
+                            'date'        => $date->copy()->startOfDay(),
                             'project_id' => $project->getKey(),
                             'user_id'    => $user->getKey(),
                         ]);

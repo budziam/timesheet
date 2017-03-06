@@ -32,6 +32,7 @@ module.exports = {
             this.eventEdit = {
                 fieldwork: this.timePretty(this.eventEditRaw.time_fieldwork),
                 office: this.timePretty(this.eventEditRaw.time_office),
+                comment: this.eventEditRaw.comment
             };
             this.showEventEdit = true;
         },
@@ -44,13 +45,14 @@ module.exports = {
             this.eventEditRaw = {};
         },
 
-        createEvent(date, fieldwork, office, project) {
+        createEvent(date, fieldwork, office, project, comment = '') {
             let event = {
                 title: project.name,
                 date: date,
                 project_id: project.id,
                 time_fieldwork: this.prettyToInt(fieldwork),
                 time_office: this.prettyToInt(office),
+                comment: comment,
                 backgroundColor: project.color,
             };
 
@@ -59,9 +61,10 @@ module.exports = {
             }
 
             axios.post('/api/projects/' + event.project_id + '/work-logs', {
-                date: event.date,
+                day: event.date,
                 time_fieldwork: event.time_fieldwork,
                 time_office: event.time_office,
+                comment: event.comment
             })
                 .then(function (response) {
                     event.id = response.data.id;
@@ -77,6 +80,7 @@ module.exports = {
             let event = $.extend(this.eventEditRaw, {
                 time_fieldwork: this.prettyToInt(data.fieldwork),
                 time_office: this.prettyToInt(data.office),
+                comment: data.comment
             });
 
             if (event.time_fieldwork <= 0 && event.time_office <= 0) {
@@ -94,6 +98,7 @@ module.exports = {
             axios.patch('/api/work-logs/' + event.id, {
                 time_fieldwork: event.time_fieldwork,
                 time_office: event.time_office,
+                comment: event.comment
             })
                 .then(function () {
                     $(this.$refs.calendar).fullCalendar('updateEvent', event);

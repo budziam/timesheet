@@ -18,7 +18,7 @@ class AuthMiddleware extends BaseMiddleware
     {
         if (Auth::guest()) {
             return $request->expectsJson()
-                ? $this->responseError(401, 'Unauthorized')
+                ? $this->responseError(401)
                 : redirect()->guest(route('auth.login'));
         }
 

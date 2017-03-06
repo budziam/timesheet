@@ -47,6 +47,7 @@ class RouteServiceProvider extends ServiceProvider
             $this->app($router);
             $this->dashboard($router);
             $this->auth($router);
+            require routes_path('web/translation.php');
         });
     }
 

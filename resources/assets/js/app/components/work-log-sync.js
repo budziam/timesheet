@@ -1,9 +1,11 @@
-import ModalTime from '../../common/components/calendar/modal-time';
+import VCalendar from '../components/calendar/core';
+import ModalTime from '../components/calendar/modal-time';
 
 module.exports = {
     template: require('html!./work-log-sync.html'),
 
     components: {
+        VCalendar,
         ModalTime
     },
 
@@ -32,7 +34,7 @@ module.exports = {
             $(`<button class="btn btn-default fc-log-time">${title}</button>`)
                 .appendTo(cell)
                 .click(function () {
-                    this.displayEventAdd(date);
+                    this.displayEventAdd(date.format());
                 }.bind(this));
         },
 
@@ -41,7 +43,7 @@ module.exports = {
                 timeFieldwork: '',
                 timeOffice: '',
             };
-            this.eventAddDate = date.format();
+            this.eventAddDate = date;
             this.showEventAdd = true;
         },
 

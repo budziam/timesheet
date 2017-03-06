@@ -16,6 +16,7 @@ class ProjectWorkLogController extends BaseController
             'date'           => $request->get('date'),
             'time_fieldwork' => $request->get('time_fieldwork'),
             'time_office'    => $request->get('time_office'),
+            'comment'        => $request->get('comment'),
         ]);
 
         return $this->responseSuccess($workLog->toArray());
