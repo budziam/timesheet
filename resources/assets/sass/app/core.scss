@@ -41,6 +41,12 @@
 .work-log {
   margin-bottom: 15px;
 
+  .modal-time {
+    textarea[name=comment] {
+      resize: vertical;
+    }
+  }
+
   .fc-event {
     pointer-events: all;
     background-color: #616161;

@@ -14,7 +14,7 @@ class WorkLogs extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('project_id');
-            $table->timestamp('date');
+            $table->date('date');
             $table->unsignedInteger('time_fieldwork');
             $table->unsignedInteger('time_office');
             $table->text('comment');

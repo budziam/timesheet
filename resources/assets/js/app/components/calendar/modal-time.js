@@ -15,28 +15,20 @@ module.exports = {
     },
 
     mounted() {
-        let component = this;
-
         $(this.$el).modal();
 
         $(this.$el).on('hidden.bs.modal', () => {
-            component.close();
-        });
-
-        $(this.$el).keyup((e) => {
-            if (e.which == 13) {
-                $(component.$el).modal('hide');
-            }
-        })
-    },
-
-    methods: {
-        close() {
             this.$emit('close', {
                 fieldwork: this.fieldwork,
                 office: this.office,
                 comment: this.comment,
             });
+        });
+    },
+
+    methods: {
+        close() {
+            $(this.$el).modal('hide');
         }
     }
 };
