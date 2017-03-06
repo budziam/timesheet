@@ -21,6 +21,9 @@
         </a>
         <ul class="dropdown-menu">
             <li>
+                <a href="{{ route('dashboard.home.index') }}">@lang('t.Dashboard')</a>
+            </li>
+            <li>
                 <form action="{{ $logoutUrl }}" method="POST">
                     {{ csrf_field() }}
 

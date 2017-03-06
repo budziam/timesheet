@@ -5,6 +5,7 @@ return [
     'Close'               => 'Zamknij',
     'Comment'             => 'Komentarz',
     'Date'                => 'Data',
+    'Dashboard'           => 'Panel zarządzania',
     'End time'            => 'Godzina zakończenia',
     'Edit :project hours' => 'Edycja godzin pracy przy zleceniu: :project',
     'Fieldwork'           => 'Teren',

@@ -71,9 +71,9 @@ class RouteServiceProvider extends ServiceProvider
     protected function dashboard(Router $router)
     {
         $router->group([
-            'middleware' => 'dahsboard',
-            'prefix'     => 'dahsboard',
-            'as'         => 'dahsboard.',
+            'middleware' => 'dashboard',
+            'prefix'     => 'dashboard',
+            'as'         => 'dashboard.',
         ], function (Router $router) {
             $this->includeFiles('web/dashboard', $router);
 
