@@ -184,6 +184,7 @@ return [
          */
         Collective\Html\HtmlServiceProvider::class,
         Spatie\Fractal\FractalServiceProvider::class,
+        Laravel\Tinker\TinkerServiceProvider::class,
 
     ],
 
