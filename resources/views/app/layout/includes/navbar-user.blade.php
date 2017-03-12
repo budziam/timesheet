@@ -1,9 +1,9 @@
 <ul class="nav navbar-nav">
     <li class="{{ $navbar->check('projects') }}">
-        <a href="{{ $projectsUrl }}">@lang('t.Projects')</a>
+        <a href="{{ route('app.projects.index') }}">@lang('Projects')</a>
     </li>
     <li class="{{ $navbar->check('work-logs.sync') }}">
-        <a href="{{ $workLogsUrl }}">@lang('t.Manage work logs')</a>
+        <a href="{{ route('app.work-logs.sync') }}">@lang('Manage work logs')</a>
     </li>
 </ul>
 
@@ -21,13 +21,13 @@
         </a>
         <ul class="dropdown-menu">
             <li>
-                <a href="{{ route('dashboard.home.index') }}">@lang('t.Dashboard')</a>
+                <a href="{{ route('dashboard.home.index') }}">@lang('Dashboard')</a>
             </li>
             <li>
-                <form action="{{ $logoutUrl }}" method="POST">
+                <form action="{{ route('auth.logout') }}" method="POST">
                     {{ csrf_field() }}
 
-                    <button type="submit" class="btn btn-link btn-logout">@lang('t.Logout')</button>
+                    <button type="submit" class="btn btn-link btn-logout">@lang('Logout')</button>
                 </form>
             </li>
         </ul>

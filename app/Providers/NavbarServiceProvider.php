@@ -24,17 +24,13 @@ class NavbarServiceProvider extends BaseServiceProvider
     {
         \View::composer('app.layout.includes.navbar', function (View $view) {
             $view->with([
-                'homeUrl' => route('app.home.index'),
-                'user'    => auth()->user(),
+                'user' => auth()->user(),
             ]);
         });
 
         \View::composer('app.layout.includes.navbar-user', function (View $view) {
             $view->with([
-                'logoutUrl'   => route('auth.logout'),
-                'navbar'      => app(NavbarBuilder::class),
-                'projectsUrl' => route('app.projects.index'),
-                'workLogsUrl' => route('app.work-logs.sync'),
+                'navbar' => app(NavbarBuilder::class),
             ]);
         });
     }

@@ -2,6 +2,6 @@
 
 @section('content')
     <div class="page-header">
-        <h1>Sticky footer with fixed navbar</h1>
+        <h1>Work logs</h1>
     </div>
 @endsection

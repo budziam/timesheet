@@ -7,6 +7,6 @@ class TranslationController extends BaseController
 {
     public function index()
     {
-        return trans('t');
+        return __('*');
     }
 }
