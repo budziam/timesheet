@@ -19,20 +19,26 @@
         ]); ?>
     </script>
 
+    {!! Html::style('//cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css') !!}
 </head>
 
 <body>
-@include('dashboard.layout.includes.navbar')
+<div id="app">
+    @include('dashboard.layout.includes.navbar')
 
-<!-- Begin page content -->
-<div class="container-fluid">
-    <div class="row">
-        @include('dashboard.layout.includes.sidebar')
-        <div class="main col-md-9 col-md-offset-3">
-            @yield('content')
+    <div class="container-fluid">
+        <div class="row">
+            @include('dashboard.layout.includes.sidebar')
+            <div class="main col-md-9 col-md-offset-3">
+                @yield('content')
+            </div>
         </div>
     </div>
 </div>
+
+<table id="abcd">
+
+</table>
 
 {!! Html::script(source('js/dashboard.js')) !!}
 </body>

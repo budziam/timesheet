@@ -7,6 +7,23 @@ class ProjectController extends BaseController
 {
     public function index()
     {
-        return view('dashboard.pages.projects.index');
+        $componentData = [
+            'columns' => [
+                'Id',
+                'Name',
+            ],
+            'options' => [
+                'ajax'    => route('dashboard.api.datatable.projects'),
+                'columns' => [
+                    [
+                        'name' => 'id',
+                        'data' => ['_' => 'id.display'],
+                    ],
+                    ['data' => 'name'],
+                ],
+            ],
+        ];
+
+        return view('dashboard.pages.projects.index', compact('componentData'));
     }
 }

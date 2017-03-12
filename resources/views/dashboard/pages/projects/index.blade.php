@@ -1,7 +1,5 @@
 @extends('dashboard.layout.layout')
 
 @section('content')
-    <div class="page-header">
-        <h1>Projects</h1>
-    </div>
+    <project-index :data="{{ json_encode($componentData) }}"></project-index>
 @endsection
