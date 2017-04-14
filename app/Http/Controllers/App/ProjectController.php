@@ -7,7 +7,7 @@ class ProjectController extends BaseController
 {
     public function index()
     {
-        $this->navbar->setActive('projects');
+        $this->navbarBuilder->setActive('projects');
 
         return view('app.pages.projects.index');
     }

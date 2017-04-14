@@ -29,16 +29,15 @@
     <div class="container-fluid">
         <div class="row">
             @include('dashboard.layout.includes.sidebar')
+
             <div class="main col-md-9 col-md-offset-3">
+                @include('dashboard.includes.breadcrumbs')
+
                 @yield('content')
             </div>
         </div>
     </div>
 </div>
-
-<table id="abcd">
-
-</table>
 
 {!! Html::script(source('js/dashboard.js')) !!}
 </body>

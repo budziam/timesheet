@@ -13,7 +13,7 @@ class WorkLogController extends BaseController
 
     public function sync()
     {
-        $this->navbar->setActive('work-logs.sync');
+        $this->navbarBuilder->setActive('work-logs.sync');
 
         $componentData = $this->getProjectDetails();
 

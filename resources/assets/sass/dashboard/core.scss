@@ -17,3 +17,16 @@ body {
   background-color: #f5f5f5;
   border-right: 1px solid #eee;
 }
+
+.breadcrumb {
+  .breadcrumb-item {
+    a {
+      font-weight: bold;
+    }
+
+    &:last-child a {
+      color: #757575;
+      font-weight: normal;
+    }
+  }
+}

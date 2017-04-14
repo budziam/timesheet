@@ -1,6 +1,7 @@
 <?php
 namespace App\Bases;
 
+use App\Builders\Breadcrumb\BreadcrumbBuilder;
 use App\Builders\NavbarBuilder;
 use App\Models\User;
 use App\Traits\Responseable;
@@ -15,11 +16,42 @@ class BaseController extends Controller
     use Responseable;
 
     /** @var NavbarBuilder */
-    protected $navbar;
+    protected $navbarBuilder;
 
-    public function __construct(NavbarBuilder $navbarBuilder)
+    /** @var BreadcrumbBuilder */
+    protected $breadcrumbBuilder;
+
+    public function __construct(NavbarBuilder $navbarBuilder, BreadcrumbBuilder $breadcrumbBuilder)
     {
-        $this->navbar = $navbarBuilder;
+        $this->navbarBuilder = $navbarBuilder;
+        $this->breadcrumbBuilder = $breadcrumbBuilder;
+
+        $this->initMiddlewares();
+        $this->preInitPageInformation();
+    }
+
+    protected function preInitPageInformation()
+    {
+        $this->breadcrumbBuilder
+            ->attachNewBreadcrumb(__('Dashboard'), route('dashboard.home.index'));
+
+        $this->initPageInformation();
+    }
+
+    /**
+     * Initializes middlewares
+     */
+    protected function initMiddlewares()
+    {
+        //
+    }
+
+    /**
+     * Initializes basic information about current page
+     */
+    protected function initPageInformation()
+    {
+        //
     }
 
     protected function user() : User
