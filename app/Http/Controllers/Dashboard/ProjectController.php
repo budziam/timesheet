@@ -2,28 +2,17 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Bases\BaseController;
+use App\Models\Project;
 
 class ProjectController extends BaseController
 {
     public function index()
     {
-        $componentData = [
-            'columns' => [
-                'Id',
-                'Name',
-            ],
-            'options' => [
-                'ajax'    => route('dashboard.api.datatable.projects'),
-                'columns' => [
-                    [
-                        'name' => 'id',
-                        'data' => ['_' => 'id.display'],
-                    ],
-                    ['data' => 'name'],
-                ],
-            ],
-        ];
+        return view('dashboard.pages.projects.index');
+    }
 
-        return view('dashboard.pages.projects.index', compact('componentData'));
+    public function show(Project $project)
+    {
+        return view('dashboard.pages.projects.show', compact('project'));
     }
 }

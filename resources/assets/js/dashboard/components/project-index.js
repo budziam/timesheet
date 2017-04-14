@@ -1,13 +1,40 @@
 import VDatatable from './datatable';
+import Laravel from '../../common/laravel';
 
 module.exports = {
     template: require('html!./project-index.html'),
 
     components: {
-        'v-datatable': VDatatable
+        VDatatable
     },
 
-    props: {
-        data: Object
+    data() {
+        return {
+            columns: [
+                'ID',
+                'Name',
+                'End date'
+            ],
+            options: {
+                ajax: Laravel.url('/dashboard/api/datatable/projects'),
+                columns: [
+                    {
+                        name: 'id',
+                        data: {
+                            _: 'id.display'
+                        },
+                    },
+                    {
+                        data: 'name'
+                    },
+                    {
+                        name: 'ends_at',
+                        data: {
+                            '_': 'ends_at.display'
+                        },
+                    }
+                ],
+            }
+        }
     }
 };

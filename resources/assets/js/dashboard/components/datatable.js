@@ -12,9 +12,11 @@ module.exports = {
         return {
             dataTable: {},
             defaultOptions: {
-                buttons: [],
                 processing: true,
                 serverSide: true,
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.10.13/i18n/Polish.json"
+                }
             }
         }
     },

@@ -1,15 +1,22 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "geoset/timesheet",
+    "description": "Timesheet",
+    "keywords": ["geoset", "timesheet"],
     "license": "MIT",
     "type": "project",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/budziam/model-shaper"
+        }
+    ],
     "require": {
         "php": ">=7.1.0",
         "laravel/framework": "5.4.*",
         "laravelcollective/html": "5.4.*",
         "spatie/laravel-fractal": "^3.0",
-        "laravel/tinker": "^1.0"
+        "laravel/tinker": "^1.0",
+        "budziam/model-shaper": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.2",
