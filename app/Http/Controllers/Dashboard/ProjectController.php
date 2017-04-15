@@ -16,11 +16,11 @@ class ProjectController extends BaseController
         return view('dashboard.pages.projects.index');
     }
 
-    public function show(Project $project)
+    public function edit(Project $project)
     {
         $this->breadcrumbBuilder
-            ->attachNewBreadcrumb($project->id, route('dashboard.projects.show', $project->getRouteKey()));
+            ->attachNewBreadcrumb($project->id, route('dashboard.projects.edit', $project->getRouteKey()));
 
-        return view('dashboard.pages.projects.show', compact('project'));
+        return view('dashboard.pages.projects.edit', compact('project'));
     }
 }

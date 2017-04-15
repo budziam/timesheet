@@ -4,7 +4,8 @@ module.exports = {
     props: {
         method: String,
         action: String,
-        class: String
+        class: String,
+        formData: Function,
     },
 
     data() {
@@ -36,7 +37,8 @@ module.exports = {
             }
 
             this.beforeSend();
-            axios[this.normalizedMethod](this.action, this.getFormData())
+
+            axios[this.normalizedMethod](this.action, this.formData())
                 .then(this.onSuccess.bind(this))
                 .catch(this.onError.bind(this))
                 .finally(this.afterSend.bind(this));
@@ -70,7 +72,7 @@ module.exports = {
         onError(error) {
             let response = error.response;
 
-            if (response.status == 422) {
+            if (response.status === 422) {
                 this.onFormValidationError(response.data);
                 return;
             }
@@ -97,30 +99,6 @@ module.exports = {
                     class: 'help-block',
                     html: value.join('<br />')
                 }));
-        },
-
-        getFormData: function () {
-            let obj = {};
-
-            $(this.$el).serializeArray()
-                .forEach(function (item) {
-                    let multiple = item.name.endsWith('[]');
-                    let name = multiple ? item.name.slice(0, -2) : item.name;
-
-                    if (typeof obj[name] == 'undefined') {
-                        obj[name] = multiple ? [item.value] : item.value;
-                        return true;
-                    }
-
-                    if (Object.prototype.toString.call(obj[name]) === '[object Array]') {
-                        obj[name].push(item.value);
-                        return true;
-                    }
-
-                    obj[name] = item.value;
-                });
-
-            return obj;
         },
 
         getElementId(key) {

@@ -25,6 +25,7 @@ window.Vue = require('vue');
 require('./common/event');
 
 window.axios = require('axios');
+require('promise.prototype.finally');
 window.axios.defaults.headers.common = {
     'X-CSRF-TOKEN': Laravel.csrfToken,
     'X-Requested-With': 'XMLHttpRequest',

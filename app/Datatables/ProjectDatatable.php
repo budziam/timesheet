@@ -17,7 +17,7 @@ class ProjectDatatable implements DatatableContract
         return Project::all()
             ->map(function (Project $project) {
                 $link = (string)link_to_route(
-                    'dashboard.projects.show', '#' . $project->id, $project->getRouteKey(), ['target' => '_blank']
+                    'dashboard.projects.edit', '#' . $project->id, $project->getRouteKey()
                 );
 
                 return [

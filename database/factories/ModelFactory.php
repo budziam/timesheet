@@ -34,7 +34,7 @@ $factory->define(Project::class, function (Generator $faker) {
     return [
         'name'        => ucfirst($faker->words(3, true)),
         'description' => $faker->paragraphs(5, true),
-        'ends_at'     => $faker->dateTimeBetween('-2 months', '+1 year'),
+        'ends_at'     => Carbon::instance($faker->dateTimeBetween('-2 months', '+1 year'))->second(0),
         'color'       => $faker->boolean(80) ? $faker->hexColor : null,
     ];
 });

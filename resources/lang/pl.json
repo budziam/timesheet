@@ -2,6 +2,7 @@
   "Be right back": "Niebawem wracamy",
   "Close": "Zamknij",
   "Comment": "Komentarz",
+  "Color": "Kolor",
   "Created at": "Utworzono",
   "Date": "Data",
   "Dashboard": "Panel zarządzania",
@@ -25,5 +26,7 @@
   "Projects": "Zlecenia",
   "Remember Me": "Zapamiętaj",
   "Start time": "Godzina rozpoczęcia",
+  "Submit": "Wyślij",
+  "Updated at": "Zaktualizowano",
   "Work logs": "Godziny pracy"
 }
