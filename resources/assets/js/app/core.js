@@ -11,18 +11,9 @@ window.vueApp = new Vue({
 
     components: {
         Loader,
-        Notification,
         ProjectSearch,
         WorkLogSync,
         WorkLogIndex
-    },
-
-    beforeMount() {
-        $.fn.select2.defaults.set("theme", "bootstrap");
-        $.fn.select2.defaults.set("containerCssClass", ":all:");
-        $.fn.select2.defaults.set("width", null);
-        $.fn.select2.defaults.set('debug', true);
-        $.fn.select2.defaults.set("language", Laravel.lang);
     },
 
     created() {
@@ -33,5 +24,13 @@ window.vueApp = new Vue({
                 type: type
             });
         });
+    },
+
+    beforeMount() {
+        $.fn.select2.defaults.set("theme", "bootstrap");
+        $.fn.select2.defaults.set("containerCssClass", ":all:");
+        $.fn.select2.defaults.set("width", null);
+        $.fn.select2.defaults.set('debug', true);
+        $.fn.select2.defaults.set("language", Laravel.lang);
     }
 });

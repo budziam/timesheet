@@ -39,6 +39,10 @@ class Project extends BaseModel
         'ends_at',
     ];
 
+    protected $attributes = [
+        'description' => '',
+    ];
+
     public function groups()
     {
         return $this->belongsToMany(ProjectGroup::class);

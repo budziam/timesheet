@@ -13,7 +13,7 @@ class ProjectTransformer extends TransformerAbstract
             'name'        => $project->name,
             'color'       => $project->color,
             'description' => $project->description,
-            'ends_at'     => str_replace(' ', 'T', $project->ends_at),
+            'ends_at'     => $project->ends_at->toDateTimeString(),
             'created_at'  => $project->created_at->toDateTimeString(),
             'updated_at'  => $project->updated_at->toDateTimeString(),
         ];

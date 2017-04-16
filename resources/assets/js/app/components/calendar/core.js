@@ -3,7 +3,7 @@ require('fullcalendar/dist/locale/pl');
 
 import ModalTime from './modal-time';
 
-module.exports = {
+export default {
     template: require('html!./core.html'),
 
     components: {

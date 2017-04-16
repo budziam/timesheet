@@ -1,7 +1,7 @@
 import VCalendar from '../components/calendar/core';
 import ModalTime from '../components/calendar/modal-time';
 
-module.exports = {
+export default {
     template: require('html!./work-log-sync.html'),
 
     components: {

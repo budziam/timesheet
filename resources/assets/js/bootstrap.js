@@ -12,7 +12,6 @@ require('bootstrap-sass');
 require('select2/dist/js/select2.full');
 require('select2/dist/js/i18n/pl');
 
-window.moment = require('moment');
 require('./functions');
 
 /**
@@ -25,7 +24,6 @@ window.Vue = require('vue');
 require('./common/event');
 
 window.axios = require('axios');
-require('promise.prototype.finally');
 window.axios.defaults.headers.common = {
     'X-CSRF-TOKEN': Laravel.csrfToken,
     'X-Requested-With': 'XMLHttpRequest',

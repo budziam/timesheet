@@ -13,7 +13,7 @@ class Projects extends Migration
             $table->increments('id');
             $table->string('name');
             $table->text('description');
-            $table->char('color', 16)->nullable();
+            $table->char('color', 16);
             $table->timestamp('ends_at');
             $table->timestamps();
         });

@@ -41,7 +41,7 @@ module.exports = {
             axios[this.normalizedMethod](this.action, this.formData())
                 .then(this.onSuccess.bind(this))
                 .catch(this.onError.bind(this))
-                .finally(this.afterSend.bind(this));
+                .then(this.afterSend.bind(this));
         },
 
         beforeSend() {

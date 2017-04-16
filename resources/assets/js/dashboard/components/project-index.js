@@ -1,7 +1,7 @@
 import VDatatable from './datatable';
 import Laravel from '../../common/laravel';
 
-module.exports = {
+export default {
     template: require('html!./project-index.html'),
 
     components: {
@@ -10,6 +10,7 @@ module.exports = {
 
     data() {
         return {
+            projectCreateUrl: Laravel.url('/dashboard/projects/create'),
             columns: [
                 'ID',
                 'Name',
