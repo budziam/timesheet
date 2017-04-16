@@ -13,4 +13,15 @@ abstract class DateUtils
 
         return $date->toDateTimeString();
     }
+
+    public static function formatWorkLogTime($time) : string
+    {
+        $hours = (int)floor($time / 3600);
+        $minutes = (int)floor(($time - $hours * 3600) / 60);
+
+        $minutesPretty = str_pad($minutes, 2, '0', STR_PAD_LEFT);
+        $hoursPretty = str_pad($hours, 2, '0', STR_PAD_LEFT);
+
+        return "{$hoursPretty}:{$minutesPretty}";
+    }
 }
