@@ -1,5 +1,5 @@
 @extends('dashboard.layout.layout')
 
 @section('content')
-    <project-createedit></project-createedit>
+    <work-log-createedit></work-log-createedit>
 @stop

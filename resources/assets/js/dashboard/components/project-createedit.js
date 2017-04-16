@@ -1,33 +1,27 @@
 import Laravel from '../../common/laravel';
-import VForm from '../../common/components/form';
+import ModelCreateUpdateMixin from '../mixins/model-createedit';
 import Moment from 'moment';
 
 export default {
     template: require('html!./project-createedit.html'),
 
-    props: {
-        projectId: [Number, String],
-    },
+    mixins: [
+        ModelCreateUpdateMixin
+    ],
 
     data() {
         return {
-            project: {
+            model: {
                 color: '#b0b0b0'
             }
         }
     },
 
-    created() {
-        if (this.isEditing) {
-            this.getProject(this.projectId);
-        }
-    },
-
     methods: {
-        getProject() {
+        getModel() {
             let component = this;
 
-            axios.get(Laravel.url('/dashboard/api/projects/' + this.projectId))
+            axios.get(Laravel.url('/dashboard/api/projects/' + this.modelId))
                 .then(response => {
                     let project = response.data;
 
@@ -35,25 +29,17 @@ export default {
                     project.created_at = Moment(project.created_at).format('YYYY-MM-DDThh:mm:ss');
                     project.updated_at = Moment(project.updated_at).format('YYYY-MM-DDThh:mm:ss');
 
-                    component.project = project;
+                    component.model = project;
                 })
                 .catch(error => Event.requestError(error));
         },
 
         getFormData() {
-            let formData = Object.assign({}, this.project);
+            let formData = Object.assign({}, this.model);
 
             formData.ends_at = Moment(formData.ends_at).format('YYYY-MM-DD hh:mm:ss');
 
             return formData;
-        },
-
-        onFormSuccess(response) {
-            if (this.isCreating) {
-                return this.onCreated(response);
-            }
-
-            return this.onEdited();
         },
 
         onCreated(response) {
@@ -67,7 +53,7 @@ export default {
         },
 
         destroy() {
-            axios.delete(Laravel.url('/dashboard/api/projects/' + this.projectId))
+            axios.delete(Laravel.url('/dashboard/api/projects/' + this.modelId))
                 .then(response => {
                     window.location = Laravel.url('/dashboard/projects');
                 })
@@ -82,28 +68,12 @@ export default {
     },
 
     computed: {
-        isCreating() {
-            return this.projectId == null;
-        },
-
-        isEditing() {
-            return !this.isCreating;
-        },
-
-        formMethod() {
-            if (this.isCreating) {
-                return 'POST';
-            }
-
-            return 'PATCH';
-        },
-
         formAction() {
             if (this.isCreating) {
                 return Laravel.url('/dashboard/api/projects');
             }
 
-            return Laravel.url(`/dashboard/api/projects/${this.projectId}`);
+            return Laravel.url(`/dashboard/api/projects/${this.modelId}`);
         },
 
         formClass() {
@@ -113,9 +83,5 @@ export default {
 
             return 'project-edit';
         }
-    },
-
-    components: {
-        VForm
     }
 };
