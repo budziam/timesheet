@@ -6,6 +6,11 @@ use League\Fractal\TransformerAbstract;
 
 class WorkLogTransformer extends TransformerAbstract
 {
+    protected $defaultIncludes = [
+        'project',
+        'user',
+    ];
+
     public function transform(WorkLog $workLog)
     {
         return [

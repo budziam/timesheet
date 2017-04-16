@@ -31,7 +31,6 @@ window.axios.defaults.headers.common = {
 
 
 Vue.component('v-select', require('./common/components/select'));
-Vue.component('v-form', require('./common/components/form'));
 
 Vue.use(require('./common/translation'), {
     url: '/api/translations'

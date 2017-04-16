@@ -4,11 +4,6 @@ import ModalTime from '../components/calendar/modal-time';
 export default {
     template: require('html!./work-log-sync.html'),
 
-    components: {
-        VCalendar,
-        ModalTime
-    },
-
     props: {
         data: Object
     },
@@ -86,5 +81,10 @@ export default {
         projectId() {
             this.fetchProject();
         }
+    },
+
+    components: {
+        VCalendar,
+        ModalTime
     }
 };

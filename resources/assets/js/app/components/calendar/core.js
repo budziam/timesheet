@@ -2,6 +2,7 @@ require('fullcalendar');
 require('fullcalendar/dist/locale/pl');
 
 import ModalTime from './modal-time';
+import WorkLogTime from '../../../common/components/work-log-time';
 
 export default {
     template: require('html!./core.html'),
@@ -30,8 +31,8 @@ export default {
         displayEventEdit(event) {
             this.eventEditRaw = $.extend({}, event);
             this.eventEdit = {
-                fieldwork: this.timePretty(this.eventEditRaw.time_fieldwork),
-                office: this.timePretty(this.eventEditRaw.time_office),
+                fieldwork: WorkLogTime.timePretty(this.eventEditRaw.time_fieldwork),
+                office: WorkLogTime.timePretty(this.eventEditRaw.time_office),
                 comment: this.eventEditRaw.comment
             };
             this.showEventEdit = true;
@@ -50,8 +51,8 @@ export default {
                 title: project.name,
                 date: date,
                 project_id: project.id,
-                time_fieldwork: this.prettyToInt(fieldwork),
-                time_office: this.prettyToInt(office),
+                time_fieldwork: WorkLogTime.prettyToInt(fieldwork),
+                time_office: WorkLogTime.prettyToInt(office),
                 comment: comment,
                 backgroundColor: project.color,
             };
@@ -78,8 +79,8 @@ export default {
 
         updateEvent(data) {
             let event = $.extend(this.eventEditRaw, {
-                time_fieldwork: this.prettyToInt(data.fieldwork),
-                time_office: this.prettyToInt(data.office),
+                time_fieldwork: WorkLogTime.prettyToInt(data.fieldwork),
+                time_office: WorkLogTime.prettyToInt(data.office),
                 comment: data.comment
             });
 
@@ -117,7 +118,7 @@ export default {
                 .html('');
 
             $.each(times, function (key, value) {
-                let time = this.timePretty(value);
+                let time = WorkLogTime.timePretty(value);
 
                 $(this.$refs.calendar)
                     .find('.fc-day[data-date="' + key + '"] .fc-work-time')
@@ -139,24 +140,6 @@ export default {
                 });
 
             return times;
-        },
-
-        timePretty(time) {
-            let hours = Math.floor(time / 60 / 60);
-            let minutes = Math.floor((time % 3600) / 60);
-            minutes = str_pad(minutes, 2, '0', 'STR_PAD_LEFT');
-
-            return `${hours}g ${minutes}m`;
-        },
-
-        prettyToInt(time) {
-            let pattern = /(?:([0-9]+)\s*g)?\s*(?:([0-9]+)\s*m)?/;
-            let result = pattern.exec(time);
-
-            let hours = parseInt(result[1]) || 0;
-            let minutes = parseInt(result[2]) || 0;
-
-            return hours * 3600 + minutes * 60;
         },
 
         getArgs() {

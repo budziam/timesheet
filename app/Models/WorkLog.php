@@ -42,8 +42,8 @@ class WorkLog extends BaseModel
         'comment' => '',
     ];
 
-    protected $dates = [
-        'date',
+    protected $casts = [
+        'date' => 'date',
     ];
 
     public function project()
