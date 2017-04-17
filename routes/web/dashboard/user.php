@@ -7,3 +7,8 @@ use App\Http\Controllers\Dashboard\UserController;
 $router->resource('users', UserController::class, [
     'only' => ['index', 'create', 'edit'],
 ]);
+
+$router->get('users/{user}/change-password', [
+    'as'   => 'users.change-password',
+    'uses' => UserController::class . '@changePassword',
+]);

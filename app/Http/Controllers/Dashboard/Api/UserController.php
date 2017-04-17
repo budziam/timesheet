@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Dashboard\Api;
 
 use App\Bases\BaseController;
 use App\Datatables\UserDatatable;
+use App\Http\Requests\Dashboard\UserChangePasswordRequest;
 use App\Http\Requests\Dashboard\UserDestroyRequest;
 use App\Http\Requests\Dashboard\UserStoreUpdateRequest;
 use App\Models\User;
@@ -54,6 +55,15 @@ class UserController extends BaseController
     public function destroy(User $user, UserDestroyRequest $request)
     {
         $user->delete();
+
+        return $this->responseSuccess();
+    }
+
+    public function changePassword(User $user, UserChangePasswordRequest $request)
+    {
+        $user->update([
+            'password' => bcrypt($request->input('password')),
+        ]);
 
         return $this->responseSuccess();
     }

@@ -11,6 +11,7 @@ export default {
 
     data() {
         return {
+            changePasswordUrl: Laravel.url(`/dashboard/users/${this.modelId}/change-password`),
             model: {
                 color: '#b0b0b0'
             }
@@ -21,7 +22,7 @@ export default {
         getModel() {
             let component = this;
 
-            axios.get(Laravel.url('/dashboard/api/users/' + this.modelId))
+            axios.get(Laravel.url(`/dashboard/api/users/${this.modelId}`))
                 .then(response => {
                     let user = response.data;
 
@@ -46,7 +47,7 @@ export default {
         },
 
         destroy() {
-            axios.delete(Laravel.url('/dashboard/api/users/' + this.modelId))
+            axios.delete(Laravel.url(`/dashboard/api/users/${this.modelId}`))
                 .then(response => {
                     window.location = Laravel.url('/dashboard/users');
                 })

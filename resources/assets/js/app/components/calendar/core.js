@@ -179,8 +179,8 @@ export default {
                 },
 
                 eventRender(event, element) {
-                    let fieldwork = component.timePretty(event.time_fieldwork);
-                    let office = component.timePretty(event.time_office);
+                    let fieldwork = WorkLogTime.timePretty(event.time_fieldwork);
+                    let office = WorkLogTime.timePretty(event.time_office);
 
                     element.find('.fc-content').append(`
                         <div class="fc-body">

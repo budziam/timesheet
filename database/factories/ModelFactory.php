@@ -25,7 +25,7 @@ $factory->define(User::class, function (Generator $faker) {
 
     return [
         'name'           => $faker->firstName . ' ' . $faker->lastName,
-        'password'       => $password ?: $password = bcrypt('secret'),
+        'password'       => $password ?: $password = bcrypt(''),
         'remember_token' => str_random(10),
     ];
 });

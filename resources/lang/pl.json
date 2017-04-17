@@ -1,6 +1,8 @@
 {
+  "Application": "Aplikacja",
   "Be right back": "Niebawem wracamy",
   "Cannot delete your account.": "Nie możesz usunąć swojego konta.",
+  "Change password": "Zmień hasło",
   "Close": "Zamknij",
   "Comment": "Komentarz",
   "Color": "Kolor",
@@ -23,6 +25,7 @@
   "Manage work logs": "Zarządzaj godzinami pracy",
   "Name": "Nazwa",
   "Never": "Nigdy",
+  "New password": "Nowe hasło",
   "Office": "Biuro",
   "Password": "Hasło",
   "Project": "Zlecenie",

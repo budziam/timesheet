@@ -16,12 +16,6 @@ class ComposerServiceProvider extends BaseServiceProvider
 
     public function boot()
     {
-        \View::composer('auth.login', function (View $view) {
-            $view->with([
-                'loginUrl' => route('auth.login'),
-            ]);
-        });
-
         \View::composer('dashboard.includes.breadcrumbs', function (View $view) {
             $view->with('breadcrumbs', BreadcrumbBuilder::instance()->getBreadcrumbs());
         });

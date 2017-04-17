@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "budziam/model-shaper",
-            "version": "v1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/budziam/model-shaper.git",
-                "reference": "251d6310e82feccd5a11fec1ea17fc502f5fd2af"
+                "reference": "884a00e9a7c1b3a6b7f5727171f4d734cae7d293"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/budziam/model-shaper/zipball/251d6310e82feccd5a11fec1ea17fc502f5fd2af",
-                "reference": "251d6310e82feccd5a11fec1ea17fc502f5fd2af",
+                "url": "https://api.github.com/repos/budziam/model-shaper/zipball/884a00e9a7c1b3a6b7f5727171f4d734cae7d293",
+                "reference": "884a00e9a7c1b3a6b7f5727171f4d734cae7d293",
                 "shasum": ""
             },
             "require": {
@@ -44,10 +44,10 @@
                 "listing"
             ],
             "support": {
-                "source": "https://github.com/budziam/model-shaper/tree/v1.0.3",
+                "source": "https://github.com/budziam/model-shaper/tree/1.0.4",
                 "issues": "https://github.com/budziam/model-shaper/issues"
             },
-            "time": "2017-04-17T15:23:47+00:00"
+            "time": "2017-04-17T17:21:41+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",

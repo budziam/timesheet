@@ -1,5 +1,33 @@
 <div class="col-xs-7 col-sm-3 col-md-3 sidebar sidebar-left sidebar-animate sidebar-md-show">
-    <ul class="nav navbar-stacked">
+    <ul class="nav navbar-user">
+        <li class="dropdown">
+            <a href="#"
+               role="button"
+               class="dropdown-toggle"
+               data-toggle="dropdown"
+               aria-haspopup="true"
+               aria-expanded="false"
+            >
+                {{ $user->name }}
+                <span class="caret"></span>
+            </a>
+
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="{{ route('app.home.index') }}">@lang('Application')</a>
+                </li>
+                <li>
+                    <form action="{{ route('auth.logout') }}" method="POST">
+                        {{ csrf_field() }}
+
+                        <button type="submit" class="btn btn-link btn-logout">@lang('Logout')</button>
+                    </form>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <ul class="nav navbar-sidebar">
         <li class="active">
             <a href="{{ route('dashboard.home.index') }}">@lang('Homepage')</a>
         </li>

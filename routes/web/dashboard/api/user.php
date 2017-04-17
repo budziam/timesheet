@@ -8,6 +8,11 @@ $router->resource('users', UserController::class, [
     'only' => ['show', 'store', 'update', 'destroy'],
 ]);
 
+$router->patch('users/{user}/change-password', [
+    'as'   => 'users.change-password',
+    'uses' => UserController::class . '@changePassword',
+]);
+
 $router->get('datatable/users', [
     'as'   => 'datatable.users',
     'uses' => UserController::class . '@datatable',

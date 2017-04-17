@@ -1,6 +1,7 @@
 <div :class="formClass" class="container">
     <div class="row" v-if="isEditing">
         <div class="col-md-12 text-right">
+            <a class="btn btn-lg btn-info" :href="changePasswordUrl">{{ $trans('Change password') }}</a>
             <button class="btn btn-lg btn-danger" @click="destroy">{{ $trans('Delete') }}</button>
         </div>
     </div>
