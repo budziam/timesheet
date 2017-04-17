@@ -9,5 +9,8 @@
         <li>
             <a href="{{ route('dashboard.work-logs.index') }}">@lang('Work logs')</a>
         </li>
+        <li>
+            <a href="{{ route('dashboard.users.index') }}">@lang('Users')</a>
+        </li>
     </ul>
 </div>

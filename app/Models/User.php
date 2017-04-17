@@ -12,11 +12,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  *
  * @property int                                                                                                            $id
  * @property string                                                                                                         $name
- * @property string                                                                                                         $email
  * @property string                                                                                                         $password
  * @property string                                                                                                         $remember_token
  * @property \Carbon\Carbon                                                                                                 $created_at
  * @property \Carbon\Carbon                                                                                                 $updated_at
+ * @property string                                                                                                         $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\WorkLog[]                                            $workLogs
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $readNotifications
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $unreadNotifications
@@ -27,11 +28,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereRememberToken($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereUpdatedAt($value)
- * @mixin \Eloquent
- * @property string $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\WorkLog[] $workLogs
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereDeletedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User firstOrFail()
+ * @mixin \Eloquent
  */
 class User extends Authenticatable
 {
@@ -43,6 +42,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+    ];
+
+    protected $attributes = [
+        'password' => '',
     ];
 
     /**

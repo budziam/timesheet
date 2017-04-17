@@ -1,5 +1,6 @@
 {
   "Be right back": "Niebawem wracamy",
+  "Cannot delete your account.": "Nie możesz usunąć swojego konta.",
   "Close": "Zamknij",
   "Comment": "Komentarz",
   "Color": "Kolor",
@@ -29,7 +30,9 @@
   "Remember Me": "Zapamiętaj",
   "Start time": "Godzina rozpoczęcia",
   "Submit": "Wyślij",
+  "There are work logs connected to this user.": "Istnieją godziny pracy przypisane do tego użytkownika.",
   "Updated at": "Zaktualizowano",
   "User": "Użytkownik",
+  "Users": "Użytkownicy",
   "Work logs": "Godziny pracy"
 }
