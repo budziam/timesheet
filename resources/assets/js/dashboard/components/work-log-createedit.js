@@ -33,6 +33,9 @@ export default {
                     workLog.time_fieldwork = WorkLogTime.timePretty(workLog.time_fieldwork);
                     workLog.time_office = WorkLogTime.timePretty(workLog.time_office);
 
+                    component.$refs.project.select({id: workLog.project.id, text: workLog.project.name});
+                    component.$refs.user.select({id: workLog.user.id, text: workLog.user.name});
+
                     component.model = workLog;
                 })
                 .catch(error => Event.requestError(error));
@@ -43,6 +46,8 @@ export default {
 
             formData.time_fieldwork = WorkLogTime.prettyToInt(formData.time_fieldwork);
             formData.time_office = WorkLogTime.prettyToInt(formData.time_office);
+            formData.project_id = formData.project.id;
+            formData.user_id = formData.user.id;
 
             return formData;
         },

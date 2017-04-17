@@ -1,6 +1,8 @@
-<div :class="formClass">
-    <div class="text-right" v-if="isEditing">
-        <button class="btn btn-lg btn-danger" @click="destroy">{{ $trans('Delete') }}</button>
+<div :class="formClass" class="container">
+    <div class="row" v-if="isEditing">
+        <div class="col-md-12 text-right">
+            <button class="btn btn-lg btn-danger" @click="destroy">{{ $trans('Delete') }}</button>
+        </div>
     </div>
 
     <v-form :method="formMethod"
@@ -8,80 +10,96 @@
             :formData="getFormData"
             @success="onFormSuccess"
     >
-        <div class="form-group" v-if="isEditing">
-            <label for="form_id">{{ $trans('ID') }}</label>
-            <input type="text"
-                   id="form_id"
-                   class="form-control"
-                   v-model="model.id"
-                   disabled
-            >
+        <div class="row" v-if="isEditing">
+            <div class="form-group col-md-12">
+                <label for="form_id">{{ $trans('ID') }}</label>
+                <input type="text"
+                       id="form_id"
+                       class="form-control"
+                       v-model="model.id"
+                       disabled
+                >
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="form_name">{{ $trans('Name') }}</label>
-            <input type="text"
-                   id="form_name"
-                   name="name"
-                   class="form-control"
-                   v-model="model.name"
-                   required
-            >
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label for="form_name">{{ $trans('Name') }}</label>
+                <input type="text"
+                       id="form_name"
+                       name="name"
+                       class="form-control"
+                       v-model="model.name"
+                       required
+                >
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="form_description">{{ $trans('Description') }}</label>
-            <textarea id="form_description"
-                      name="description"
-                      class="form-control"
-                      v-model="model.description"
-            >
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label for="form_ends_at">{{ $trans('End date') }}</label>
+                <input type="datetime-local"
+                       id="form_ends_at"
+                       name="ends_at"
+                       class="form-control"
+                       v-model="model.ends_at"
+                       required
+                >
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label for="form_description">{{ $trans('Description') }}</label>
+                <textarea id="form_description"
+                          name="description"
+                          class="form-control"
+                          v-model="model.description"
+                >
             </textarea>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="form_color">{{ $trans('Color') }}</label>
-            <input type="color"
-                   id="form_color"
-                   name="color"
-                   class="form-control"
-                   v-model="model.color"
-                   required
-            >
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label for="form_color">{{ $trans('Color') }}</label>
+                <input type="color"
+                       id="form_color"
+                       name="color"
+                       class="form-control"
+                       v-model="model.color"
+                       required
+                >
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="form_ends_at">{{ $trans('End date') }}</label>
-            <input type="datetime-local"
-                   id="form_ends_at"
-                   name="ends_at"
-                   class="form-control"
-                   v-model="model.ends_at"
-                   required
-            >
+        <div class="row" v-if="isEditing">
+            <div class="form-group col-lg-6 col-sm-12">
+                <label for="form_created_at">{{ $trans('Created at') }}</label>
+                <input type="datetime-local"
+                       id="form_created_at"
+                       class="form-control"
+                       v-model="model.created_at"
+                       disabled
+                >
+            </div>
+
+            <div class="form-group col-lg-6 col-sm-12">
+                <label for="form_updated_at">{{ $trans('Updated at') }}</label>
+                <input type="datetime-local"
+                       id="form_updated_at"
+                       class="form-control"
+                       v-model="model.updated_at"
+                       disabled
+                >
+            </div>
         </div>
 
-        <div class="form-group" v-if="isEditing">
-            <label for="form_created_at">{{ $trans('Created at') }}</label>
-            <input type="datetime-local"
-                   id="form_created_at"
-                   class="form-control"
-                   v-model="model.created_at"
-                   disabled
-            >
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-success" type="submit" v-if="isEditing">{{ $trans('Submit') }}</button>
+                <button class="btn btn-success" type="submit" v-if="isCreating">{{ $trans('Create') }}</button>
+            </div>
         </div>
-
-        <div class="form-group" v-if="isEditing">
-            <label for="form_updated_at">{{ $trans('Updated at') }}</label>
-            <input type="datetime-local"
-                   id="form_updated_at"
-                   class="form-control"
-                   v-model="model.updated_at"
-                   disabled
-            >
-        </div>
-
-        <button class="btn btn-success" type="submit" v-if="isEditing">{{ $trans('Submit') }}</button>
-        <button class="btn btn-success" type="submit" v-if="isCreating">{{ $trans('Create') }}</button>
     </v-form>
 </div>

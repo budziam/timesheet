@@ -2,7 +2,7 @@ module.exports = {
     template: require('html!./select.html'),
 
     props: {
-        value: null,
+        value: [Number, String],
         placeholder: String,
         multiple: [Boolean, String],
         url: String,
@@ -34,6 +34,12 @@ module.exports = {
     },
 
     methods: {
+        select(data) {
+            $(this.$el).select2("trigger", "select", {
+                data
+            });
+        },
+
         getOptions() {
             let options = {
                 placeholder: this.placeholder || '', // Without empty string, select2 has mindfuck while trying to clear selected option

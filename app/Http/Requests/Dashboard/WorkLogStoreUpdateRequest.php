@@ -13,11 +13,11 @@ class WorkLogStoreUpdateRequest extends BaseRequest
         return [
             'project_id'     => [
                 'required',
-                Rule::exists(Project::table()),
+                Rule::exists(Project::table(), 'id'),
             ],
             'user_id'        => [
                 'required',
-                Rule::exists(User::table()),
+                Rule::exists(User::table(), 'id'),
             ],
             'date'           => 'required|date',
             'time_fieldwork' => 'required|integer',
