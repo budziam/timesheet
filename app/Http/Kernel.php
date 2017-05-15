@@ -33,11 +33,12 @@ class Kernel extends HttpKernel
         ],
 
         'app' => [
-            \App\Http\Middleware\AuthMiddleware::class,
+            \App\Http\Middleware\AppMiddleware::class,
         ],
 
         'dashboard' => [
-            \App\Http\Middleware\AuthDashboardMiddleware::class,
+            \App\Http\Middleware\AppMiddleware::class,
+            \App\Http\Middleware\DashboardMiddleware::class,
         ],
 
         'api' => [

@@ -51,16 +51,26 @@
   .fc-event {
     pointer-events: all;
     background-color: #616161;
-    border: 1px solid #424242;
-    text-shadow: 1px 1px #000000;
-    opacity: 0.9;
+    border: 1px solid $gray;
+    color: $text-color;
 
-    &:hover {
-      opacity: 1.0;
+    &:not(.fc-editable) {
+      background-color: #ffffff !important;
+      opacity: 0.7;
+    }
+
+    &.fc-editable {
+      opacity: 0.9;
+
+      &:hover {
+        opacity: 1.0;
+      }
     }
 
     .fc-content {
       text-align: center;
+      text-overflow: ellipsis;
+      padding: 2px;
 
       .fc-title {
         font-weight: bold;

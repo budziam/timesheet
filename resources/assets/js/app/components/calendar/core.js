@@ -29,7 +29,11 @@ export default {
 
     methods: {
         displayEventEdit(event) {
-            this.eventEditRaw = $.extend({}, event);
+            if (!event.editable) {
+                return;
+            }
+
+            this.eventEditRaw = Object.assign({}, event);
             this.eventEdit = {
                 fieldwork: WorkLogTime.timePretty(this.eventEditRaw.time_fieldwork),
                 office: WorkLogTime.timePretty(this.eventEditRaw.time_office),
@@ -78,11 +82,18 @@ export default {
         },
 
         updateEvent(data) {
-            let event = $.extend(this.eventEditRaw, {
+            const before = JSON.stringify(this.eventEditRaw);
+
+            const event = Object.assign(this.eventEditRaw, {
+                comment: data.comment,
                 time_fieldwork: WorkLogTime.prettyToInt(data.fieldwork),
-                time_office: WorkLogTime.prettyToInt(data.office),
-                comment: data.comment
+                time_office: WorkLogTime.prettyToInt(data.office)
             });
+
+            // There was no changes
+            if (JSON.stringify(event) === before) {
+                return;
+            }
 
             if (event.time_fieldwork <= 0 && event.time_office <= 0) {
                 axios.delete('/api/work-logs/' + event.id)
@@ -187,7 +198,11 @@ export default {
                              Teren: ${fieldwork}<br />
                              Biuro: ${office}
                         </div>
-                    `)
+                    `);
+
+                    if (event.editable) {
+                        element.addClass('fc-editable');
+                    }
                 },
 
                 eventAfterAllRender() {

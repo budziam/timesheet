@@ -20,9 +20,11 @@
             <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
+            @can('enter', 'dashboard')
             <li>
                 <a href="{{ route('dashboard.home.index') }}">@lang('Dashboard')</a>
             </li>
+            @endcan
             <li>
                 <form action="{{ route('auth.logout') }}" method="POST">
                     {{ csrf_field() }}

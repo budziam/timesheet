@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    <v-calendar v-if="projectId"
+    <v-calendar v-if="project"
                 :url="workLogsUrl"
                 @dayRender="onDayRender"
                 ref="calendar"

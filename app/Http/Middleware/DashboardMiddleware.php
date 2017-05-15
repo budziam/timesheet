@@ -5,7 +5,7 @@ use App\Bases\BaseMiddleware;
 use Auth;
 use Closure;
 
-class AuthMiddleware extends BaseMiddleware
+class DashboardMiddleware extends BaseMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,10 @@ class AuthMiddleware extends BaseMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::guest()) {
+        if (!Auth::user()->can('enter', 'dashboard')) {
             return $request->expectsJson()
                 ? $this->responseError(401)
-                : redirect()->guest(route('auth.login'));
+                : redirect()->guest(route('app.home.index'));
         }
 
         return $next($request);

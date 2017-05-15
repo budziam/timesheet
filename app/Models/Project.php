@@ -14,6 +14,7 @@ use Carbon\Carbon;
  * @property \Carbon\Carbon                                                           $ends_at
  * @property \Carbon\Carbon                                                           $created_at
  * @property \Carbon\Carbon                                                           $updated_at
+ * @property-read bool                                                                $active
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProjectGroup[] $groups
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\WorkLog[]      $workLogs
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Project whereId($value)
@@ -35,8 +36,8 @@ class Project extends BaseModel
         'ends_at',
     ];
 
-    protected $dates = [
-        'ends_at',
+    protected $casts = [
+        'ends_at' => 'date',
     ];
 
     protected $attributes = [
@@ -56,5 +57,10 @@ class Project extends BaseModel
     public function scopeActive($query)
     {
         $query->where('ends_at', '>=', Carbon::now());
+    }
+
+    public function getActiveAttrbiute()
+    {
+        return Carbon::now()->lt($this->ends_at);
     }
 }

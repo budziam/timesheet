@@ -5,7 +5,7 @@ use App\Bases\BaseMiddleware;
 use Auth;
 use Closure;
 
-class AuthDashboardMiddleware extends BaseMiddleware
+class AppMiddleware extends BaseMiddleware
 {
     /**
      * Handle an incoming request.

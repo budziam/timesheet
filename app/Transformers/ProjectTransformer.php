@@ -16,6 +16,7 @@ class ProjectTransformer extends TransformerAbstract
             'id'          => $project->id,
             'name'        => $project->name,
             'description' => $project->description,
+            'endst_at'    => $project->ends_at,
         ];
     }
 

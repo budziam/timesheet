@@ -2,6 +2,7 @@
 namespace App\Models;
 
 use App\Bases\BaseModel;
+use Carbon\Carbon;
 
 /**
  * App\Models\WorkLog
@@ -15,6 +16,7 @@ use App\Bases\BaseModel;
  * @property string                   $comment
  * @property \Carbon\Carbon           $created_at
  * @property \Carbon\Carbon           $updated_at
+ * @property-read bool                $editable
  * @property-read \App\Models\Project $project
  * @property-read \App\Models\User    $user
  * @method static \Illuminate\Database\Query\Builder|\App\Models\WorkLog whereId($value)
@@ -54,5 +56,10 @@ class WorkLog extends BaseModel
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getEditableAttribute()
+    {
+        return $this->project->active;
     }
 }

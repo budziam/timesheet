@@ -1,5 +1,6 @@
 import VCalendar from '../components/calendar/core';
 import ModalTime from '../components/calendar/modal-time';
+import Moment from 'moment';
 
 export default {
     template: require('html!./work-log-sync.html'),
@@ -24,13 +25,15 @@ export default {
 
     methods: {
         onDayRender(date, cell) {
+            if (Moment(this.project.ends_at).isBefore(date)) {
+                return;
+            }
+
             let title = this.$trans('Dodaj godziny');
 
             $(`<button class="btn btn-default fc-log-time">${title}</button>`)
                 .appendTo(cell)
-                .click(function () {
-                    this.displayEventAdd(date.format());
-                }.bind(this));
+                .click(() => this.displayEventAdd(date.format()));
         },
 
         displayEventAdd(date) {
@@ -64,9 +67,7 @@ export default {
             let component = this;
 
             axios.get('/api/projects/' + this.projectId)
-                .then((response) => {
-                    component.project = response.data;
-                })
+                .then(response => component.project = response.data)
                 .catch(error => Event.requestError(error));
         }
     },

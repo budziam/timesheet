@@ -19,7 +19,8 @@ $router->get('search/work-logs/fullcalendar-sync', [
 $router->patch('work-logs/{workLog}', [
     'as'   => 'work-logs.update',
     'uses' => WorkLogController::class . '@update',
-]);
+])
+    ->middleware('can:update,workLog');
 
 $router->delete('work-logs/{workLog}', [
     'as'   => 'work-logs.destroy',

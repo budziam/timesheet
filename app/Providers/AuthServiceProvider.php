@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Gate;
+use App\Models\WorkLog;
+use App\Policies\DashboardPolicy;
+use App\Policies\WorkLogPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -13,7 +15,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
+        'dashboard'    => DashboardPolicy::class,
+        WorkLog::class => WorkLogPolicy::class,
     ];
 
     /**
