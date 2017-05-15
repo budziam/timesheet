@@ -66,13 +66,15 @@ export default {
             }
 
             axios.post('/api/projects/' + event.project_id + '/work-logs', {
-                day: event.date,
+                date: event.date,
                 time_fieldwork: event.time_fieldwork,
                 time_office: event.time_office,
                 comment: event.comment
             })
                 .then(function (response) {
                     event.id = response.data.id;
+                    event.editable = true;
+                    event.color = project.color;
 
                     $(this.$refs.calendar).fullCalendar('renderEvent', event, false);
 

@@ -62,6 +62,21 @@
 
         <div class="row">
             <div class="form-group col-md-12">
+                <label for="form_groups">{{ $trans('Groups') }}</label>
+                <v-select id="form_groups"
+                          name="groups[]"
+                          class="form-control"
+                          :multiple="true"
+                          url="/dashboard/api/select2/project-groups"
+                          v-model="model.user.id"
+                          ref="projectGroup"
+                >
+                </v-select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-12">
                 <label for="form_color">{{ $trans('Color') }}</label>
                 <input type="color"
                        id="form_color"

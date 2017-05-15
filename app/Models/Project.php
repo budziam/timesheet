@@ -59,7 +59,7 @@ class Project extends BaseModel
         $query->where('ends_at', '>=', Carbon::now());
     }
 
-    public function getActiveAttrbiute()
+    public function getActiveAttribute() : bool
     {
         return Carbon::now()->lt($this->ends_at);
     }

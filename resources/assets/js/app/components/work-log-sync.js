@@ -25,7 +25,7 @@ export default {
 
     methods: {
         onDayRender(date, cell) {
-            if (Moment(this.project.ends_at).isBefore(date)) {
+            if (!this.isDateValid(date)) {
                 return;
             }
 
@@ -37,6 +37,10 @@ export default {
         },
 
         displayEventAdd(date) {
+            if (!this.isDateValid(date)) {
+                return;
+            }
+
             this.eventAdd = {
                 timeFieldwork: '',
                 timeOffice: '',
@@ -59,8 +63,9 @@ export default {
         },
 
         fetchProject() {
+            this.project = null;
+
             if (!this.projectId) {
-                this.project = null;
                 return;
             }
 
@@ -69,6 +74,18 @@ export default {
             axios.get('/api/projects/' + this.projectId)
                 .then(response => component.project = response.data)
                 .catch(error => Event.requestError(error));
+        },
+
+        isDateValid(date) {
+            if (Moment().endOf('day').isBefore(date)) {
+                return false;
+            }
+
+            if (Moment(this.project.ends_at).endOf('day').isBefore(Moment())) {
+                return false;
+            }
+
+            return true;
         }
     },
 

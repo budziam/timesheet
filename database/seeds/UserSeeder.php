@@ -24,9 +24,10 @@ class UserSeeder extends Seeder
 
     protected function seedAdminUser()
     {
-        return User::create([
+        return User::forceCreate([
             'name'     => 'admin',
             'password' => bcrypt(''),
+            'is_admin' => true,
         ]);
     }
 
@@ -49,7 +50,7 @@ class UserSeeder extends Seeder
                 while ($date->lt(Carbon::now())) {
                     factory(WorkLog::class)
                         ->create([
-                            'date'        => $date->copy()->startOfDay(),
+                            'date'       => $date->copy()->startOfDay(),
                             'project_id' => $project->getKey(),
                             'user_id'    => $user->getKey(),
                         ]);

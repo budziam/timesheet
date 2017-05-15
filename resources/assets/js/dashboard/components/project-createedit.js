@@ -25,7 +25,7 @@ export default {
                 .then(response => {
                     let project = response.data;
 
-                    project.ends_at = Moment(project.ends_at).format('YYYY-MM-DDThh:mm');
+                    project.ends_at = Moment(project.ends_at).format('YYYY-MM-DD');
                     project.created_at = Moment(project.created_at).format('YYYY-MM-DDThh:mm:ss');
                     project.updated_at = Moment(project.updated_at).format('YYYY-MM-DDThh:mm:ss');
 

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Policies;
 
 use App\Models\User;
@@ -11,6 +10,6 @@ class DashboardPolicy
 
     public function enter(User $user)
     {
-        return $user->id === 1;
+        return $user->is_admin;
     }
 }

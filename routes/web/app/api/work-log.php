@@ -30,4 +30,5 @@ $router->delete('work-logs/{workLog}', [
 $router->post('projects/{project}/work-logs', [
     'as'   => 'projects.work-logs.store',
     'uses' => ProjectWorkLogController::class . '@store',
-]);
+])
+    ->middleware('can:store,' . \App\Models\WorkLog::class . ',project');

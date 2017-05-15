@@ -4,8 +4,8 @@ namespace App\Models;
 
 use App\Traits\HelpfulMethods;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * App\Models\User
@@ -14,9 +14,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string                                                                                                         $name
  * @property string                                                                                                         $password
  * @property string                                                                                                         $remember_token
+ * @property bool                                                                                                           $is_admin
  * @property \Carbon\Carbon                                                                                                 $created_at
  * @property \Carbon\Carbon                                                                                                 $updated_at
- * @property string                                                                                                         $deleted_at
+ * @property \Carbon\Carbon                                                                                                 $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\WorkLog[]                                            $workLogs
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $readNotifications
@@ -46,6 +47,11 @@ class User extends Authenticatable
 
     protected $attributes = [
         'password' => '',
+        'is_admin' => false,
+    ];
+
+    protected $dates = [
+        'deleted_at',
     ];
 
     /**

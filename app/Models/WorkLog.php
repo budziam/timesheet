@@ -58,7 +58,7 @@ class WorkLog extends BaseModel
         return $this->belongsTo(User::class);
     }
 
-    public function getEditableAttribute()
+    public function getEditableAttribute() : bool
     {
         return $this->project->active;
     }
