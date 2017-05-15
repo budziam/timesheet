@@ -4,6 +4,8 @@ require('bootstrap-notify');
 
 import ProjectIndex from './components/project-index';
 import ProjectCreateedit from './components/project-createedit';
+import ProjectGroupIndex from './components/project-group-index';
+import ProjectGroupCreateedit from './components/project-group-createedit';
 import UserIndex from './components/user-index';
 import UserCreateedit from './components/user-createedit';
 import UserChangePassword from './components/user-change-password';
@@ -16,6 +18,8 @@ window.vueApp = new Vue({
     components: {
         ProjectIndex,
         ProjectCreateedit,
+        ProjectGroupIndex,
+        ProjectGroupCreateedit,
         UserIndex,
         UserCreateedit,
         UserChangePassword,

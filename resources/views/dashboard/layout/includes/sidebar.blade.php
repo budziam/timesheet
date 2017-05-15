@@ -19,7 +19,6 @@
                 <li>
                     <form action="{{ route('auth.logout') }}" method="POST">
                         {{ csrf_field() }}
-
                         <button type="submit" class="btn btn-link btn-logout">@lang('Logout')</button>
                     </form>
                 </li>
@@ -33,6 +32,9 @@
         </li>
         <li>
             <a href="{{ route('dashboard.projects.index') }}">@lang('Projects')</a>
+        </li>
+        <li>
+            <a href="{{ route('dashboard.project-groups.index') }}">@lang('Project groups')</a>
         </li>
         <li>
             <a href="{{ route('dashboard.work-logs.index') }}">@lang('Work logs')</a>
