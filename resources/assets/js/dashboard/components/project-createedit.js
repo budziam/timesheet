@@ -29,6 +29,15 @@ export default {
                     project.created_at = Moment(project.created_at).format('YYYY-MM-DDThh:mm:ss');
                     project.updated_at = Moment(project.updated_at).format('YYYY-MM-DDThh:mm:ss');
 
+                    component.$refs.groups.select(
+                        project.groups.map(group => {
+                            return {
+                                id: group.id,
+                                text: group.name
+                            }
+                        })
+                    );
+
                     component.model = project;
                 })
                 .catch(error => Event.requestError(error));
@@ -37,7 +46,8 @@ export default {
         getFormData() {
             let formData = Object.assign({}, this.model);
 
-            formData.ends_at = Moment(formData.ends_at).format('YYYY-MM-DD hh:mm:ss');
+            formData.ends_at = Moment(formData.ends_at).format('YYYY-MM-DD');
+            formData.groups = formData.groups.map(group => group.id);
 
             return formData;
         },
@@ -64,6 +74,14 @@ export default {
                         Event.requestError(error);
                     }
                 });
+        },
+
+        updateGroups(groups) {
+            this.model.groups = groups.map(group => {
+                return {
+                    id: group
+                }
+            });
         }
     },
 

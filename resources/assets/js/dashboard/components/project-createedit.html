@@ -68,6 +68,7 @@
                           class="form-control"
                           :multiple="true"
                           url="/dashboard/api/select2/project-groups"
+                          @input="updateGroups($event)"
                           ref="groups"
                 >
                 </v-select>

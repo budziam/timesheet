@@ -6,6 +6,7 @@ use App\Datatables\ProjectDatatable;
 use App\Http\Requests\Dashboard\ProjectDestroyRequest;
 use App\Http\Requests\Dashboard\ProjectStoreUpdateRequest;
 use App\Models\Project;
+use App\Repositories\ProjectRepository;
 use App\Transformers\Dashboard\ProjectTransformer;
 use ModelShaper\Datatable\DatatableShaper;
 use ModelShaper\Datatable\DatatableFormRequest;
@@ -38,15 +39,17 @@ class ProjectController extends BaseController
     public function store(ProjectStoreUpdateRequest $request)
     {
         $project = Project::create($request->all());
+        $project->groups()->sync($request->input('groups', []));
 
         return fractal()
             ->item($project, new ProjectTransformer())
             ->toArray();
     }
 
-    public function update(Project $project, ProjectStoreUpdateRequest $request)
+    public function update(ProjectStoreUpdateRequest $request, Project $project, ProjectRepository $repository)
     {
         $project->update($request->all());
+        $project->groups()->sync($request->input('groups', []));
 
         return $this->responseSuccess();
     }

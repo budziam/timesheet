@@ -11,7 +11,7 @@ abstract class DateUtils
             return __('Never');
         }
 
-        return $date->toDateTimeString();
+        return $date->toDateString();
     }
 
     public static function formatWorkLogTime($time) : string

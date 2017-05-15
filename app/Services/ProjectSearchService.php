@@ -20,8 +20,7 @@ class ProjectSearchService
      */
     public function searchDefault($search, array $groups = [])
     {
-        $query = Project::with('groups')
-            ->active();
+        $query = Project::with('groups')->active();
 
         $this->searchService
             ->filterQuery($query, 'name', $search);

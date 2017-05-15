@@ -12,6 +12,7 @@ class ProjectStoreUpdateRequest extends BaseRequest
             'description' => 'string',
             'color'       => 'required|string',
             'ends_at'     => 'required|date',
+            'groups'      => 'array',
         ];
     }
 }

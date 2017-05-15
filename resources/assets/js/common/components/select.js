@@ -2,7 +2,7 @@ module.exports = {
     template: require('html!./select.html'),
 
     props: {
-        value: [Number, String],
+        value: [Number, String, Array],
         placeholder: String,
         multiple: [Boolean, String],
         url: String,
@@ -34,10 +34,12 @@ module.exports = {
     },
 
     methods: {
-        select(data) {
-            $(this.$el).select2("trigger", "select", {
-                data
-            });
+        select(items) {
+            if (!Array.isArray(items)) {
+                items = [items];
+            }
+
+            items.forEach(data => $(this.$el).select2("trigger", "select", {data}));
         },
 
         getOptions() {
