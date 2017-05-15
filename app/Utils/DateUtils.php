@@ -5,7 +5,7 @@ use Carbon\Carbon;
 
 abstract class DateUtils
 {
-    public static function formatEndsAt(?Carbon $date) : string
+    public static function formatEndsAt(Carbon $date) : string
     {
         if ($date === null) {
             return __('Never');

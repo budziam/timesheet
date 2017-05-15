@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "php": ">=7.1.0",
+        "php": ">=7.0.0",
         "laravel/framework": "5.4.*",
         "laravelcollective/html": "5.4.*",
         "spatie/laravel-fractal": "^3.0",
