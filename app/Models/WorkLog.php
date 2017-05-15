@@ -2,7 +2,6 @@
 namespace App\Models;
 
 use App\Bases\BaseModel;
-use Carbon\Carbon;
 
 /**
  * App\Models\WorkLog

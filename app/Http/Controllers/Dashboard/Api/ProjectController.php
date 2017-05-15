@@ -8,8 +8,8 @@ use App\Http\Requests\Dashboard\ProjectStoreUpdateRequest;
 use App\Models\Project;
 use App\Repositories\ProjectRepository;
 use App\Transformers\Dashboard\ProjectTransformer;
-use ModelShaper\Datatable\DatatableShaper;
 use ModelShaper\Datatable\DatatableFormRequest;
+use ModelShaper\Datatable\DatatableShaper;
 use ModelShaper\Select2\Select2FormRequest;
 use ModelShaper\Select2\Select2Shaper;
 

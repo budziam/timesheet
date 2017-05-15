@@ -6,8 +6,8 @@ use App\Datatables\WorkLogDatatable;
 use App\Http\Requests\Dashboard\WorkLogStoreUpdateRequest;
 use App\Models\WorkLog;
 use App\Transformers\Dashboard\WorkLogTransformer;
-use ModelShaper\Datatable\DatatableShaper;
 use ModelShaper\Datatable\DatatableFormRequest;
+use ModelShaper\Datatable\DatatableShaper;
 
 class WorkLogController extends BaseController
 {

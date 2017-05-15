@@ -5,10 +5,10 @@ use App\Builders\Breadcrumb\BreadcrumbBuilder;
 use App\Builders\NavbarBuilder;
 use App\Models\User;
 use App\Traits\Responseable;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Routing\Controller;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller;
 
 class BaseController extends Controller
 {
