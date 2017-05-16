@@ -1,5 +1,5 @@
 <?php
-namespace App\Common\Http\Middleware;
+namespace App\Http\Middleware;
 
 use App\Common\UrlRemote;
 use Cache;
@@ -50,7 +50,7 @@ class TrustedProxiesMiddleware
     protected function getFromUrl($url) : array
     {
         return Cache::remember($url, $this->cacheMaxAge, function () use ($url) {
-            return explode(PHP_EOL, trim(UrlRemote::get($url)));
+            return explode(PHP_EOL, trim(file_get_contents($url)));
         });
     }
 }
