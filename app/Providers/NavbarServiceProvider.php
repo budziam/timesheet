@@ -28,7 +28,7 @@ class NavbarServiceProvider extends BaseServiceProvider
             ]);
         });
 
-        \View::composer('app.layout.includes.navbar-user', function (View $view) {
+        \View::composer(['app.layout.includes.navbar-user', 'dashboard.layout.includes.sidebar'], function (View $view) {
             $view->with([
                 'navbar' => app(NavbarBuilder::class),
             ]);

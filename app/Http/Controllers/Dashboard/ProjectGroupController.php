@@ -11,6 +11,7 @@ class ProjectGroupController extends BaseController
         $this->breadcrumbBuilder->attachNewBreadcrumb(
             __('Project groups'), route('dashboard.project-groups.index')
         );
+        $this->navbarBuilder->setActive('project-groups');
     }
 
     public function index()

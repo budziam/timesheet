@@ -9,6 +9,7 @@ class UserController extends BaseController
     protected function initPageInformation()
     {
         $this->breadcrumbBuilder->attachNewBreadcrumb(__('Users'), route('dashboard.users.index'));
+        $this->navbarBuilder->setActive('users');
     }
 
     public function index()

@@ -9,6 +9,7 @@ class ProjectController extends BaseController
     protected function initPageInformation()
     {
         $this->breadcrumbBuilder->attachNewBreadcrumb(__('Projects'), route('dashboard.projects.index'));
+        $this->navbarBuilder->setActive('projects');
     }
 
     public function index()

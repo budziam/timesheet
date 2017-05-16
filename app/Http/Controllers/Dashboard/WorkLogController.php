@@ -9,6 +9,7 @@ class WorkLogController extends BaseController
     protected function initPageInformation()
     {
         $this->breadcrumbBuilder->attachNewBreadcrumb(__('Work Logs'), route('dashboard.work-logs.index'));
+        $this->navbarBuilder->setActive('work-logs');
     }
 
     public function index()

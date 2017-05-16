@@ -27,19 +27,19 @@
     </ul>
 
     <ul class="nav navbar-sidebar">
-        <li class="active">
+        <li class="{{ $navbar->check('homepage') }}">
             <a href="{{ route('dashboard.home.index') }}">@lang('Homepage')</a>
         </li>
-        <li>
+        <li class="{{ $navbar->check('projects') }}">
             <a href="{{ route('dashboard.projects.index') }}">@lang('Projects')</a>
         </li>
-        <li>
+        <li class="{{ $navbar->check('project-groups') }}">
             <a href="{{ route('dashboard.project-groups.index') }}">@lang('Project groups')</a>
         </li>
-        <li>
+        <li class="{{ $navbar->check('work-logs') }}">
             <a href="{{ route('dashboard.work-logs.index') }}">@lang('Work logs')</a>
         </li>
-        <li>
+        <li class="{{ $navbar->check('users') }}">
             <a href="{{ route('dashboard.users.index') }}">@lang('Users')</a>
         </li>
     </ul>
