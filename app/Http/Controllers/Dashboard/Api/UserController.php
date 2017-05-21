@@ -62,7 +62,7 @@ class UserController extends BaseController
     public function changePassword(User $user, UserChangePasswordRequest $request)
     {
         $user->update([
-            'password' => $request->input('password'),
+            'password' => bcrypt($request->input('password')),
         ]);
 
         return $this->responseSuccess();

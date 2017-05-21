@@ -46,7 +46,6 @@ class User extends Authenticatable
     ];
 
     protected $attributes = [
-        'password' => '',
         'is_admin' => false,
     ];
 
@@ -54,16 +53,18 @@ class User extends Authenticatable
         'deleted_at',
     ];
 
+    public function __construct(array $attributes = [])
+    {
+        $this->attributes['password'] = bcrypt('');
+
+        parent::__construct($attributes);
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany|WorkLog
      */
     public function workLogs()
     {
         return $this->hasMany(WorkLog::class);
-    }
-
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = bcrypt($value);
     }
 }
