@@ -21,11 +21,8 @@ use Carbon\Carbon;
 use Faker\Generator;
 
 $factory->define(User::class, function (Generator $faker) {
-    static $password;
-
     return [
         'name'           => $faker->firstName . ' ' . $faker->lastName,
-        'password'       => $password ?: $password = bcrypt(''),
         'remember_token' => str_random(10),
     ];
 });

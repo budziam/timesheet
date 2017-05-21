@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
     {
         return User::forceCreate([
             'name'     => 'admin',
-            'password' => bcrypt('mbmbmb'),
+            'password' => 'mbmbmb',
             'is_admin' => true,
         ]);
     }
