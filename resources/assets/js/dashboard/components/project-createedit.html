@@ -108,13 +108,19 @@
         <div class="row">
             <div class="form-group col-md-12">
                 <label for="form_color">{{ $trans('Color') }}</label>
-                <input type="color"
-                       id="form_color"
-                       name="color"
-                       class="form-control"
-                       v-model="model.color"
-                       required
-                >
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input type="checkbox" v-model="colorEnabled">
+                    </span>
+                    <input type="color"
+                           id="form_color"
+                           name="color"
+                           class="form-control"
+                           v-model="model.color"
+                           :disabled="!colorEnabled"
+                           required
+                    >
+                </div>
             </div>
         </div>
 

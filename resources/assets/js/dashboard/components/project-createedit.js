@@ -12,6 +12,7 @@ export default {
     data() {
         return {
             endsAtEnabled: false,
+            colorEnabled: false,
             model: {
                 color: '#b0b0b0',
                 groups: []
@@ -44,6 +45,10 @@ export default {
                         this.endsAtEnabled = true;
                     }
 
+                    if (project.color) {
+                        this.colorEnabled = true;
+                    }
+
                     component.model = project;
                 })
                 .catch(error => Event.requestError(error));
@@ -53,6 +58,7 @@ export default {
             let formData = Object.assign({}, this.model);
 
             formData.ends_at = this.endsAtEnabled ? Moment(formData.ends_at).format('YYYY-MM-DD') : null;
+            formData.color = this.colorEnabled ? this.colorEnabled : null;
             formData.groups = formData.groups.map(group => group.id);
 
             return formData;

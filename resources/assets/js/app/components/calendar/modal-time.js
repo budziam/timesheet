@@ -25,7 +25,6 @@ module.exports = {
     mounted() {
         $(this.$el).modal();
         $(this.$el).on('hidden.bs.modal', () => {
-            console.log("Works");
             this.$emit('exit')
         });
     },

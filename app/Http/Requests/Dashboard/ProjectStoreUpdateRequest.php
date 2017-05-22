@@ -12,7 +12,7 @@ class  ProjectStoreUpdateRequest extends BaseRequest
             'kerg'        => 'required|string',
             'name'        => 'required|string',
             'description' => 'string',
-            'color'       => 'required|string',
+            'color'       => 'string|nullable',
             'ends_at'     => 'date|nullable',
             'groups'      => 'array',
         ];
