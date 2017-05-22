@@ -36,7 +36,7 @@ $factory->define(Project::class, function (Generator $faker) {
         'ends_at'     => $faker->boolean(80)
             ? Carbon::instance($faker->dateTimeBetween('-2 months', '+1 year'))->startOfDay()
             : null,
-        'color'       => $faker->boolean(80) ? $faker->hexColor : null,
+        'color'       => $faker->boolean(30) ? $faker->hexColor : null,
     ];
 });
 

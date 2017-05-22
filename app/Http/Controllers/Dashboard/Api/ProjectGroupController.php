@@ -43,9 +43,9 @@ class ProjectGroupController extends BaseController
             ->toArray();
     }
 
-    public function update(ProjectGroupStoreUpdateRequest $request, ProjectGroup $projectprojectGroup)
+    public function update(ProjectGroupStoreUpdateRequest $request, ProjectGroup $projectGroup)
     {
-        $projectprojectGroup->update($request->all());
+        $projectGroup->update($request->all());
 
         return $this->responseSuccess();
     }

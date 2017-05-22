@@ -17,6 +17,7 @@ use Carbon\Carbon;
  * @property \Carbon\Carbon                                                           $created_at
  * @property \Carbon\Carbon                                                           $updated_at
  * @property-read bool                                                                $active
+ * @property-read string|null                                                         $real_color
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProjectGroup[] $groups
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\WorkLog[]      $workLogs
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Project whereId($value)
@@ -65,6 +66,19 @@ class Project extends BaseModel
 
     public function getActiveAttribute() : bool
     {
-        return Carbon::now()->lt($this->ends_at);
+        return $this->ends_at === null || Carbon::now()->lt($this->ends_at);
+    }
+
+    public function getRealColorAttribute()
+    {
+        if ($this->color !== null) {
+            return $this->color;
+        }
+
+        if ($this->groups->isNotEmpty()) {
+            return $this->groups->first()->color;
+        }
+
+        return null;
     }
 }

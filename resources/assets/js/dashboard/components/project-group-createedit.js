@@ -11,7 +11,9 @@ export default {
 
     data() {
         return {
-            model: {}
+            model: {
+                color: '#b0b0b0',
+            }
         }
     },
 

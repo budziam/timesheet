@@ -8,7 +8,8 @@ class ProjectGroupStoreUpdateRequest extends BaseRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
+            'name'  => 'required|string',
+            'color' => 'required|string',
         ];
     }
 }

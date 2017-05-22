@@ -36,6 +36,7 @@
 
                                 <div class="col-sm-12">
                                     <span class="label label-info"
+                                          :style="{ 'background-color': group.color }"
                                           v-for="group in project.groups"
                                           v-text="group.name"
                                     >

@@ -11,6 +11,7 @@ class ProjectGroupTransformer extends TransformerAbstract
         return [
             'id'    => $projectGroup->id,
             'name'  => $projectGroup->name,
+            'color' => $projectGroup->color,
         ];
     }
 }

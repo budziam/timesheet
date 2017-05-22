@@ -10503,7 +10503,7 @@ be a descendant of the grid when it is being dragged.
 
 .work-log .fc-event {
   pointer-events: all;
-  background-color: #616161;
+  background-color: #eeeeee;
   border: 1px solid #555555;
   color: #333333;
 }
