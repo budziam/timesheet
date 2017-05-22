@@ -24,8 +24,8 @@
     ></v-calendar>
 
     <modal-time v-if="showEventAdd"
-                @close="onCloseEventAdd"
-                :event="eventAdd"
+                @save="onSaveEventAdd"
+                @exit="onExitEventAdd"
                 :title="$trans('Add :project hours', { project: project.name })"
     ></modal-time>
 </div>

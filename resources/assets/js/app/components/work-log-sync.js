@@ -13,7 +13,6 @@ export default {
         return {
             projectId: this.data.projectSelected,
             project: null,
-            eventAdd: null,
             eventAddDate: null,
             showEventAdd: false,
         };
@@ -41,25 +40,22 @@ export default {
                 return;
             }
 
-            this.eventAdd = {
-                timeFieldwork: '',
-                timeOffice: '',
-            };
             this.eventAddDate = date;
             this.showEventAdd = true;
         },
 
-        onCloseEventAdd(data) {
+        onSaveEventAdd(data) {
             this.addEvent(data);
+        },
 
+        onExitEventAdd() {
             this.showEventAdd = false;
-            this.eventAdd = null;
             this.eventAddDate = null;
         },
 
         addEvent(data) {
             this.$refs.calendar
-                .createEvent(this.eventAddDate, data.fieldwork, data.office, this.project);
+                .createEvent(this.eventAddDate, data.fieldwork, data.office, data.comment, this.project);
         },
 
         fetchProject() {

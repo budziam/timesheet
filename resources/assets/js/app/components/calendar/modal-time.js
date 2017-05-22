@@ -7,6 +7,14 @@ module.exports = {
     },
 
     data() {
+        if (!this.event) {
+            return {
+                office: '',
+                fieldwork: '',
+                comment: ''
+            };
+        }
+
         return {
             office: this.event.office || '',
             fieldwork: this.event.fieldwork || '',
@@ -16,19 +24,32 @@ module.exports = {
 
     mounted() {
         $(this.$el).modal();
-
         $(this.$el).on('hidden.bs.modal', () => {
-            this.$emit('close', {
-                fieldwork: this.fieldwork,
-                office: this.office,
-                comment: this.comment,
-            });
+            console.log("Works");
+            this.$emit('exit')
         });
     },
 
     methods: {
-        close() {
+        save() {
+            this.$emit('save', {
+                fieldwork: this.fieldwork,
+                office: this.office,
+                comment: this.comment,
+            });
+
             $(this.$el).modal('hide');
+        },
+
+        destroy() {
+            this.$emit('destroy');
+            $(this.$el).modal('hide');
+        }
+    },
+
+    computed: {
+        isEditing() {
+            return !!this.event;
         }
     }
 };

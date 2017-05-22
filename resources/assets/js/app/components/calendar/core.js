@@ -42,15 +42,28 @@ export default {
             this.showEventEdit = true;
         },
 
-        onCloseEventEdit(data) {
+        onSaveEventEdit(data) {
             this.updateEvent(data);
+        },
 
+        onDestroyEventEdit() {
+            const eventId = this.eventEditRaw.id;
+
+            axios.delete('/api/work-logs/' + eventId)
+                .then(() => {
+                    $(this.$refs.calendar).fullCalendar('removeEvents', eventId);
+                    Event.notifySuccess('Work log was removed');
+                })
+                .catch(error => Event.notifyDanger('Some problem occured while removing work log'));
+        },
+
+        onExitEventEdit() {
             this.showEventEdit = false;
             this.eventEdit = {};
             this.eventEditRaw = {};
         },
 
-        createEvent(date, fieldwork, office, project, comment = '') {
+        createEvent(date, fieldwork, office, comment, project) {
             let event = {
                 title: project.name,
                 date: date,
@@ -71,41 +84,31 @@ export default {
                 time_office: event.time_office,
                 comment: event.comment
             })
-                .then(function (response) {
+                .then(response => {
                     event.id = response.data.id;
                     event.editable = true;
                     event.color = project.color;
 
                     $(this.$refs.calendar).fullCalendar('renderEvent', event, false);
-
-                    Event.notifySuccess('Work log was added properly');
-                }.bind(this))
+                    Event.notifySuccess('Work log was properly added');
+                })
                 .catch(error => Event.requestError(error));
         },
 
         updateEvent(data) {
             const before = JSON.stringify(this.eventEditRaw);
-
             const event = Object.assign(this.eventEditRaw, {
                 comment: data.comment,
                 time_fieldwork: WorkLogTime.prettyToInt(data.fieldwork),
                 time_office: WorkLogTime.prettyToInt(data.office)
             });
 
-            // There was no changes
+            // There are no changes
             if (JSON.stringify(event) === before) {
                 return;
             }
 
             if (event.time_fieldwork <= 0 && event.time_office <= 0) {
-                axios.delete('/api/work-logs/' + event.id)
-                    .then(function () {
-                        $(this.$refs.calendar).fullCalendar('removeEvents', event.id);
-
-                        Event.notifySuccess('Work log was removed');
-                    }.bind(this))
-                    .catch(error => Event.notifyDanger('Some problem occured while removing work log'));
-
                 return;
             }
 
@@ -114,11 +117,10 @@ export default {
                 time_office: event.time_office,
                 comment: event.comment
             })
-                .then(function () {
+                .then(() => {
                     $(this.$refs.calendar).fullCalendar('updateEvent', event);
-
                     Event.notifySuccess('Work log was updated');
-                }.bind(this))
+                })
                 .catch(error => Event.notifyDanger('Some problem occured while updating work log'));
         },
 
@@ -130,13 +132,12 @@ export default {
                 .find('.fc-day .fc-work-time')
                 .html('');
 
-            $.each(times, function (key, value) {
-                let time = WorkLogTime.timePretty(value);
-
+            $.each(times, (key, value) => {
+                const time = WorkLogTime.timePretty(value);
                 $(this.$refs.calendar)
                     .find('.fc-day[data-date="' + key + '"] .fc-work-time')
                     .html(`<span>${time}</span>`);
-            }.bind(this));
+            });
         },
 
         getDateTimeSum() {
@@ -144,7 +145,7 @@ export default {
 
             $(this.$refs.calendar)
                 .fullCalendar('clientEvents')
-                .forEach(function (event) {
+                .forEach(event => {
                     if (!(event.date in times)) {
                         times[event.date] = 0;
                     }
