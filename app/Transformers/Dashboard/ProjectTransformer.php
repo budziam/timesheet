@@ -7,17 +7,19 @@ use League\Fractal\TransformerAbstract;
 class ProjectTransformer extends TransformerAbstract
 {
     protected $defaultIncludes = [
-        'groups'
+        'groups',
     ];
 
     public function transform(Project $project)
     {
         return [
             'id'          => $project->id,
+            'lkz'         => $project->lkz,
+            'kerg'        => $project->kerg,
             'name'        => $project->name,
             'color'       => $project->color,
             'description' => $project->description,
-            'ends_at'     => $project->ends_at->toDateString(),
+            'ends_at'     => $project->ends_at ? $project->ends_at->toDateString() : null,
             'created_at'  => $project->created_at->toDateTimeString(),
             'updated_at'  => $project->updated_at->toDateTimeString(),
         ];

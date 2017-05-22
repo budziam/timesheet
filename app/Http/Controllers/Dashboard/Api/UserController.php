@@ -7,6 +7,7 @@ use App\Http\Requests\Dashboard\UserChangePasswordRequest;
 use App\Http\Requests\Dashboard\UserDestroyRequest;
 use App\Http\Requests\Dashboard\UserStoreUpdateRequest;
 use App\Models\User;
+use App\Repositories\UserRepository;
 use App\Transformers\Dashboard\UserTransformer;
 use ModelShaper\Datatable\DatatableFormRequest;
 use ModelShaper\Datatable\DatatableShaper;
@@ -36,12 +37,12 @@ class UserController extends BaseController
             ->toArray();
     }
 
-    public function store(UserStoreUpdateRequest $request)
+    public function store(UserStoreUpdateRequest $request, UserRepository $repository)
     {
-        $project = User::create($request->all());
+        $user = $repository->create($request->all());
 
         return fractal()
-            ->item($project, new UserTransformer())
+            ->item($user, new UserTransformer())
             ->toArray();
     }
 

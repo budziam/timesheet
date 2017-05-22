@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use App\Bases\BaseModel;
@@ -8,6 +9,7 @@ use App\Bases\BaseModel;
  *
  * @property int                                                                 $id
  * @property string                                                              $name
+ * @property string                                                              $color
  * @property \Carbon\Carbon                                                      $created_at
  * @property \Carbon\Carbon                                                      $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Project[] $projects
@@ -22,6 +24,7 @@ class ProjectGroup extends BaseModel
 {
     protected $fillable = [
         'name',
+        'color',
     ];
 
     public function projects()

@@ -29,16 +29,21 @@ $factory->define(User::class, function (Generator $faker) {
 
 $factory->define(Project::class, function (Generator $faker) {
     return [
+        'lkz'         => $faker->asciify(),
+        'kerg'        => $faker->asciify('****/**'),
         'name'        => ucfirst($faker->words(3, true)),
         'description' => $faker->paragraphs(5, true),
-        'ends_at'     => Carbon::instance($faker->dateTimeBetween('-2 months', '+1 year'))->startOfDay(),
-        'color'       => $faker->hexColor,
+        'ends_at'     => $faker->boolean(80)
+            ? Carbon::instance($faker->dateTimeBetween('-2 months', '+1 year'))->startOfDay()
+            : null,
+        'color'       => $faker->boolean(80) ? $faker->hexColor : null,
     ];
 });
 
 $factory->define(ProjectGroup::class, function (Generator $faker) {
     return [
-        'name' => ucfirst($faker->word),
+        'name'  => ucfirst($faker->word),
+        'color' => $faker->hexColor,
     ];
 });
 

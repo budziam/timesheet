@@ -11,11 +11,15 @@ class Projects extends Migration
     {
         Schema::create(Project::table(), function (Blueprint $table) {
             $table->increments('id');
+            $table->string('lkz', 16);
+            $table->string('kerg', 32);
             $table->string('name');
             $table->text('description');
-            $table->char('color', 16);
-            $table->timestamp('ends_at');
+            $table->char('color', 16)->nullable();
+            $table->timestamp('ends_at')->nullable();
             $table->timestamps();
+
+            $table->unique('lkz');
         });
 //        DB::statement('ALTER TABLE ' . Project::table() . ' ADD FULLTEXT full(name)');
 
@@ -23,6 +27,7 @@ class Projects extends Migration
         Schema::create(ProjectGroup::table(), function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->char('color', 16);
             $table->timestamps();
         });
 //        DB::statement('ALTER TABLE ' . ProjectGroup::table() . ' ADD FULLTEXT full(name)');

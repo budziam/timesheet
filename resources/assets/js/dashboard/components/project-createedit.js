@@ -11,6 +11,7 @@ export default {
 
     data() {
         return {
+            endsAtEnabled: false,
             model: {
                 color: '#b0b0b0',
                 groups: []
@@ -26,7 +27,7 @@ export default {
                 .then(response => {
                     let project = response.data;
 
-                    project.ends_at = Moment(project.ends_at).format('YYYY-MM-DD');
+                    project.ends_at = project.ends_at ? Moment(project.ends_at).format('YYYY-MM-DD') : null;
                     project.created_at = Moment(project.created_at).format('YYYY-MM-DDThh:mm:ss');
                     project.updated_at = Moment(project.updated_at).format('YYYY-MM-DDThh:mm:ss');
 
@@ -39,6 +40,10 @@ export default {
                         })
                     );
 
+                    if (project.ends_at) {
+                        this.endsAtEnabled = true;
+                    }
+
                     component.model = project;
                 })
                 .catch(error => Event.requestError(error));
@@ -47,7 +52,7 @@ export default {
         getFormData() {
             let formData = Object.assign({}, this.model);
 
-            formData.ends_at = Moment(formData.ends_at).format('YYYY-MM-DD');
+            formData.ends_at = this.endsAtEnabled ? Moment(formData.ends_at).format('YYYY-MM-DD') : null;
             formData.groups = formData.groups.map(group => group.id);
 
             return formData;
@@ -65,7 +70,7 @@ export default {
 
         destroy() {
             axios.delete(Laravel.url('/dashboard/api/projects/' + this.modelId))
-                .then(response => {
+                .then(() => {
                     window.location = Laravel.url('/dashboard/projects');
                 })
                 .catch(error => {

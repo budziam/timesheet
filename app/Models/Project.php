@@ -8,10 +8,12 @@ use Carbon\Carbon;
  * App\Models\Project
  *
  * @property int                                                                      $id
+ * @property string                                                                   $lkz
+ * @property string                                                                   $kerg
  * @property string                                                                   $name
  * @property string                                                                   $description
  * @property string                                                                   $color
- * @property \Carbon\Carbon                                                           $ends_at
+ * @property \Carbon\Carbon|null                                                      $ends_at
  * @property \Carbon\Carbon                                                           $created_at
  * @property \Carbon\Carbon                                                           $updated_at
  * @property-read bool                                                                $active
@@ -30,6 +32,8 @@ use Carbon\Carbon;
 class Project extends BaseModel
 {
     protected $fillable = [
+        'lkz',
+        'kerg',
         'name',
         'description',
         'color',

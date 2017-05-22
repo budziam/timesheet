@@ -13,6 +13,8 @@ export default {
             projectCreateUrl: Laravel.url('/dashboard/projects/create'),
             columns: [
                 'ID',
+                'L.K.Z',
+                'KERG/ID',
                 'Name',
                 'End date'
             ],
@@ -24,6 +26,12 @@ export default {
                         data: {
                             _: 'id.display'
                         },
+                    },
+                    {
+                        data: 'lkz',
+                    },
+                    {
+                        data: 'kerg',
                     },
                     {
                         data: 'name'

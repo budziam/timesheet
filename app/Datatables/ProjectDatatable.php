@@ -31,6 +31,8 @@ class ProjectDatatable implements DatatableContract
                         'display' => $this->projectRepository->getLink($project, '#' . $project->id),
                         'raw'     => $project->id,
                     ],
+                    'lkz'     => $project->lkz,
+                    'kerg'    => $project->kerg,
                     'name'    => $project->name,
                     'ends_at' => [
                         'display' => DateUtils::formatEndsAt($project->ends_at),
