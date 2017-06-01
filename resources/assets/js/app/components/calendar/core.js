@@ -67,7 +67,7 @@ export default {
             let event = {
                 title: project.name,
                 date: date,
-                project_id: project.id,
+                project: project,
                 time_fieldwork: WorkLogTime.prettyToInt(fieldwork),
                 time_office: WorkLogTime.prettyToInt(office),
                 comment: comment,
@@ -78,7 +78,7 @@ export default {
                 return false;
             }
 
-            axios.post('/api/projects/' + event.project_id + '/work-logs', {
+            axios.post('/api/projects/' + event.project.id + '/work-logs', {
                 date: event.date,
                 time_fieldwork: event.time_fieldwork,
                 time_office: event.time_office,
@@ -193,8 +193,11 @@ export default {
                 },
 
                 eventRender(event, element) {
-                    let fieldwork = WorkLogTime.timePretty(event.time_fieldwork);
-                    let office = WorkLogTime.timePretty(event.time_office);
+                    const fieldwork = WorkLogTime.timePretty(event.time_fieldwork);
+                    const office = WorkLogTime.timePretty(event.time_office);
+
+                    element.find('.fc-title').text(`${event.project.lkz} ${event.project.kerg}`);
+                    element.find('.fc-title').after(`<div>${event.project.name}</div>`);
 
                     element.find('.fc-content').append(`
                         <div class="fc-body">

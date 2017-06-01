@@ -2,28 +2,24 @@
 namespace App\Services;
 
 use App\Models\Project;
+use App\Utils\QueryUtils;
 
 class ProjectSearchService
 {
-    /** @var SearchService */
-    protected $searchService;
-
-    public function __construct(SearchService $searchService)
-    {
-        $this->searchService = $searchService;
-    }
-
     /**
      * @param string $search
      * @param array  $groups
      * @return \Illuminate\Database\Eloquent\Collection|Project[]
      */
-    public function searchDefault($search, array $groups = [])
+    public function searchDefault(string $search, array $groups = [])
     {
-        $query = Project::with('groups')->active();
-
-        $this->searchService
-            ->filterQuery($query, 'name', $search);
+        $query = Project::with('groups')
+            ->active()
+            ->whereNested(function ($query) use ($search) {
+                $query->where('name', 'LIKE', QueryUtils::valueForLike($search))
+                    ->orWhere('lkz', 'LIKE', QueryUtils::valueForLike($search));
+            })
+            ->latest('id');
 
         if (count($groups)) {
             $query->whereHas('groups', function ($query) use ($groups) {
@@ -34,17 +30,10 @@ class ProjectSearchService
         return $query->get();
     }
 
-    /**
-     * @param string $search
-     * @return \Eloquent
-     */
-    public function searchSelect2($search)
+    public function searchSelect2(string $search)
     {
-        $query = Project::query();
-
-        $this->searchService
-            ->filterQuery($query, 'name', $search);
-
-        return $query;
+        return Project::query()
+            ->where('name', 'LIKE', QueryUtils::valueForLike($search))
+            ->latest('id');
     }
 }
