@@ -24,6 +24,8 @@ class UserRepository
             return $user;
         }
 
+        $attributes['password'] = $attributes['password'] ?? bcrypt('');
+
         return User::create($attributes);
     }
 }

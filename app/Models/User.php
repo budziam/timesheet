@@ -55,13 +55,6 @@ class User extends Authenticatable
         'deleted_at',
     ];
 
-    public function __construct(array $attributes = [])
-    {
-        $this->attributes['password'] = bcrypt('');
-
-        parent::__construct($attributes);
-    }
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany|WorkLog
      */
