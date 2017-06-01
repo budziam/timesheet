@@ -2,7 +2,7 @@
 namespace App\Services;
 
 use App\Models\ProjectGroup;
-use App\Utils\QueryUtils;
+use ModelShaper\QueryUtils;
 
 class ProjectGroupSearchService
 {

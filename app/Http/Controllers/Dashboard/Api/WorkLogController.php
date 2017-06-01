@@ -13,7 +13,7 @@ class WorkLogController extends BaseController
 {
     public function datatable(DatatableFormRequest $request)
     {
-        $shaper = new DatatableShaper(WorkLogDatatable::make());
+        $shaper = new DatatableShaper(app(WorkLogDatatable::class));
 
         return $shaper->shape($request);
     }

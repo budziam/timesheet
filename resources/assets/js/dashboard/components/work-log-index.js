@@ -35,22 +35,13 @@ export default {
                         data: 'user',
                     },
                     {
-                        name: 'date',
-                        data: {
-                            _: 'date.display'
-                        },
+                        data: 'date',
                     },
                     {
-                        name: 'time_fieldwork',
-                        data: {
-                            _: 'time_fieldwork.display'
-                        },
+                        data: 'time_fieldwork',
                     },
                     {
-                        name: 'time_office',
-                        data: {
-                            _: 'time_office.display'
-                        },
+                        data: 'time_office',
                     }
                 ],
             }
