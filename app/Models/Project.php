@@ -61,12 +61,13 @@ class Project extends BaseModel
 
     public function scopeActive($query)
     {
-        $query->where('ends_at', '>=', Carbon::now());
+        $query->where('ends_at', '>=', Carbon::now())
+            ->orWhereNull('ends_at');
     }
 
     public function getActiveAttribute() : bool
     {
-        return $this->ends_at === null || Carbon::now()->lt($this->ends_at);
+        return $this->ends_at === null || $this->ends_at->gte(Carbon::now());
     }
 
     public function getRealColorAttribute()
