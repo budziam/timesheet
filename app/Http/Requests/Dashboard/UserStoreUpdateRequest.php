@@ -8,7 +8,8 @@ class UserStoreUpdateRequest extends BaseRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
+            'fullname' => 'required|string',
+            'name'     => 'required|string',
         ];
     }
 }

@@ -13,8 +13,8 @@ export default {
             userCreateUrl: Laravel.url('/dashboard/users/create'),
             columns: [
                 'ID',
-                'Fullname',
-                'Name'
+                'Name',
+                'Fullname'
             ],
             options: {
                 ajax: Laravel.url('/dashboard/api/datatable/users'),
@@ -26,10 +26,10 @@ export default {
                         },
                     },
                     {
-                        data: 'fullname'
+                        data: 'name'
                     },
                     {
-                        data: 'name'
+                        data: 'fullname'
                     }
                 ],
             }
