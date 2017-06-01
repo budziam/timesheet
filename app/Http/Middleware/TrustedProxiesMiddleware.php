@@ -36,7 +36,7 @@ class TrustedProxiesMiddleware
             })
             ->all();
 
-        Request::setTrustedProxies($proxies);
+        Request::setTrustedProxies($proxies, \Illuminate\Http\Request::HEADER_X_FORWARDED_ALL);
 
         return $next($request);
     }

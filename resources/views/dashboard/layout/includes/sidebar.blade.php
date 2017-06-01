@@ -8,7 +8,7 @@
                aria-haspopup="true"
                aria-expanded="false"
             >
-                {{ $user->name }}
+                {{ $user->fullname }}
                 <span class="caret"></span>
             </a>
 

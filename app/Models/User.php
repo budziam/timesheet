@@ -11,6 +11,7 @@ use Illuminate\Notifications\Notifiable;
  * App\Models\User
  *
  * @property int                                                                                                            $id
+ * @property string                                                                                                         $fullname
  * @property string                                                                                                         $name
  * @property string                                                                                                         $password
  * @property string                                                                                                         $remember_token
@@ -40,6 +41,7 @@ class User extends Authenticatable
     use SoftDeletes;
 
     protected $fillable = [
+        'fullname',
         'name',
         'email',
         'password',

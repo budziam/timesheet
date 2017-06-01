@@ -12,9 +12,7 @@ export default {
     data() {
         return {
             changePasswordUrl: Laravel.url(`/dashboard/users/${this.modelId}/change-password`),
-            model: {
-                color: '#b0b0b0'
-            }
+            model: {}
         }
     },
 

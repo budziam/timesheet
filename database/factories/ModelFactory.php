@@ -22,7 +22,8 @@ use Faker\Generator;
 
 $factory->define(User::class, function (Generator $faker) {
     return [
-        'name'           => $faker->firstName . ' ' . $faker->lastName,
+        'name'           => $faker->name,
+        'fullname'       => $faker->firstName . ' ' . $faker->lastName,
         'remember_token' => str_random(10),
     ];
 });

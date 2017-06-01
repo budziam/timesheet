@@ -13,6 +13,7 @@ export default {
             userCreateUrl: Laravel.url('/dashboard/users/create'),
             columns: [
                 'ID',
+                'Fullname',
                 'Name'
             ],
             options: {
@@ -23,6 +24,9 @@ export default {
                         data: {
                             _: 'id.display'
                         },
+                    },
+                    {
+                        data: 'fullname'
                     },
                     {
                         data: 'name'

@@ -58,7 +58,7 @@ export default {
             let formData = Object.assign({}, this.model);
 
             formData.ends_at = this.endsAtEnabled ? Moment(formData.ends_at).format('YYYY-MM-DD') : null;
-            formData.color = this.colorEnabled ? this.colorEnabled : null;
+            formData.color = this.colorEnabled ? this.model.color : null;
             formData.groups = formData.groups.map(group => group.id);
 
             return formData;

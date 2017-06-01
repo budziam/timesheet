@@ -20,7 +20,7 @@ class UserController extends BaseController
     public function edit(User $user)
     {
         $this->breadcrumbBuilder
-            ->attachNewBreadcrumb($user->name, route('dashboard.users.edit', $user->getRouteKey()));
+            ->attachNewBreadcrumb($user->fullname, route('dashboard.users.edit', $user->getRouteKey()));
 
         return view('dashboard.pages.users.edit', compact('user'));
     }
@@ -36,7 +36,7 @@ class UserController extends BaseController
     public function changePassword(User $user)
     {
         $this->breadcrumbBuilder
-            ->attachNewBreadcrumb($user->name, route('dashboard.users.edit', $user->getRouteKey()))
+            ->attachNewBreadcrumb($user->fullname, route('dashboard.users.edit', $user->getRouteKey()))
             ->attachNewBreadcrumb(__('Change password'), route('dashboard.users.change-password', $user->id));
 
         return view('dashboard.pages.users.change-password', compact('user'));

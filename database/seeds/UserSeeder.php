@@ -25,7 +25,8 @@ class UserSeeder extends Seeder
     protected function seedAdminUser()
     {
         return User::forceCreate([
-            'name'     => 'admin',
+            'name'     => 'mariusz',
+            'fullname' => 'Mariusz Budziak',
             'password' => bcrypt('mbmbmb'),
             'is_admin' => true,
         ]);

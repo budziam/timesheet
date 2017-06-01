@@ -26,11 +26,12 @@ class UserDatatable implements DatatableContract
         return User::all()
             ->map(function (User $user) {
                 return [
-                    'id'   => [
+                    'id'       => [
                         'display' => $this->userRepository->getLink($user, '#' . $user->id),
                         'raw'     => $user->id,
                     ],
-                    'name' => $user->name,
+                    'fullname' => $user->fullname,
+                    'name'     => $user->name,
                 ];
             });
     }
