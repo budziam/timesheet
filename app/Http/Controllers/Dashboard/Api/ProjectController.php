@@ -6,7 +6,6 @@ use App\Datatables\ProjectDatatable;
 use App\Http\Requests\Dashboard\ProjectDestroyRequest;
 use App\Http\Requests\Dashboard\ProjectStoreUpdateRequest;
 use App\Models\Project;
-use App\Repositories\ProjectRepository;
 use App\Transformers\Dashboard\ProjectTransformer;
 use ModelShaper\Datatable\DatatableFormRequest;
 use ModelShaper\Datatable\DatatableShaper;
@@ -46,7 +45,7 @@ class ProjectController extends BaseController
             ->toArray();
     }
 
-    public function update(ProjectStoreUpdateRequest $request, Project $project, ProjectRepository $repository)
+    public function update(ProjectStoreUpdateRequest $request, Project $project)
     {
         $project->update($request->all());
         $project->groups()->sync($request->input('groups', []));

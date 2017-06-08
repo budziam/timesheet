@@ -10,7 +10,7 @@ class ProjectWorkLogStoreRequest extends BaseRequest
     public function rules()
     {
         return [
-            'date'            => [
+            'date'           => [
                 'required',
                 'date',
                 Rule::unique(WorkLog::table(), 'date')

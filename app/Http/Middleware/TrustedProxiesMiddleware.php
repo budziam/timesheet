@@ -1,7 +1,6 @@
 <?php
 namespace App\Http\Middleware;
 
-use App\Common\UrlRemote;
 use Cache;
 use Closure;
 use Request;
