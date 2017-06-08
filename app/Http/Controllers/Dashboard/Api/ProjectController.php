@@ -17,7 +17,7 @@ class ProjectController extends BaseController
 {
     public function datatable(DatatableFormRequest $request)
     {
-        $shaper = new DatatableShaper(ProjectDatatable::make());
+        $shaper = new DatatableShaper(app(ProjectDatatable::class));
 
         return $shaper->shape($request);
     }

@@ -37,10 +37,7 @@ export default {
                         data: 'name'
                     },
                     {
-                        name: 'ends_at',
-                        data: {
-                            '_': 'ends_at.display'
-                        },
+                        data: 'ends_at'
                     }
                 ],
             }

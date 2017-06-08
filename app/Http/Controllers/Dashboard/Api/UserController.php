@@ -18,7 +18,7 @@ class UserController extends BaseController
 {
     public function datatable(DatatableFormRequest $request)
     {
-        $shaper = new DatatableShaper(UserDatatable::make());
+        $shaper = new DatatableShaper(app(UserDatatable::class));
 
         return $shaper->shape($request);
     }

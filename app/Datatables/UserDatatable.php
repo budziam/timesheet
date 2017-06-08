@@ -3,16 +3,11 @@ namespace App\Datatables;
 
 use App\Models\User;
 use App\Repositories\UserRepository;
-use App\Traits\Instantiable;
 use Illuminate\Support\Collection;
-use ModelShaper\Datatable\DatatableContract;
-use ModelShaper\Datatable\Traits\FilterTrait;
-use ModelShaper\Datatable\Traits\SortTrait;
+use ModelShaper\Datatable\BaseDatatable;
 
-class UserDatatable implements DatatableContract
+class UserDatatable extends BaseDatatable
 {
-    use FilterTrait, SortTrait, Instantiable;
-
     /** @var UserRepository */
     protected $userRepository;
 
@@ -21,9 +16,15 @@ class UserDatatable implements DatatableContract
         $this->userRepository = $userRepository;
     }
 
+    public function initBuilder()
+    {
+        $this->builder = User::query();
+    }
+
     public function render() : Collection
     {
-        return User::all()
+        return $this->builder
+            ->get()
             ->map(function (User $user) {
                 return [
                     'id'       => [

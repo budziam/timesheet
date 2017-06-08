@@ -3,17 +3,13 @@ namespace App\Datatables;
 
 use App\Models\Project;
 use App\Repositories\ProjectRepository;
-use App\Traits\Instantiable;
 use App\Utils\DateUtils;
+use DB;
 use Illuminate\Support\Collection;
-use ModelShaper\Datatable\DatatableContract;
-use ModelShaper\Datatable\Traits\FilterTrait;
-use ModelShaper\Datatable\Traits\SortTrait;
+use ModelShaper\Datatable\BaseDatatable;
 
-class ProjectDatatable implements DatatableContract
+class ProjectDatatable extends BaseDatatable
 {
-    use FilterTrait, SortTrait, Instantiable;
-
     /** @var ProjectRepository */
     protected $projectRepository;
 
@@ -22,9 +18,15 @@ class ProjectDatatable implements DatatableContract
         $this->projectRepository = $projectRepository;
     }
 
+    public function initBuilder()
+    {
+        $this->builder = Project::query();
+    }
+
     public function render() : Collection
     {
-        return Project::all()
+        return $this->builder
+            ->get()
             ->map(function (Project $project) {
                 return [
                     'id'      => [
@@ -34,11 +36,14 @@ class ProjectDatatable implements DatatableContract
                     'lkz'     => $project->lkz,
                     'kerg'    => $project->kerg,
                     'name'    => $project->name,
-                    'ends_at' => [
-                        'display' => DateUtils::formatEndsAt($project->ends_at),
-                        'sort'    => data_get($project->ends_at, 'timestamp', PHP_INT_MAX),
-                    ],
+                    'ends_at' => DateUtils::formatEndsAt($project->ends_at),
                 ];
             });
+    }
+
+    protected function orderByEndsAt($query, string $order)
+    {
+        $query->orderBy(DB::raw('ends_at IS NULL'), $order);
+        $query->orderBy('ends_at', $order);
     }
 }

@@ -3,16 +3,11 @@ namespace App\Datatables;
 
 use App\Models\ProjectGroup;
 use App\Repositories\ProjectGroupRepository;
-use App\Traits\Instantiable;
 use Illuminate\Support\Collection;
-use ModelShaper\Datatable\DatatableContract;
-use ModelShaper\Datatable\Traits\FilterTrait;
-use ModelShaper\Datatable\Traits\SortTrait;
+use ModelShaper\Datatable\BaseDatatable;
 
-class ProjectGroupDatatable implements DatatableContract
+class ProjectGroupDatatable extends BaseDatatable
 {
-    use FilterTrait, SortTrait, Instantiable;
-
     /** @var ProjectGroupRepository */
     protected $repository;
 
@@ -21,16 +16,22 @@ class ProjectGroupDatatable implements DatatableContract
         $this->repository = $repository;
     }
 
+    public function initBuilder()
+    {
+        $this->builder = ProjectGroup::query();
+    }
+
     public function render() : Collection
     {
-        return ProjectGroup::all()
+        return $this->builder
+            ->get()
             ->map(function (ProjectGroup $projectGroup) {
                 return [
-                    'id'      => [
+                    'id'   => [
                         'display' => $this->repository->getLink($projectGroup, '#' . $projectGroup->id),
                         'raw'     => $projectGroup->id,
                     ],
-                    'name'    => $projectGroup->name,
+                    'name' => $projectGroup->name,
                 ];
             });
     }
