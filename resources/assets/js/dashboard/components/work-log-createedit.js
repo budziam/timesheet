@@ -34,7 +34,7 @@ export default {
                     workLog.time_office = WorkLogTime.timePretty(workLog.time_office);
 
                     component.$refs.project.select({id: workLog.project.id, text: workLog.project.name});
-                    component.$refs.user.select({id: workLog.user.id, text: workLog.user.name});
+                    component.$refs.user.select({id: workLog.user.id, text: workLog.user.fullname});
 
                     component.model = workLog;
                 })

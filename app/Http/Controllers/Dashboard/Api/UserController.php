@@ -25,7 +25,7 @@ class UserController extends BaseController
 
     public function select2(Select2FormRequest $request)
     {
-        $shaper = new Select2Shaper(User::instance(), 'name');
+        $shaper = new Select2Shaper(User::instance(), 'fullname');
 
         return $shaper->shape($request);
     }
