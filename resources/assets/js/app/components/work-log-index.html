@@ -1,3 +1,35 @@
 <div class="container work-log">
-    <v-calendar url="/api/search/work-logs/fullcalendar"></v-calendar>
+    <div class="panel panel-info" v-if="projects.length">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>{{ $trans('Project') }}</th>
+                <th>{{ $trans('Office') }}</th>
+                <th>{{ $trans('Fieldwork') }}</th>
+                <th class="text-right">{{ $trans('Log work') }}</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr v-for="project in projects">
+                <td><strong>{{ project.lkz }}</strong>, <strong>{{ project.kerg }}</strong> {{ project.name }}</td>
+                <td>{{ project.office }}</td>
+                <td>{{ project.fieldwork }}</td>
+                <td class="text-right">
+                    <a class="btn btn-sm btn-default"
+                       role="button"
+                       :href="getWorkLogUrl(project)"
+                       target="_blank"
+                       v-text="$trans('Log work')"
+                    >
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <v-calendar url="/api/search/work-logs/fullcalendar"
+                @eventAfterAllRender="onAllRender"
+    ></v-calendar>
 </div>

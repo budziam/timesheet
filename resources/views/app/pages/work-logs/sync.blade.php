@@ -1,5 +1,5 @@
 @extends('app.layout.layout')
 
 @section('content')
-    <work-log-sync :data="{{ json_encode($componentData) }}"></work-log-sync>
+    <work-log-sync></work-log-sync>
 @endsection

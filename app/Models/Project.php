@@ -18,6 +18,7 @@ use Carbon\Carbon;
  * @property \Carbon\Carbon                                                           $created_at
  * @property \Carbon\Carbon                                                           $updated_at
  * @property-read bool                                                                $active
+ * @property-read string                                                              $full_name
  * @property-read string|null                                                         $real_color
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProjectGroup[] $groups
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\WorkLog[]      $workLogs
@@ -87,5 +88,10 @@ class Project extends BaseModel
         }
 
         return null;
+    }
+
+    public function getFullNameAttribute()
+    {
+        return $this->lkz . ', ' . $this->kerg . ' ' . $this->name;
     }
 }
