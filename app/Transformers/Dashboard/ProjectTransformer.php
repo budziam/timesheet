@@ -17,6 +17,7 @@ class ProjectTransformer extends TransformerAbstract
             'lkz'         => $project->lkz,
             'kerg'        => $project->kerg,
             'name'        => $project->name,
+            'value'       => $project->value,
             'color'       => $project->color,
             'description' => $project->description,
             'ends_at'     => $project->ends_at ? $project->ends_at->toDateString() : null,
