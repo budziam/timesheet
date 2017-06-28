@@ -6,15 +6,10 @@ use App\Models\Project;
 
 class WorkLogController extends BaseController
 {
-    public function index()
-    {
-        return view('app.pages.work-logs.index');
-    }
-
     public function sync()
     {
+        $this->breadcrumbBuilder->attachNewBreadcrumb(__('Manage work logs'), route('app.work-logs.sync'));
         $this->navbarBuilder->setActive('work-logs.sync');
-
         $componentData = $this->getProjectDetails();
 
         return view('app.pages.work-logs.sync', compact('componentData'));

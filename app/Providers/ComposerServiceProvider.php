@@ -19,5 +19,9 @@ class ComposerServiceProvider extends BaseServiceProvider
         \View::composer('dashboard.includes.breadcrumbs', function (View $view) {
             $view->with('breadcrumbs', BreadcrumbBuilder::instance()->getBreadcrumbs());
         });
+
+        \View::composer(['app.layout.layout', 'dashboard.layout.layout'], function (View $view) {
+            $view->with('pageTitle', BreadcrumbBuilder::instance()->getPageTitle());
+        });
     }
 }

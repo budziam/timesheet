@@ -1,10 +1,10 @@
 <?php
 namespace App\Http\Controllers\Dashboard;
 
-use App\Bases\BaseController;
+use App\Bases\BaseDashboardController;
 use App\Models\User;
 
-class UserController extends BaseController
+class UserController extends BaseDashboardController
 {
     protected function initPageInformation()
     {

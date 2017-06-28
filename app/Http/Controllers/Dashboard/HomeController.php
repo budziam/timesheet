@@ -1,9 +1,9 @@
 <?php
 namespace App\Http\Controllers\Dashboard;
 
-use App\Bases\BaseController;
+use App\Bases\BaseDashboardController;
 
-class HomeController extends BaseController
+class HomeController extends BaseDashboardController
 {
     protected function initPageInformation()
     {

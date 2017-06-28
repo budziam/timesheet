@@ -7,7 +7,7 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name') }} - @lang('Dashboard')</title>
+    <title>{{ $pageTitle }} - {{ config('app.name') }}</title>
 
     {!! Html::style(source('css/dashboard.css')) !!}
 

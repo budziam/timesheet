@@ -1,10 +1,10 @@
 <?php
 namespace App\Http\Controllers\Dashboard;
 
-use App\Bases\BaseController;
+use App\Bases\BaseDashboardController;
 use App\Models\WorkLog;
 
-class WorkLogController extends BaseController
+class WorkLogController extends BaseDashboardController
 {
     protected function initPageInformation()
     {

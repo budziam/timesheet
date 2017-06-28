@@ -1,10 +1,10 @@
 <?php
 namespace App\Http\Controllers\Dashboard;
 
-use App\Bases\BaseController;
+use App\Bases\BaseDashboardController;
 use App\Models\Project;
 
-class ProjectController extends BaseController
+class ProjectController extends BaseDashboardController
 {
     protected function initPageInformation()
     {

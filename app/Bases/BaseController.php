@@ -32,9 +32,6 @@ class BaseController extends Controller
 
     protected function preInitPageInformation()
     {
-        $this->breadcrumbBuilder
-            ->attachNewBreadcrumb(__('Dashboard'), route('dashboard.home.index'));
-
         $this->initPageInformation();
     }
 
