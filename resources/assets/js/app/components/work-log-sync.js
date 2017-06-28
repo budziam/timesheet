@@ -5,13 +5,9 @@ import Moment from 'moment';
 export default {
     template: require('html!./work-log-sync.html'),
 
-    props: {
-        data: Object
-    },
-
     data() {
         return {
-            projectId: this.data.projectSelected,
+            projectId: null,
             project: null,
             eventAddDate: null,
             showEventAdd: false,
@@ -19,7 +15,7 @@ export default {
     },
 
     mounted() {
-        this.fetchProject();
+        this.readProjectId();
     },
 
     methods: {
@@ -68,8 +64,27 @@ export default {
             let component = this;
 
             axios.get('/api/projects/' + this.projectId)
-                .then(response => component.project = response.data)
+                .then(response => {
+                    component.project = response.data;
+                    component.$refs.project.select({
+                        id: component.project.id,
+                        text: component.project.lkz + ', ' + component.project.kerg + ' ' + component.project.name,
+                    });
+                })
                 .catch(error => Event.requestError(error));
+        },
+
+        readProjectId() {
+            if (!window.location.hash) {
+                return;
+            }
+
+            const projectId = parseInt(window.location.hash.substring(1));
+            if (isNaN(projectId)) {
+                return;
+            }
+
+            this.projectId = projectId;
         },
 
         isDateValid(date) {
@@ -92,8 +107,10 @@ export default {
     },
 
     watch: {
-        projectId() {
-            this.fetchProject();
+        projectId(newVal, oldVal) {
+            if (parseInt(oldVal) !== parseInt(newVal)) {
+                this.fetchProject();
+            }
         }
     },
 

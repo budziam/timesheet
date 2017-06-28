@@ -4,7 +4,7 @@ namespace App\Http\Controllers\App\Api;
 use App\Bases\BaseController;
 use App\Http\Requests\App\ProjectGroupSearchSelect2Request;
 use App\Services\ProjectGroupSearchService;
-use App\Transformers\SearchSelectTransformer;
+use App\Transformers\ProjectGroupSelect2Transformer;
 
 class ProjectGroupSearchController extends BaseController
 {
@@ -15,12 +15,12 @@ class ProjectGroupSearchController extends BaseController
         $pagination = $repository->searchSelect2($search)
             ->paginate();
 
-        $items = fractal()
-            ->collection($pagination->items(), new SearchSelectTransformer)
+        $projectGroups = fractal()
+            ->collection($pagination->items(), new ProjectGroupSelect2Transformer())
             ->toArray();
 
         return [
-            'items'       => $items,
+            'items'       => $projectGroups,
             'per_page'    => $pagination->perPage(),
             'total_count' => $pagination->total(),
         ];

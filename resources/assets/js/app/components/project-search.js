@@ -25,7 +25,7 @@ export default {
         },
 
         getWorkLogUrl(project) {
-            return '/work-logs/sync?project_id=' + project.id;
+            return '/work-logs/sync#' + project.id;
         },
 
         /**

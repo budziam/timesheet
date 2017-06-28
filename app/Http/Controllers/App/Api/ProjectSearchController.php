@@ -6,7 +6,7 @@ use App\Http\Requests\App\ProjectSearchDefaultRequest;
 use App\Http\Requests\App\ProjectSearchSelect2Request;
 use App\Services\ProjectSearchService;
 use App\Transformers\ProjectTransformer;
-use App\Transformers\SearchSelectTransformer;
+use App\Transformers\ProjectSelect2Transformer;
 
 class ProjectSearchController extends BaseController
 {
@@ -25,15 +25,14 @@ class ProjectSearchController extends BaseController
     {
         $search = $request->input('q', '');
 
-        $pagination = $service->searchSelect2($search)
-            ->paginate();
+        $pagination = $service->searchSelect2($search)->paginate();
 
-        $items = fractal()
-            ->collection($pagination->items(), new SearchSelectTransformer)
+        $projects = fractal()
+            ->collection($pagination->items(), new ProjectSelect2Transformer)
             ->toArray();
 
         return [
-            'items'       => $items,
+            'items'       => $projects,
             'per_page'    => $pagination->perPage(),
             'total_count' => $pagination->total(),
         ];

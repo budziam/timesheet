@@ -30,7 +30,8 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <a class="panel-title" data-toggle="collapse" :href="getProjectIdHref(project)">
-                                        <strong>{{ project.lkz }}</strong> {{ project.name }}
+                                        <strong>{{ project.lkz }}</strong>, <strong>{{ project.kerg }}</strong> {{
+                                        project.name }}
                                     </a>
                                 </div>
 
@@ -57,7 +58,12 @@
                     </div>
                 </div>
                 <div :id="getProjectId(project)" class="panel-collapse collapse">
-                    <div class="panel-body" v-text="project.description"></div>
+                    <div class="panel-body">
+                        <strong>{{ $trans('Name') }}</strong>: {{ project.name }}<br/>
+                        <strong>{{ $trans('L.K.Z') }}</strong>: {{ project.lkz }}<br/>
+                        <strong>{{ $trans('KERG/ID') }}</strong>: {{ project.kerg }}<br/>
+                        <strong>{{ $trans('Description') }}</strong>: {{ project.description }}
+                    </div>
                 </div>
             </div>
         </div>

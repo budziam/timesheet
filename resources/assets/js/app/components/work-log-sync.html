@@ -8,11 +8,8 @@
                       :placeholder="$trans('Wybierz zlecenie')"
                       url="/api/search/projects/select2"
                       v-model="projectId"
+                      ref="project"
             >
-                <option v-for="(value, key) in data.projectOptions"
-                        :value="key"
-                        v-text="value"
-                ></option>
             </v-select>
         </div>
     </div>

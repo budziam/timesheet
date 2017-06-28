@@ -11,6 +11,7 @@ use Carbon\Carbon;
  * @property string                                                                   $lkz
  * @property string                                                                   $kerg
  * @property string                                                                   $name
+ * @property int                                                                      $value
  * @property string                                                                   $description
  * @property string                                                                   $color
  * @property \Carbon\Carbon|null                                                      $ends_at
@@ -22,6 +23,9 @@ use Carbon\Carbon;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\WorkLog[]      $workLogs
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Project whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Project whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Project whereLkz($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Project whereKerg($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Project whereValue($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Project whereDescription($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Project whereEndsAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Project whereCreatedAt($value)
@@ -37,16 +41,19 @@ class Project extends BaseModel
         'kerg',
         'name',
         'description',
+        'value',
         'color',
         'ends_at',
     ];
 
     protected $casts = [
         'ends_at' => 'date',
+        'value'   => 'int',
     ];
 
     protected $attributes = [
         'description' => '',
+        'value'       => 0,
     ];
 
     public function groups()
@@ -61,8 +68,7 @@ class Project extends BaseModel
 
     public function scopeActive($query)
     {
-        $query->where('ends_at', '>=', Carbon::now())
-            ->orWhereNull('ends_at');
+        $query->where('ends_at', '>=', Carbon::now())->orWhereNull('ends_at');
     }
 
     public function getActiveAttribute() : bool

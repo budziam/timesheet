@@ -196,7 +196,7 @@ export default {
                     const fieldwork = WorkLogTime.timePretty(event.time_fieldwork);
                     const office = WorkLogTime.timePretty(event.time_office);
 
-                    element.find('.fc-title').text(`${event.project.lkz} ${event.project.kerg}`);
+                    element.find('.fc-title').text(`${event.project.lkz}, ${event.project.kerg}`);
                     element.find('.fc-title').after(`<div>${event.project.name}</div>`);
 
                     element.find('.fc-content').append(`

@@ -15,9 +15,10 @@ class ProjectSearchService
     {
         $query = Project::with('groups')
             ->active()
-            ->whereNested(function ($query) use ($search) {
+            ->where(function ($query) use ($search) {
                 $query->where('name', 'LIKE', QueryUtils::valueForLike($search))
-                    ->orWhere('lkz', 'LIKE', QueryUtils::valueForLike($search));
+                    ->orWhere('lkz', 'LIKE', QueryUtils::valueForLike($search))
+                    ->orWhere('kerg', 'LIKE', QueryUtils::valueForLike($search));
             })
             ->latest('id');
 
@@ -33,7 +34,11 @@ class ProjectSearchService
     public function searchSelect2(string $search)
     {
         return Project::query()
-            ->where('name', 'LIKE', QueryUtils::valueForLike($search))
+            ->where(function ($query) use ($search) {
+                $query->where('name', 'LIKE', QueryUtils::valueForLike($search))
+                    ->orWhere('lkz', 'LIKE', QueryUtils::valueForLike($search))
+                    ->orWhere('kerg', 'LIKE', QueryUtils::valueForLike($search));
+            })
             ->latest('id');
     }
 }

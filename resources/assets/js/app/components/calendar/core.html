@@ -5,6 +5,6 @@
                 @destroy="onDestroyEventEdit"
                 @exit="onExitEventEdit"
                 :event="eventEdit"
-                :title="$trans('Edit :project hours', { project: eventEditRaw.title })"
+                :title="$trans('Edit :project hours', { project: eventEditRaw.project.lkz })"
     ></modal-time>
 </div>
