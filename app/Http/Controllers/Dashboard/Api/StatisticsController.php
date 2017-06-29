@@ -24,7 +24,7 @@ class StatisticsController extends BaseController
             ])
             ->where("$workLogTable.project_id", $project->id)
             ->join($userTable, "$userTable.id", '=', "$workLogTable.user_id")
-            ->groupBy('user_id', 'year', 'month')
+            ->groupBy("$workLogTable.user_id", 'year', 'month', 'employee')
             ->orderBy('year')
             ->orderBy('month')
             ->get()
