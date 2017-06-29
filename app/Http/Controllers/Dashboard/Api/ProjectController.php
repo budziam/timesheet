@@ -7,8 +7,10 @@ use App\Http\Requests\Dashboard\ProjectDestroyRequest;
 use App\Http\Requests\Dashboard\ProjectStoreUpdateRequest;
 use App\Models\Project;
 use App\Transformers\Dashboard\ProjectTransformer;
+use App\Transformers\ProjectSelect2Transformer;
 use ModelShaper\Datatable\DatatableFormRequest;
 use ModelShaper\Datatable\DatatableShaper;
+use ModelShaper\QueryUtils;
 use ModelShaper\Select2\Select2FormRequest;
 use ModelShaper\Select2\Select2Shaper;
 
@@ -24,6 +26,13 @@ class ProjectController extends BaseController
     public function select2(Select2FormRequest $request)
     {
         $shaper = new Select2Shaper(Project::instance(), 'name');
+        $shaper->setTransformer(new ProjectSelect2Transformer());
+        $shaper->setQueryModifier(function ($query, Select2FormRequest $request) {
+            $search = (string)$request->input('q');
+
+            $query->orWhere('lkz', 'LIKE', QueryUtils::valueForLike($search))
+                ->orWhere('kerg', 'LIKE', QueryUtils::valueForLike($search));
+        });
 
         return $shaper->shape($request);
     }

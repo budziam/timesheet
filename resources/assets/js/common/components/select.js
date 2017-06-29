@@ -46,7 +46,7 @@ module.exports = {
             let options = {
                 placeholder: this.placeholder || '', // Without empty string, select2 has mindfuck while trying to clear selected option
                 allowClear: !this.isMultiple,
-                language: Laravel.lang
+                language: Laravel.lang,
             };
 
             if (this.url) {

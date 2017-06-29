@@ -2,6 +2,8 @@
 
 @section('content')
     <div class="page-header">
-        <h1>Może kiedyś coś się tutaj pojawi ;)</h1>
+        <h1>@lang('Statistics')</h1>
     </div>
+
+    <statistics-index></statistics-index>
 @endsection

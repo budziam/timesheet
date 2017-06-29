@@ -6,6 +6,7 @@ import ProjectIndex from './components/project-index';
 import ProjectCreateedit from './components/project-createedit';
 import ProjectGroupIndex from './components/project-group-index';
 import ProjectGroupCreateedit from './components/project-group-createedit';
+import StatisticsIndex from './components/statistics-index';
 import UserIndex from './components/user-index';
 import UserCreateedit from './components/user-createedit';
 import UserChangePassword from './components/user-change-password';
@@ -20,6 +21,7 @@ window.vueApp = new Vue({
         ProjectCreateedit,
         ProjectGroupIndex,
         ProjectGroupCreateedit,
+        StatisticsIndex,
         UserIndex,
         UserCreateedit,
         UserChangePassword,
@@ -36,4 +38,12 @@ window.vueApp = new Vue({
             });
         });
     },
+
+    beforeMount() {
+        $.fn.select2.defaults.set("theme", "bootstrap");
+        $.fn.select2.defaults.set("containerCssClass", ":all:");
+        $.fn.select2.defaults.set("width", null);
+        $.fn.select2.defaults.set('debug', true);
+        $.fn.select2.defaults.set("language", Laravel.lang);
+    }
 });
