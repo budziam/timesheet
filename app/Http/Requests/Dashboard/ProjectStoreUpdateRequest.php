@@ -11,6 +11,7 @@ class  ProjectStoreUpdateRequest extends BaseRequest
             'lkz'         => 'required|string',
             'kerg'        => 'required|string',
             'name'        => 'required|string',
+            'value'       => 'required|numeric',
             'description' => 'string',
             'color'       => 'string|nullable',
             'ends_at'     => 'date|nullable',

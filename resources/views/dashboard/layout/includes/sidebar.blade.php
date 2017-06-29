@@ -42,5 +42,11 @@
         <li class="{{ $navbar->check('users') }}">
             <a href="{{ route('dashboard.users.index') }}">@lang('Users')</a>
         </li>
+        <li class="{{ $navbar->check('statistics-projects') }}">
+            <a href="{{ route('dashboard.statistics.projects') }}">@lang('Statistics: Projects')</a>
+        </li>
+        <li class="{{ $navbar->check('statistics-project-groups') }}">
+            <a href="{{ route('dashboard.statistics.project-groups') }}">@lang('Statistics: Project groups')</a>
+        </li>
     </ul>
 </div>

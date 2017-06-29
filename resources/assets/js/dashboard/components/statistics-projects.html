@@ -1,0 +1,46 @@
+<div class="statistics container-fluid">
+    <div class="row form-group">
+        <div class="col-xs-12 form-group">
+            <label for="form_project_id" v-text="$trans('Project')"></label>
+            <v-select id="form_project_id"
+                      name="project_id"
+                      class="form-control input-lg"
+                      :placeholder="$trans('Wybierz zlecenie')"
+                      url="/dashboard/api/select2/projects"
+                      v-model="projectId"
+                      ref="project"
+            >
+            </v-select>
+        </div>
+    </div>
+
+    <div v-if="project">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ $trans('Employee') }}</th>
+                <th>{{ $trans('Date') }}</th>
+                <th>{{ $trans('Office') }}</th>
+                <th>{{ $trans('Fieldwork') }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="row in statisticsFormatted">
+                <td>{{ row.employee }}</td>
+                <td>{{ row.date }}</td>
+                <td>{{ row.office }}</td>
+                <td>{{ row.fieldwork }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <strong>{{ $trans('Hours in office') }}</strong>: {{ summary.office }}<br/>
+        <strong>{{ $trans('Hours in fieldwork') }}</strong>: {{ summary.fieldwork }}<br/>
+        <strong>{{ $trans('Hours summary') }}</strong>: {{ summary.total }}<br/>
+        <strong>{{ $trans('Hour value') }}</strong>: {{ summary.value }}
+    </div>
+
+    <div v-else>
+        Loading...
+    </div>
+</div>

@@ -2,16 +2,17 @@ require('../bootstrap');
 require('bootstrap-sidebar/dist/js/sidebar');
 require('bootstrap-notify');
 
-import ProjectIndex from './components/project-index';
-import ProjectCreateedit from './components/project-createedit';
-import ProjectGroupIndex from './components/project-group-index';
-import ProjectGroupCreateedit from './components/project-group-createedit';
-import StatisticsIndex from './components/statistics-index';
-import UserIndex from './components/user-index';
-import UserCreateedit from './components/user-createedit';
-import UserChangePassword from './components/user-change-password';
-import WorkLogIndex from './components/work-log-index';
-import WorkLogCreateedit from './components/work-log-createedit';
+import ProjectIndex from "./components/project-index";
+import ProjectCreateedit from "./components/project-createedit";
+import ProjectGroupIndex from "./components/project-group-index";
+import ProjectGroupCreateedit from "./components/project-group-createedit";
+import StatisticsProjects from "./components/statistics-projects";
+import StatisticsProjectGroups from "./components/statistics-project-groups";
+import UserIndex from "./components/user-index";
+import UserCreateedit from "./components/user-createedit";
+import UserChangePassword from "./components/user-change-password";
+import WorkLogIndex from "./components/work-log-index";
+import WorkLogCreateedit from "./components/work-log-createedit";
 
 window.vueApp = new Vue({
     el: '#app',
@@ -21,7 +22,8 @@ window.vueApp = new Vue({
         ProjectCreateedit,
         ProjectGroupIndex,
         ProjectGroupCreateedit,
-        StatisticsIndex,
+        StatisticsProjects,
+        StatisticsProjectGroups,
         UserIndex,
         UserCreateedit,
         UserChangePassword,

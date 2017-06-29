@@ -49,7 +49,6 @@ class Project extends BaseModel
 
     protected $casts = [
         'ends_at' => 'date',
-        'value'   => 'int',
     ];
 
     protected $attributes = [
@@ -67,9 +66,14 @@ class Project extends BaseModel
         return $this->hasMany(WorkLog::class);
     }
 
-    public function scopeActive($query)
+    public function getValueAttribute($value) : float
     {
-        $query->where('ends_at', '>=', Carbon::now())->orWhereNull('ends_at');
+        return round($value / 100, 2);
+    }
+
+    public function setValueAttribute($value)
+    {
+        $this->attributes['value'] = (int)($value * 100);
     }
 
     public function getActiveAttribute() : bool
@@ -93,5 +97,10 @@ class Project extends BaseModel
     public function getFullNameAttribute()
     {
         return $this->lkz . ', ' . $this->kerg . ' ' . $this->name;
+    }
+
+    public function scopeActive($query)
+    {
+        $query->where('ends_at', '>=', Carbon::now())->orWhereNull('ends_at');
     }
 }

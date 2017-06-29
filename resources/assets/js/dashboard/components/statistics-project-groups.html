@@ -1,0 +1,38 @@
+<div class="statistics container-fluid">
+    <div v-if="statistics">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ $trans('Project group') }}</th>
+                <th>{{ $trans('Office') }}</th>
+                <th>{{ $trans('Fieldwork') }}</th>
+                <th>{{ $trans('Hours summary') }}</th>
+                <th>{{ $trans('Value') }}</th>
+                <th>{{ $trans('Hour value') }}</th>
+            </tr>
+            <tr>
+                <th></th>
+                <th>{{ all.office }}</th>
+                <th>{{ all.fieldwork }}</th>
+                <th>{{ all.total }}</th>
+                <th>{{ all.value }}</th>
+                <th>{{ all.hour_value }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="row in projectGroups">
+                <td>{{ row.project_group }}</td>
+                <td>{{ row.office }}</td>
+                <td>{{ row.fieldwork }}</td>
+                <td>{{ row.total }}</td>
+                <td>{{ row.value }}</td>
+                <td>{{ row.hour_value }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div v-else>
+        Loading...
+    </div>
+</div>
