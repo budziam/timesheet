@@ -69,7 +69,7 @@ class StatisticsController extends BaseController
             ->join($pivotTable, "$pivotTable.project_group_id", '=', "$projectGroupTable.id")
             ->join($projectTable, "$pivotTable.project_id", '=', "$projectTable.id")
             ->join($workLogTable, "$projectTable.id", '=', "$workLogTable.project_id")
-            ->groupBy("$projectGroupTable.id")
+            ->groupBy("$projectGroupTable.id", "$projectGroupTable.name")
             ->get()
             ->map(function ($result) {
                 return [
