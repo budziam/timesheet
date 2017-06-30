@@ -43,7 +43,7 @@ class BreadcrumbBuilder
      * @param string $url
      * @return $this
      */
-    public function attachNewBreadcrumb($name, $url)
+    public function attachNewBreadcrumb(string $name, string $url = null)
     {
         $this->attachBreadcrumb(new Breadcrumb(compact('name', 'url')));
 
@@ -72,6 +72,7 @@ class BreadcrumbBuilder
                 return $breadcrumb->getName();
             })
             ->reverse()
+            ->push(config('app.name'))
             ->implode(' - ');
     }
 

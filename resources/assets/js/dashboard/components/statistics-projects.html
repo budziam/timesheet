@@ -40,7 +40,7 @@
         <strong>{{ $trans('Hour value') }}</strong>: {{ summary.value }}
     </div>
 
-    <div v-else>
+    <div v-if="!project && project_id">
         Loading...
     </div>
 </div>

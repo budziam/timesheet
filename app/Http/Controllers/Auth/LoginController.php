@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Auth;
 
+use App\Builders\Breadcrumb\BreadcrumbBuilder;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
@@ -29,6 +30,8 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
+        BreadcrumbBuilder::instance()->attachNewBreadcrumb(__('Login'));
+
         return view('auth.login');
     }
 

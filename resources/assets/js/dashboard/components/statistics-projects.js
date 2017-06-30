@@ -14,6 +14,12 @@ export default {
 
     methods: {
         fetch() {
+            if (!this.projectId) {
+                this.project = null;
+                this.statistics = [];
+                return;
+            }
+
             const component = this;
 
             Promise.all([
