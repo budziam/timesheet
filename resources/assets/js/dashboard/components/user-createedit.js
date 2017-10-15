@@ -3,7 +3,7 @@ import ModelCreateUpdateMixin from '../mixins/model-createedit';
 import Moment from 'moment';
 
 export default {
-    template: require('html!./user-createedit.html'),
+    template: require('./user-createedit.html'),
 
     mixins: [
         ModelCreateUpdateMixin

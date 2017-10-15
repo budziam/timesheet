@@ -1,5 +1,5 @@
 module.exports = {
-    template: require('html!./form.html'),
+    template: require('./form.html'),
 
     props: {
         method: String,
@@ -81,7 +81,7 @@ module.exports = {
         },
 
         onFormValidationError(response) {
-            $.each(response, this.displayValidationError.bind(this));
+            $.each(response['errors'], this.displayValidationError.bind(this));
         },
 
         displayValidationError(key, value) {

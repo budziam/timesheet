@@ -39,6 +39,6 @@
     </div>
 </div>
 
-{!! Html::script(source('js/dashboard.js')) !!}
+{!! Html::script(mix('js/dashboard.js')) !!}
 </body>
 </html>

@@ -1,5 +1,5 @@
 export default {
-    template: require('html!./loader.html'),
+    template: require('./loader.html'),
 
     data() {
         return {

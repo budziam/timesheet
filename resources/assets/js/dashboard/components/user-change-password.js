@@ -2,7 +2,7 @@ import Laravel from '../../common/laravel';
 import VForm from '../../common/components/form';
 
 export default {
-    template: require('html!./user-change-password.html'),
+    template: require('./user-change-password.html'),
 
     props: {
         userId: [Number, String],

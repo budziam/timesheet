@@ -1,7 +1,7 @@
 import debounce from "debounce";
 
 export default {
-    template: require('html!./project-search.html'),
+    template: require('./project-search.html'),
 
     data() {
         return {

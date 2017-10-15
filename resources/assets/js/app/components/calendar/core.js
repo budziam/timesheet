@@ -5,7 +5,7 @@ import ModalTime from './modal-time';
 import WorkLogTime from '../../../common/components/work-log-time';
 
 export default {
-    template: require('html!./core.html'),
+    template: require('./core.html'),
 
     components: {
         ModalTime

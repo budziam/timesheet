@@ -3,7 +3,7 @@ import ModalTime from '../components/calendar/modal-time';
 import Moment from 'moment';
 
 export default {
-    template: require('html!./work-log-sync.html'),
+    template: require('./work-log-sync.html'),
 
     data() {
         return {

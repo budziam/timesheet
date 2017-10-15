@@ -1,7 +1,7 @@
 require('datatables.net');
 
 module.exports = {
-    template: require('html!./datatable.html'),
+    template: require('./datatable.html'),
 
     props: {
         columns: Array,

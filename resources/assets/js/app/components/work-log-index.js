@@ -2,7 +2,7 @@ import VCalendar from '../components/calendar/core';
 import WorkLogTime from '../../common/components/work-log-time';
 
 export default {
-    template: require('html!./work-log-index.html'),
+    template: require('./work-log-index.html'),
 
     components: {
         VCalendar

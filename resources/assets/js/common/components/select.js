@@ -1,5 +1,5 @@
 module.exports = {
-    template: require('html!./select.html'),
+    template: require('./select.html'),
 
     props: {
         value: [Number, String, Array],

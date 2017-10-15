@@ -2,7 +2,7 @@ import VDatatable from './datatable';
 import Laravel from '../../common/laravel';
 
 export default {
-    template: require('html!./project-group-index.html'),
+    template: require('./project-group-index.html'),
 
     components: {
         VDatatable

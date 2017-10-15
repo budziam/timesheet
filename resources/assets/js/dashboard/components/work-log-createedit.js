@@ -4,7 +4,7 @@ import WorkLogTime from '../../common/components/work-log-time';
 import Moment from 'moment';
 
 export default {
-    template: require('html!./work-log-createedit.html'),
+    template: require('./work-log-createedit.html'),
 
     mixins: [
         ModelCreateUpdateMixin

@@ -2,7 +2,7 @@ import Laravel from "../../common/laravel";
 import WorkLogTime from "../../common/components/work-log-time";
 
 export default {
-    template: require('html!./statistics-projects.html'),
+    template: require('./statistics-projects.html'),
 
     data() {
         return {

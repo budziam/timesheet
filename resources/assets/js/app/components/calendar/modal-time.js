@@ -1,5 +1,5 @@
 module.exports = {
-    template: require('html!./modal-time.html'),
+    template: require('./modal-time.html'),
 
     props: {
         event: Object,
