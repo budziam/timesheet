@@ -34,7 +34,7 @@ export default {
                 office: WorkLogTime.timePretty(row.office),
                 fieldwork: WorkLogTime.timePretty(row.fieldwork),
                 total: WorkLogTime.timePretty(total),
-                value: row.value,
+                value: (row.value / 100).toFixed(2),
                 hour_value: (row.value / total).toFixed(2)
             };
 
