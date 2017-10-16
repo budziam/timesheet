@@ -9,7 +9,7 @@
 
     <title>{{ $pageTitle }}</title>
 
-    {!! Html::style(source('css/dashboard.css')) !!}
+    {!! Html::style(mix('css/dashboard.css')) !!}
 
     <script>
         window.Laravel = <?php echo json_encode([
