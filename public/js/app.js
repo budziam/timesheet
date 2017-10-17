@@ -65980,15 +65980,15 @@ __webpack_require__(180);
         updateEvent: function updateEvent(data) {
             var _this3 = this;
 
-            var before = JSON.stringify(this.eventEditRaw);
-            var event = Object.assign(this.eventEditRaw, {
+            var before = this.formatEvent(this.eventEditRaw);
+            var event = Object.assign({}, before, {
                 comment: data.comment,
                 time_fieldwork: __WEBPACK_IMPORTED_MODULE_1__common_components_work_log_time___default.a.prettyToInt(data.fieldwork),
                 time_office: __WEBPACK_IMPORTED_MODULE_1__common_components_work_log_time___default.a.prettyToInt(data.office)
             });
 
             // There are no changes
-            if (JSON.stringify(event) === before) {
+            if (JSON.stringify(event) === JSON.stringify(before)) {
                 return;
             }
 
@@ -66001,11 +66001,19 @@ __webpack_require__(180);
                 time_office: event.time_office,
                 comment: event.comment
             }).then(function () {
-                $(_this3.$refs.calendar).fullCalendar('updateEvent', event);
+                $(_this3.$refs.calendar).fullCalendar('updateEvent', Object.assign({}, _this3.eventEditRaw, event));
                 Event.notifySuccess('Work log was updated');
             }).catch(function (error) {
                 return Event.notifyDanger('Some problem occured while updating work log');
             });
+        },
+        formatEvent: function formatEvent(event) {
+            return {
+                id: event.id,
+                comment: event.comment,
+                time_fieldwork: event.time_fieldwork,
+                time_office: event.time_office
+            };
         },
         renderAllWorkTime: function renderAllWorkTime() {
             var _this4 = this;

@@ -96,15 +96,15 @@ export default {
         },
 
         updateEvent(data) {
-            const before = JSON.stringify(this.eventEditRaw);
-            const event = Object.assign(this.eventEditRaw, {
+            const before = this.formatEvent(this.eventEditRaw);
+            const event = Object.assign({}, before, {
                 comment: data.comment,
                 time_fieldwork: WorkLogTime.prettyToInt(data.fieldwork),
                 time_office: WorkLogTime.prettyToInt(data.office)
             });
 
             // There are no changes
-            if (JSON.stringify(event) === before) {
+            if (JSON.stringify(event) === JSON.stringify(before)) {
                 return;
             }
 
@@ -118,10 +118,19 @@ export default {
                 comment: event.comment
             })
                 .then(() => {
-                    $(this.$refs.calendar).fullCalendar('updateEvent', event);
+                    $(this.$refs.calendar).fullCalendar('updateEvent', Object.assign({}, this.eventEditRaw, event));
                     Event.notifySuccess('Work log was updated');
                 })
                 .catch(error => Event.notifyDanger('Some problem occured while updating work log'));
+        },
+
+        formatEvent(event) {
+            return {
+                id: event.id,
+                comment: event.comment,
+                time_fieldwork: event.time_fieldwork,
+                time_office: event.time_office,
+            }
         },
 
         renderAllWorkTime() {
@@ -172,13 +181,11 @@ export default {
                 firstDay: 1,
                 timeFormat: 'HH:mm',
 
-                dayClick(date, allDay, jsEvent, view)
-                {
+                dayClick(date, allDay, jsEvent, view) {
                     component.$emit('dayClicked', date, allDay, jsEvent, view);
                 },
 
-                eventClick(calEvent, jsEvent, view)
-                {
+                eventClick(calEvent, jsEvent, view) {
                     component.displayEventEdit(calEvent);
 
                     component.$emit('eventClicked', calEvent, jsEvent, view);
