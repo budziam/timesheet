@@ -1,12 +1,12 @@
 <?php
 namespace App\Http\Controllers\App\Api;
 
-use App\Bases\BaseController;
+use App\Bases\Controller;
 use App\Http\Requests\App\ProjectGroupSearchSelect2Request;
 use App\Services\ProjectGroupSearchService;
 use App\Transformers\ProjectGroupSelect2Transformer;
 
-class ProjectGroupSearchController extends BaseController
+class ProjectGroupSearchController extends Controller
 {
     public function select2(ProjectGroupSearchSelect2Request $request, ProjectGroupSearchService $repository)
     {

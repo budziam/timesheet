@@ -1,14 +1,14 @@
 <?php
 namespace App\Http\Controllers\Dashboard\Api;
 
-use App\Bases\BaseController;
+use App\Bases\Controller;
 use App\Models\Project;
 use App\Models\User;
 use App\Models\WorkLog;
 use App\Statistics\ProjectGroupsStatistic;
 use DB;
 
-class StatisticsController extends BaseController
+class StatisticsController extends Controller
 {
     public function projectWorkLogs(Project $project)
     {

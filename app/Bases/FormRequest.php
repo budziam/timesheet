@@ -1,10 +1,10 @@
 <?php
 namespace App\Bases;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Foundation\Http\FormRequest as BaseFormRequest;
 use Illuminate\Validation\Validator;
 
-abstract class BaseRequest extends FormRequest
+abstract class FormRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

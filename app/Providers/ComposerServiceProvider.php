@@ -1,11 +1,11 @@
 <?php
 namespace App\Providers;
 
-use App\Bases\BaseServiceProvider;
+use App\Bases\ServiceProvider;
 use App\Builders\Breadcrumb\BreadcrumbBuilder;
 use Illuminate\View\View;
 
-class ComposerServiceProvider extends BaseServiceProvider
+class ComposerServiceProvider extends ServiceProvider
 {
     public function register()
     {

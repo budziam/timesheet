@@ -1,12 +1,12 @@
 <?php
 namespace App\Http\Controllers\App\Api;
 
-use App\Bases\BaseController;
+use App\Bases\Controller;
 use App\Http\Requests\App\WorkLogDestroyRequest;
 use App\Http\Requests\App\WorkLogUpdateRequest;
 use App\Models\WorkLog;
 
-class WorkLogController extends BaseController
+class WorkLogController extends Controller
 {
     public function update(WorkLog $workLog, WorkLogUpdateRequest $request)
     {

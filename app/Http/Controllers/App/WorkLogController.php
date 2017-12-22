@@ -1,9 +1,9 @@
 <?php
 namespace App\Http\Controllers\App;
 
-use App\Bases\BaseController;
+use App\Bases\Controller;
 
-class WorkLogController extends BaseController
+class WorkLogController extends Controller
 {
     public function sync()
     {

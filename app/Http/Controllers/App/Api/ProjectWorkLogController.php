@@ -1,12 +1,12 @@
 <?php
 namespace App\Http\Controllers\App\Api;
 
-use App\Bases\BaseController;
+use App\Bases\Controller;
 use App\Http\Requests\App\ProjectWorkLogStoreRequest;
 use App\Models\Project;
 use App\Models\WorkLog;
 
-class ProjectWorkLogController extends BaseController
+class ProjectWorkLogController extends Controller
 {
     public function store(Project $project, ProjectWorkLogStoreRequest $request)
     {

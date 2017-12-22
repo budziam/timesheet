@@ -1,9 +1,9 @@
 <?php
 namespace App\Http\Requests\App;
 
-use App\Bases\BaseRequest;
+use App\Bases\FormRequest;
 
-class ProjectSearchSelect2Request extends BaseRequest
+class ProjectSearchSelect2Request extends FormRequest
 {
     public function rules()
     {

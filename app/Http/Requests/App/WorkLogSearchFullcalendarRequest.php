@@ -1,9 +1,9 @@
 <?php
 namespace App\Http\Requests\App;
 
-use App\Bases\BaseRequest;
+use App\Bases\FormRequest;
 
-class WorkLogSearchFullcalendarRequest extends BaseRequest
+class WorkLogSearchFullcalendarRequest extends FormRequest
 {
     public function rules()
     {

@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers\Dashboard\Api;
 
-use App\Bases\BaseController;
+use App\Bases\Controller;
 use App\Datatables\ProjectDatatable;
 use App\Http\Requests\Dashboard\ProjectDestroyRequest;
 use App\Http\Requests\Dashboard\ProjectStoreUpdateRequest;
@@ -14,7 +14,7 @@ use ModelShaper\QueryUtils;
 use ModelShaper\Select2\Select2FormRequest;
 use ModelShaper\Select2\Select2Shaper;
 
-class ProjectController extends BaseController
+class ProjectController extends Controller
 {
     public function datatable(DatatableFormRequest $request)
     {

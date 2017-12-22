@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Bases\BaseModel;
+use App\Bases\Model;
 
 /**
  * App\Models\ProjectGroup
@@ -17,10 +17,10 @@ use App\Bases\BaseModel;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\ProjectGroup whereName($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\ProjectGroup whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\ProjectGroup whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Bases\BaseModel firstOrFail()
+ * @method static \Illuminate\Database\Query\Builder|\App\Bases\Model firstOrFail()
  * @mixin \Eloquent
  */
-class ProjectGroup extends BaseModel
+class ProjectGroup extends Model
 {
     protected $fillable = [
         'name',

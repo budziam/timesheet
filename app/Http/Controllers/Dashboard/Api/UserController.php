@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers\Dashboard\Api;
 
-use App\Bases\BaseController;
+use App\Bases\Controller;
 use App\Datatables\UserDatatable;
 use App\Http\Requests\Dashboard\UserChangePasswordRequest;
 use App\Http\Requests\Dashboard\UserDestroyRequest;
@@ -14,7 +14,7 @@ use ModelShaper\Datatable\DatatableShaper;
 use ModelShaper\Select2\Select2FormRequest;
 use ModelShaper\Select2\Select2Shaper;
 
-class UserController extends BaseController
+class UserController extends Controller
 {
     public function datatable(DatatableFormRequest $request)
     {

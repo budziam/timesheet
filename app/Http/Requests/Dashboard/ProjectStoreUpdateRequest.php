@@ -1,9 +1,9 @@
 <?php
 namespace App\Http\Requests\Dashboard;
 
-use App\Bases\BaseRequest;
+use App\Bases\FormRequest;
 
-class  ProjectStoreUpdateRequest extends BaseRequest
+class  ProjectStoreUpdateRequest extends FormRequest
 {
     public function rules()
     {

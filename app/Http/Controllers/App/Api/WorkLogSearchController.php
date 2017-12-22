@@ -1,12 +1,12 @@
 <?php
 namespace App\Http\Controllers\App\Api;
 
-use App\Bases\BaseController;
+use App\Bases\Controller;
 use App\Models\WorkLog;
 use App\Transformers\WorkLogFullcalendarTransformer;
 use Illuminate\Http\Request;
 
-class WorkLogSearchController extends BaseController
+class WorkLogSearchController extends Controller
 {
     public function fullcalendar(Request $request)
     {

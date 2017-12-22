@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers\Dashboard\Api;
 
-use App\Bases\BaseController;
+use App\Bases\Controller;
 use App\Datatables\WorkLogDatatable;
 use App\Http\Requests\Dashboard\WorkLogStoreUpdateRequest;
 use App\Models\WorkLog;
@@ -9,7 +9,7 @@ use App\Transformers\Dashboard\WorkLogTransformer;
 use ModelShaper\Datatable\DatatableFormRequest;
 use ModelShaper\Datatable\DatatableShaper;
 
-class WorkLogController extends BaseController
+class WorkLogController extends Controller
 {
     public function datatable(DatatableFormRequest $request)
     {

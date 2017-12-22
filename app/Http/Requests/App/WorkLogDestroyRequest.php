@@ -1,11 +1,11 @@
 <?php
 namespace App\Http\Requests\App;
 
-use App\Bases\BaseRequest;
+use App\Bases\FormRequest;
 use App\Models\WorkLog;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class WorkLogDestroyRequest extends BaseRequest
+class WorkLogDestroyRequest extends FormRequest
 {
     public function beforeValidation()
     {

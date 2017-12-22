@@ -9,23 +9,21 @@
     "prod": "npm run production",
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
-  "devDependencies": {
-    "axios": "^0.16.2",
+  "dependencies": {
+    "axios": "^0.17.0",
     "bootstrap-notify": "^3.1.3",
     "bootstrap-sass": "^3.3.7",
     "bootstrap-sidebar": "^0.2.2-retry",
-    "cross-env": "^5.0.1",
+    "cross-env": "^5.1.0",
     "datatables.net": "^1.10.13",
-    "debounce": "^1.0.0",
+    "debounce": "^1.1.0",
     "fullcalendar": "^3.1.0",
-    "gulp": "^3.9.1",
-    "html-loader": "^0.4.4",
-    "jquery": "^3.1.1",
-    "laravel-mix": "^1.0",
-    "lodash": "^4.17.4",
-    "moment": "^2.17.1",
-    "select2": "^4.0.2",
-    "select2-bootstrap-theme": "0.1.0-beta.9",
-    "vue": "^2.4.0"
+    "jquery": "^3.2.0",
+    "laravel-mix": "^1.7.0",
+    "lodash": "^4.17.0",
+    "moment": "^2.20.0",
+    "select2": "^4.0.0",
+    "select2-bootstrap-theme": "0.1.0-beta.10",
+    "vue": "^2.5.0"
   }
 }

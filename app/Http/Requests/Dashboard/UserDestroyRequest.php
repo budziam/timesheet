@@ -1,11 +1,11 @@
 <?php
 namespace App\Http\Requests\Dashboard;
 
-use App\Bases\BaseRequest;
+use App\Bases\FormRequest;
 use App\Models\User;
 use Illuminate\Validation\ValidationException;
 
-class UserDestroyRequest extends BaseRequest
+class UserDestroyRequest extends FormRequest
 {
     public function sucessfullyValidated()
     {

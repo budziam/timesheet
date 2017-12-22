@@ -1,9 +1,9 @@
 <?php
 namespace App\Http\Requests\Dashboard;
 
-use App\Bases\BaseRequest;
+use App\Bases\FormRequest;
 
-class UserChangePasswordRequest extends BaseRequest
+class UserChangePasswordRequest extends FormRequest
 {
     public function rules()
     {

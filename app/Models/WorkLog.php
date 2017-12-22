@@ -1,7 +1,7 @@
 <?php
 namespace App\Models;
 
-use App\Bases\BaseModel;
+use App\Bases\Model;
 
 /**
  * App\Models\WorkLog
@@ -28,7 +28,7 @@ use App\Bases\BaseModel;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\WorkLog whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class WorkLog extends BaseModel
+class WorkLog extends Model
 {
     protected $fillable = [
         'comment',

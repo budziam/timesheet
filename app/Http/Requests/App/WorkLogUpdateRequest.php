@@ -1,10 +1,10 @@
 <?php
 namespace App\Http\Requests\App;
 
-use App\Bases\BaseRequest;
+use App\Bases\FormRequest;
 use App\Models\WorkLog;
 
-class WorkLogUpdateRequest extends BaseRequest
+class WorkLogUpdateRequest extends FormRequest
 {
     public function rules()
     {

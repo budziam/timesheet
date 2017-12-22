@@ -1,11 +1,11 @@
 <?php
 namespace App\Http\Requests\App;
 
-use App\Bases\BaseRequest;
+use App\Bases\FormRequest;
 use App\Models\WorkLog;
 use Illuminate\Validation\Rule;
 
-class ProjectWorkLogStoreRequest extends BaseRequest
+class ProjectWorkLogStoreRequest extends FormRequest
 {
     public function rules()
     {

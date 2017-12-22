@@ -1,11 +1,11 @@
 <?php
 namespace App\Providers;
 
-use App\Bases\BaseServiceProvider;
+use App\Bases\ServiceProvider;
 use App\Builders\NavbarBuilder;
 use Illuminate\View\View;
 
-class NavbarServiceProvider extends BaseServiceProvider
+class NavbarServiceProvider extends ServiceProvider
 {
     public function boot()
     {

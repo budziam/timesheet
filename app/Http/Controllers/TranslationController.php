@@ -1,9 +1,9 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Bases\BaseController;
+use App\Bases\Controller;
 
-class TranslationController extends BaseController
+class TranslationController extends Controller
 {
     public function index()
     {

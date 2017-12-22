@@ -5,7 +5,7 @@ use App\Bases\Model;
 use Carbon\Carbon;
 
 /**
- * App\Models\Project
+ * App\Models\Customer
  *
  * @property int                                                                      $id
  * @property string                                                                   $lkz
@@ -35,7 +35,7 @@ use Carbon\Carbon;
  * @method static \Illuminate\Database\Query\Builder|\App\Bases\Model firstOrFail()
  * @mixin \Eloquent
  */
-class Project extends Model
+class Customer extends Model
 {
     protected $fillable = [
         'lkz',

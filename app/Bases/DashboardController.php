@@ -1,7 +1,7 @@
 <?php
 namespace App\Bases;
 
-class BaseDashboardController extends BaseController
+class DashboardController extends Controller
 {
     protected function preInitPageInformation()
     {

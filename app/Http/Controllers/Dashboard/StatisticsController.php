@@ -1,9 +1,9 @@
 <?php
 namespace App\Http\Controllers\Dashboard;
 
-use App\Bases\BaseDashboardController;
+use App\Bases\DashboardController;
 
-class StatisticsController extends BaseDashboardController
+class StatisticsController extends DashboardController
 {
     public function projects()
     {

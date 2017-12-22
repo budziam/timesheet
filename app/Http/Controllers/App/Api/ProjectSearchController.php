@@ -1,14 +1,14 @@
 <?php
 namespace App\Http\Controllers\App\Api;
 
-use App\Bases\BaseController;
+use App\Bases\Controller;
 use App\Http\Requests\App\ProjectSearchDefaultRequest;
 use App\Http\Requests\App\ProjectSearchSelect2Request;
 use App\Services\ProjectSearchService;
 use App\Transformers\ProjectTransformer;
 use App\Transformers\ProjectSelect2Transformer;
 
-class ProjectSearchController extends BaseController
+class ProjectSearchController extends Controller
 {
     public function default(ProjectSearchDefaultRequest $request, ProjectSearchService $service)
     {
