@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Customer;
 use App\Models\Project;
 use App\Models\ProjectGroup;
 use Illuminate\Database\Seeder;
@@ -11,6 +12,7 @@ class ProjectSeeder extends Seeder
         switch (app()->environment()) {
             case 'local':
                 $this->seedFakeProjectGroups();
+                $this->seedFakeCustomers();
                 $this->seedFakeProjects();
                 break;
         }
@@ -19,6 +21,11 @@ class ProjectSeeder extends Seeder
     protected function seedFakeProjectGroups()
     {
         factory(ProjectGroup::class, 5)->create();
+    }
+
+    protected function seedFakeCustomers()
+    {
+        factory(Customer::class, 5)->create();
     }
 
     protected function seedFakeProjects()

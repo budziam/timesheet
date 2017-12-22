@@ -20,6 +20,7 @@ class ProjectTransformer extends TransformerAbstract
             'value'       => $project->value,
             'color'       => $project->color,
             'description' => $project->description,
+            'customer_id' => $project->customer_id,
             'ends_at'     => $project->ends_at ? $project->ends_at->toDateString() : null,
             'created_at'  => $project->created_at->toDateTimeString(),
             'updated_at'  => $project->updated_at->toDateTimeString(),

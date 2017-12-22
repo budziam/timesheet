@@ -4,7 +4,6 @@ module.exports = {
     props: {
         method: String,
         action: String,
-        class: String,
         formData: Function,
     },
 
@@ -23,10 +22,6 @@ module.exports = {
         normalizedAction() {
             return this.action;
         },
-
-        normalizedClass() {
-            return this.class;
-        }
     },
 
     methods: {

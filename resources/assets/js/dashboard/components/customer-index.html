@@ -1,0 +1,16 @@
+<div class="project-group-index container-fluid">
+    <div class="row-margin">
+        <div class="col-md-12">
+            <a :href="createUrl" class="btn btn-success">{{ $trans('Create') }}</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <v-datatable :columns="columns"
+                         :options="options"
+            >
+            </v-datatable>
+        </div>
+    </div>
+</div>

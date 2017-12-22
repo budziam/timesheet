@@ -2,8 +2,8 @@
 
 use App\Models\Project;
 use App\Models\ProjectGroup;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class Projects extends Migration
 {
@@ -21,8 +21,6 @@ class Projects extends Migration
 
             $table->unique('lkz');
         });
-//        DB::statement('ALTER TABLE ' . Project::table() . ' ADD FULLTEXT full(name)');
-
 
         Schema::create(ProjectGroup::table(), function (Blueprint $table) {
             $table->increments('id');
@@ -30,8 +28,6 @@ class Projects extends Migration
             $table->char('color', 16);
             $table->timestamps();
         });
-//        DB::statement('ALTER TABLE ' . ProjectGroup::table() . ' ADD FULLTEXT full(name)');
-
 
         Schema::create('project_project_group', function (Blueprint $table) {
             $table->unsignedInteger('project_id');

@@ -2,8 +2,10 @@
 namespace App\Http\Requests\Dashboard;
 
 use App\Bases\FormRequest;
+use App\Models\Customer;
+use Illuminate\Validation\Rule;
 
-class  ProjectStoreUpdateRequest extends FormRequest
+class ProjectStoreUpdateRequest extends FormRequest
 {
     public function rules()
     {
@@ -16,6 +18,7 @@ class  ProjectStoreUpdateRequest extends FormRequest
             'color'       => 'string|nullable',
             'ends_at'     => 'date|nullable',
             'groups'      => 'array',
+            'customer_id' => ['integer', Rule::exists(Customer::table())],
         ];
     }
 }

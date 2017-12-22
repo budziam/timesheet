@@ -31,7 +31,6 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereDeletedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\User firstOrFail()
  * @mixin \Eloquent
  */
 class User extends Authenticatable

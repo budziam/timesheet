@@ -17,7 +17,6 @@ use App\Bases\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\ProjectGroup whereName($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\ProjectGroup whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\ProjectGroup whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Bases\Model firstOrFail()
  * @mixin \Eloquent
  */
 class ProjectGroup extends Model

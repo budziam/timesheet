@@ -13,6 +13,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+use App\Models\Customer;
 use App\Models\Project;
 use App\Models\ProjectGroup;
 use App\Models\User;
@@ -44,6 +45,13 @@ $factory->define(Project::class, function (Generator $faker) {
 });
 
 $factory->define(ProjectGroup::class, function (Generator $faker) {
+    return [
+        'name'  => ucfirst($faker->word),
+        'color' => $faker->hexColor,
+    ];
+});
+
+$factory->define(Customer::class, function (Generator $faker) {
     return [
         'name'  => ucfirst($faker->word),
         'color' => $faker->hexColor,

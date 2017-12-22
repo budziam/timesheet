@@ -5,10 +5,10 @@ use App\Models\ProjectGroup;
 
 class ProjectGroupRepository
 {
-    public function getLink(ProjectGroup $projectGroup, $title = null) : string
+    public function getLink(ProjectGroup $projectGroup, string $title = null) : string
     {
         $title = $title ?? $projectGroup->name;
 
-        return (string)link_to_route('dashboard.project-groups.edit', $title, $projectGroup->getRouteKey());
+        return link_to_route('dashboard.project-groups.edit', $title, $projectGroup->getRouteKey());
     }
 }

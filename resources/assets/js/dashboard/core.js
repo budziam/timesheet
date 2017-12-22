@@ -2,6 +2,8 @@ require('../bootstrap');
 require('bootstrap-sidebar/dist/js/sidebar');
 require('bootstrap-notify');
 
+import CustomerIndex from "./components/customer-index";
+import CustomerCreateedit from "./components/customer-createedit";
 import ProjectIndex from "./components/project-index";
 import ProjectCreateedit from "./components/project-createedit";
 import ProjectGroupIndex from "./components/project-group-index";
@@ -18,6 +20,8 @@ window.vueApp = new Vue({
     el: '#app',
 
     components: {
+        CustomerIndex,
+        CustomerCreateedit,
         ProjectIndex,
         ProjectCreateedit,
         ProjectGroupIndex,

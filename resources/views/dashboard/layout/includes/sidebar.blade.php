@@ -33,6 +33,9 @@
         <li class="{{ $navbar->check('projects') }}">
             <a href="{{ route('dashboard.projects.index') }}">@lang('Projects')</a>
         </li>
+        <li class="{{ $navbar->check('customers') }}">
+            <a href="{{ route('dashboard.customers.index') }}">@lang('Customers')</a>
+        </li>
         <li class="{{ $navbar->check('project-groups') }}">
             <a href="{{ route('dashboard.project-groups.index') }}">@lang('Project groups')</a>
         </li>

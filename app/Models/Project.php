@@ -14,12 +14,14 @@ use Carbon\Carbon;
  * @property int                                                                      $value
  * @property string                                                                   $description
  * @property string                                                                   $color
- * @property \Carbon\Carbon|null                                                      $ends_at
+ * @property null|Customer                                                            $customer_id
+ * @property null|\Carbon\Carbon                                                      $ends_at
  * @property \Carbon\Carbon                                                           $created_at
  * @property \Carbon\Carbon                                                           $updated_at
  * @property-read bool                                                                $active
  * @property-read string                                                              $full_name
  * @property-read string|null                                                         $real_color
+ * @property-read null|\App\Models\Customer                                           $customer
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProjectGroup[] $groups
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\WorkLog[]      $workLogs
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Project whereId($value)
@@ -32,7 +34,6 @@ use Carbon\Carbon;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Project whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Project whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Project active()
- * @method static \Illuminate\Database\Query\Builder|\App\Bases\Model firstOrFail()
  * @mixin \Eloquent
  */
 class Project extends Model
@@ -45,6 +46,7 @@ class Project extends Model
         'value',
         'color',
         'ends_at',
+        'customer_id',
     ];
 
     protected $casts = [
@@ -55,6 +57,11 @@ class Project extends Model
         'description' => '',
         'value'       => 0,
     ];
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
 
     public function groups()
     {
@@ -85,6 +92,10 @@ class Project extends Model
     {
         if ($this->color !== null) {
             return $this->color;
+        }
+
+        if ($this->customer !== null) {
+            return $this->customer->color;
         }
 
         if ($this->groups->isNotEmpty()) {
