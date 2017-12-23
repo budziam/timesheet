@@ -80,7 +80,7 @@ export default {
         },
 
         destroy() {
-            if (!confirm(this.$trans('Do you really want to delete project?'))) {
+            if (!confirm(this.$trans('Do you really want to delete it?'))) {
                 return;
             }
 

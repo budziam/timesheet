@@ -63,6 +63,10 @@ export default {
         },
 
         destroy() {
+            if (!confirm(this.$trans('Do you really want to delete it?'))) {
+                return;
+            }
+
             axios.delete(Laravel.url('/dashboard/api/work-logs/' + this.modelId))
                 .then(response => {
                     window.location = Laravel.url('/dashboard/work-logs');

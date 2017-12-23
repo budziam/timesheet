@@ -47,6 +47,10 @@ export default {
         },
 
         destroy() {
+            if (!confirm(this.$trans('Do you really want to delete it?'))) {
+                return;
+            }
+
             axios.delete(Laravel.url('/dashboard/api/project-groups/' + this.modelId))
                 .then(response => window.location = Laravel.url('/dashboard/project-groups'))
                 .catch(error => {
