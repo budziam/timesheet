@@ -13,3 +13,8 @@ $router->get('statistics/project-groups', [
     'as'   => 'statistics.project-groups',
     'uses' => StatisticsController::class . '@projectGroups',
 ]);
+
+$router->get('statistics/customers', [
+    'as'   => 'statistics.customers',
+    'uses' => StatisticsController::class . '@customers',
+]);

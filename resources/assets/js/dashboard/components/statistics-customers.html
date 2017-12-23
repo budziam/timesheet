@@ -1,0 +1,30 @@
+<div class="statistics container-fluid">
+    <div v-if="customers.length">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ $trans('Customer') }}</th>
+                <th>{{ $trans('Office') }}</th>
+                <th>{{ $trans('Fieldwork') }}</th>
+                <th>{{ $trans('Hours summary') }}</th>
+                <th>{{ $trans('Value') }}</th>
+                <th>{{ $trans('Hour value') }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="row in customers">
+                <td>{{ row.customer }}</td>
+                <td>{{ row.office }}</td>
+                <td>{{ row.fieldwork }}</td>
+                <td>{{ row.total }}</td>
+                <td>{{ row.value }} PLN</td>
+                <td>{{ row.hour_value }} PLN</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div v-else>
+        Loading...
+    </div>
+</div>

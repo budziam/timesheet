@@ -51,5 +51,8 @@
         <li class="{{ $navbar->check('statistics-project-groups') }}">
             <a href="{{ route('dashboard.statistics.project-groups') }}">@lang('Statistics: Project groups')</a>
         </li>
+        <li class="{{ $navbar->check('statistics-customers') }}">
+            <a href="{{ route('dashboard.statistics.customers') }}">@lang('Statistics: Customers')</a>
+        </li>
     </ul>
 </div>

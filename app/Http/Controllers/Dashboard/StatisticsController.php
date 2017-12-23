@@ -22,4 +22,13 @@ class StatisticsController extends DashboardController
 
         return view('dashboard.pages.statistics.project-groups');
     }
+
+    public function customers()
+    {
+        $this->breadcrumbBuilder
+            ->attachNewBreadcrumb(__('Statistics: Customers'), route('dashboard.statistics.customers'));
+        $this->navbarBuilder->setActive('statistics-customers');
+
+        return view('dashboard.pages.statistics.customers');
+    }
 }
