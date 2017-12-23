@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,6 +17,13 @@ class AppServiceProvider extends ServiceProvider
         $this->route();
 
         require_once(app_path('helpers.php'));
+    }
+
+    public function boot()
+    {
+        if ($this->app->environment('production')) {
+            URL::forceScheme('https');
+        }
     }
 
     /**
