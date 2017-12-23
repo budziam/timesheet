@@ -35,7 +35,7 @@ export default {
                 fieldwork: WorkLogTime.timePretty(row.fieldwork),
                 total: WorkLogTime.timePretty(total),
                 value: (row.value / 100).toFixed(2),
-                hour_value: WorkLogTime.getHourValue(row.value, total).toFixed(2),
+                hour_value: WorkLogTime.getHourValue(row.value / 100, total).toFixed(2),
             };
         },
     },

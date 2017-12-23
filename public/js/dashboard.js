@@ -82724,7 +82724,7 @@ module.exports = "<div class=\"statistics container-fluid\">\n    <div class=\"r
                 fieldwork: __WEBPACK_IMPORTED_MODULE_1__common_components_work_log_time___default.a.timePretty(row.fieldwork),
                 total: __WEBPACK_IMPORTED_MODULE_1__common_components_work_log_time___default.a.timePretty(total),
                 value: (row.value / 100).toFixed(2),
-                hour_value: __WEBPACK_IMPORTED_MODULE_1__common_components_work_log_time___default.a.getHourValue(row.value, total).toFixed(2)
+                hour_value: __WEBPACK_IMPORTED_MODULE_1__common_components_work_log_time___default.a.getHourValue(row.value / 100, total).toFixed(2)
             };
         }
     },
@@ -82747,7 +82747,7 @@ module.exports = "<div class=\"statistics container-fluid\">\n    <div class=\"r
 /* 210 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"statistics container-fluid\">\n    <div v-if=\"statistics\">\n        <table class=\"table table-striped\">\n            <thead>\n            <tr>\n                <th>{{ $trans('Project group') }}</th>\n                <th>{{ $trans('Office') }}</th>\n                <th>{{ $trans('Fieldwork') }}</th>\n                <th>{{ $trans('Hours summary') }}</th>\n                <th>{{ $trans('Value') }}</th>\n                <th>{{ $trans('Hour value') }}</th>\n            </tr>\n            <tr>\n                <th></th>\n                <th>{{ all.office }}</th>\n                <th>{{ all.fieldwork }}</th>\n                <th>{{ all.total }}</th>\n                <th>{{ all.value }} PLN</th>\n                <th>{{ all.hour_value }}</th>\n            </tr>\n            </thead>\n            <tbody>\n            <tr v-for=\"row in projectGroups\">\n                <td>{{ row.project_group }}</td>\n                <td>{{ row.office }}</td>\n                <td>{{ row.fieldwork }}</td>\n                <td>{{ row.total }}</td>\n                <td>{{ row.value }} PLN</td>\n                <td>{{ row.hour_value }}</td>\n            </tr>\n            </tbody>\n        </table>\n    </div>\n\n    <div v-else>\n        Loading...\n    </div>\n</div>";
+module.exports = "<div class=\"statistics container-fluid\">\n    <div v-if=\"statistics\">\n        <table class=\"table table-striped\">\n            <thead>\n            <tr>\n                <th>{{ $trans('Project group') }}</th>\n                <th>{{ $trans('Office') }}</th>\n                <th>{{ $trans('Fieldwork') }}</th>\n                <th>{{ $trans('Hours summary') }}</th>\n                <th>{{ $trans('Value') }}</th>\n                <th>{{ $trans('Hour value') }}</th>\n            </tr>\n            <tr>\n                <th></th>\n                <th>{{ all.office }}</th>\n                <th>{{ all.fieldwork }}</th>\n                <th>{{ all.total }}</th>\n                <th>{{ all.value }} PLN</th>\n                <th>{{ all.hour_value }} PLN</th>\n            </tr>\n            </thead>\n            <tbody>\n            <tr v-for=\"row in projectGroups\">\n                <td>{{ row.project_group }}</td>\n                <td>{{ row.office }}</td>\n                <td>{{ row.fieldwork }}</td>\n                <td>{{ row.total }}</td>\n                <td>{{ row.value }} PLN</td>\n                <td>{{ row.hour_value }} PLN</td>\n            </tr>\n            </tbody>\n        </table>\n    </div>\n\n    <div v-else>\n        Loading...\n    </div>\n</div>";
 
 /***/ }),
 /* 211 */
