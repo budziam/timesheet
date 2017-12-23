@@ -61,9 +61,9 @@ export default {
                 office: WorkLogTime.timePretty(office),
                 fieldwork: WorkLogTime.timePretty(fieldwork),
                 total: WorkLogTime.timePretty(total),
-                value: (this.project.value / total * 3600).toFixed(2),
+                value: WorkLogTime.getHourValue(this.project.value, total).toFixed(2),
             }
-        }
+        },
     },
 
     watch: {

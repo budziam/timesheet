@@ -25,4 +25,12 @@ module.exports = {
 
         return `${hoursFormatted}:${minutesFormatted}`;
     },
+
+    getHourValue(value, totalSeconds) {
+        if (totalSeconds === 0) {
+            return 0;
+        }
+
+        return value / totalSeconds * 3600;
+    },
 };
