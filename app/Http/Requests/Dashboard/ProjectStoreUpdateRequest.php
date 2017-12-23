@@ -18,7 +18,7 @@ class ProjectStoreUpdateRequest extends FormRequest
             'color'       => 'string|nullable',
             'ends_at'     => 'date|nullable',
             'groups'      => 'array',
-            'customer_id' => ['integer', Rule::exists(Customer::table())],
+            'customer_id' => ['nullable', 'integer', Rule::exists(Customer::table(), 'id')],
         ];
     }
 }

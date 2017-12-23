@@ -1,173 +1,187 @@
 <div :class="formClass" class="container">
+  <div class="row" v-if="isEditing">
+    <div class="col-md-12 text-right">
+      <button class="btn btn-lg btn-danger" @click="destroy">{{ $trans('Delete') }}</button>
+    </div>
+  </div>
+
+  <v-form :method="formMethod"
+          :action="formAction"
+          :formData="getFormData"
+          @success="onFormSuccess"
+  >
     <div class="row" v-if="isEditing">
-        <div class="col-md-12 text-right">
-            <button class="btn btn-lg btn-danger" @click="destroy">{{ $trans('Delete') }}</button>
-        </div>
+      <div class="form-group col-md-12">
+        <label for="form_id">{{ $trans('ID') }}</label>
+        <input type="text"
+               id="form_id"
+               class="form-control"
+               v-model="model.id"
+               disabled
+        >
+      </div>
     </div>
 
-    <v-form :method="formMethod"
-            :action="formAction"
-            :formData="getFormData"
-            @success="onFormSuccess"
-    >
-        <div class="row" v-if="isEditing">
-            <div class="form-group col-md-12">
-                <label for="form_id">{{ $trans('ID') }}</label>
-                <input type="text"
-                       id="form_id"
-                       class="form-control"
-                       v-model="model.id"
-                       disabled
-                >
-            </div>
+    <div class="row">
+      <div class="form-group col-lg-6 col-sm-12">
+        <label for="form_lkz">{{ $trans('L.K.Z') }}</label>
+        <input type="text"
+               id="form_lkz"
+               name="lkz"
+               class="form-control"
+               v-model="model.lkz"
+               required
+        >
+      </div>
+
+      <div class="form-group col-lg-6 col-sm-12">
+        <label for="form_name">{{ $trans('KERG/ID') }}</label>
+        <input type="text"
+               id="form_kerg"
+               name="kerg"
+               class="form-control"
+               v-model="model.kerg"
+               required
+        >
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-12">
+        <label for="form_name">{{ $trans('Name') }}</label>
+        <input type="text"
+               id="form_name"
+               name="name"
+               class="form-control"
+               v-model="model.name"
+               required
+        >
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-12">
+        <label for="form_customer">{{ $trans('Customer') }}</label>
+        <v-select id="customer"
+                  name="customer"
+                  class="form-control"
+                  url="/dashboard/api/select2/customers"
+                  v-model="model.customer.id"
+                  ref="customer"
+        >
+        </v-select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-12">
+        <label for="form_name">{{ $trans('Project value') }}</label>
+        <div class="input-group">
+          <input type="number"
+                 step="0.01"
+                 id="form_value"
+                 name="value"
+                 class="form-control"
+                 v-model="model.value"
+                 required
+          >
+          <span class="input-group-addon">PLN</span>
         </div>
+      </div>
+    </div>
 
-        <div class="row">
-            <div class="form-group col-lg-6 col-sm-12">
-                <label for="form_lkz">{{ $trans('L.K.Z') }}</label>
-                <input type="text"
-                       id="form_lkz"
-                       name="lkz"
-                       class="form-control"
-                       v-model="model.lkz"
-                       required
-                >
-            </div>
-
-            <div class="form-group col-lg-6 col-sm-12">
-                <label for="form_name">{{ $trans('KERG/ID') }}</label>
-                <input type="text"
-                       id="form_kerg"
-                       name="kerg"
-                       class="form-control"
-                       v-model="model.kerg"
-                       required
-                >
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="form-group col-md-12">
-                <label for="form_name">{{ $trans('Name') }}</label>
-                <input type="text"
-                       id="form_name"
-                       name="name"
-                       class="form-control"
-                       v-model="model.name"
-                       required
-                >
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="form-group col-md-12">
-                <label for="form_name">{{ $trans('Project value') }}</label>
-                <div class="input-group">
-                    <input type="number"
-                           step="0.01"
-                           id="form_value"
-                           name="value"
-                           class="form-control"
-                           v-model="model.value"
-                           required
-                    >
-                    <span class="input-group-addon">PLN</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="form-group col-md-12">
-                <label for="form_ends_at">{{ $trans('End date') }}</label>
-                <div class="input-group">
+    <div class="row">
+      <div class="form-group col-md-12">
+        <label for="form_ends_at">{{ $trans('End date') }}</label>
+        <div class="input-group">
                     <span class="input-group-addon">
                         <input type="checkbox" v-model="endsAtEnabled">
                     </span>
-                    <input type="date"
-                           id="form_ends_at"
-                           name="ends_at"
-                           class="form-control"
-                           v-model="model.ends_at"
-                           :disabled="!endsAtEnabled"
-                           required
-                    >
-                </div>
-            </div>
+          <input type="date"
+                 id="form_ends_at"
+                 name="ends_at"
+                 class="form-control"
+                 v-model="model.ends_at"
+                 :disabled="!endsAtEnabled"
+                 required
+          >
         </div>
+      </div>
+    </div>
 
-        <div class="row">
-            <div class="form-group col-md-12">
-                <label for="form_description">{{ $trans('Description') }}</label>
-                <textarea id="form_description"
-                          name="description"
-                          class="form-control"
-                          v-model="model.description"
-                >
+    <div class="row">
+      <div class="form-group col-md-12">
+        <label for="form_description">{{ $trans('Description') }}</label>
+        <textarea id="form_description"
+                  name="description"
+                  class="form-control"
+                  v-model="model.description"
+        >
             </textarea>
-            </div>
-        </div>
+      </div>
+    </div>
 
-        <div class="row">
-            <div class="form-group col-md-12">
-                <label for="form_groups">{{ $trans('Project groups') }}</label>
-                <v-select id="form_groups"
-                          name="groups[]"
-                          class="form-control"
-                          :multiple="true"
-                          url="/dashboard/api/select2/project-groups"
-                          @input="updateGroups($event)"
-                          ref="groups"
-                >
-                </v-select>
-            </div>
-        </div>
+    <div class="row">
+      <div class="form-group col-md-12">
+        <label for="form_groups">{{ $trans('Project groups') }}</label>
+        <v-select id="form_groups"
+                  name="groups[]"
+                  class="form-control"
+                  :multiple="true"
+                  url="/dashboard/api/select2/project-groups"
+                  @input="updateGroups($event)"
+                  ref="groups"
+        >
+        </v-select>
+      </div>
+    </div>
 
-        <div class="row">
-            <div class="form-group col-md-12">
-                <label for="form_color">{{ $trans('Color') }}</label>
-                <div class="input-group">
+    <div class="row">
+      <div class="form-group col-md-12">
+        <label for="form_color">{{ $trans('Color') }}</label>
+        <div class="input-group">
                     <span class="input-group-addon">
                         <input type="checkbox" v-model="colorEnabled">
                     </span>
-                    <input type="color"
-                           id="form_color"
-                           name="color"
-                           class="form-control"
-                           v-model="model.color"
-                           :disabled="!colorEnabled"
-                           required
-                    >
-                </div>
-            </div>
+          <input type="color"
+                 id="form_color"
+                 name="color"
+                 class="form-control"
+                 v-model="model.color"
+                 :disabled="!colorEnabled"
+                 required
+          >
         </div>
+      </div>
+    </div>
 
-        <div class="row" v-if="isEditing">
-            <div class="form-group col-lg-6 col-sm-12">
-                <label for="form_created_at">{{ $trans('Created at') }}</label>
-                <input type="datetime-local"
-                       id="form_created_at"
-                       class="form-control"
-                       v-model="model.created_at"
-                       disabled
-                >
-            </div>
+    <div class="row" v-if="isEditing">
+      <div class="form-group col-lg-6 col-sm-12">
+        <label for="form_created_at">{{ $trans('Created at') }}</label>
+        <input type="datetime-local"
+               id="form_created_at"
+               class="form-control"
+               v-model="model.created_at"
+               disabled
+        >
+      </div>
 
-            <div class="form-group col-lg-6 col-sm-12">
-                <label for="form_updated_at">{{ $trans('Updated at') }}</label>
-                <input type="datetime-local"
-                       id="form_updated_at"
-                       class="form-control"
-                       v-model="model.updated_at"
-                       disabled
-                >
-            </div>
-        </div>
+      <div class="form-group col-lg-6 col-sm-12">
+        <label for="form_updated_at">{{ $trans('Updated at') }}</label>
+        <input type="datetime-local"
+               id="form_updated_at"
+               class="form-control"
+               v-model="model.updated_at"
+               disabled
+        >
+      </div>
+    </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <button class="btn btn-success" type="submit" v-if="isEditing">{{ $trans('Submit') }}</button>
-                <button class="btn btn-success" type="submit" v-if="isCreating">{{ $trans('Create') }}</button>
-            </div>
-        </div>
-    </v-form>
+    <div class="row">
+      <div class="col-md-12">
+        <button class="btn btn-success" type="submit" v-if="isEditing">{{ $trans('Submit') }}</button>
+        <button class="btn btn-success" type="submit" v-if="isCreating">{{ $trans('Create') }}</button>
+      </div>
+    </div>
+  </v-form>
 </div>

@@ -15,6 +15,7 @@ export default {
             colorEnabled: false,
             model: {
                 color: '#b0b0b0',
+                customer: {},
                 groups: []
             }
         }
@@ -26,12 +27,13 @@ export default {
 
             axios.get(Laravel.url('/dashboard/api/projects/' + this.modelId))
                 .then(response => {
-                    let project = response.data;
+                    const project = response.data;
 
                     project.ends_at = project.ends_at ? Moment(project.ends_at).format('YYYY-MM-DD') : null;
                     project.created_at = Moment(project.created_at).format('YYYY-MM-DDThh:mm:ss');
                     project.updated_at = Moment(project.updated_at).format('YYYY-MM-DDThh:mm:ss');
 
+                    component.$refs.customer.select({id: project.customer.id, text: project.customer.name});
                     component.$refs.groups.select(
                         project.groups.map(group => {
                             return {
@@ -60,6 +62,7 @@ export default {
             formData.ends_at = this.endsAtEnabled ? Moment(formData.ends_at).format('YYYY-MM-DD') : null;
             formData.color = this.colorEnabled ? this.model.color : null;
             formData.groups = formData.groups.map(group => group.id);
+            formData.customer_id = formData.customer.id;
 
             return formData;
         },
@@ -81,7 +84,7 @@ export default {
                 })
                 .catch(error => {
                     if (error.response.status === 422) {
-                        Event.notifyDanger(error.response.data.join('<br/>'));
+                        Event.notifyDanger(error.response.data.errors.join('<br/>'));
                     } else {
                         Event.requestError(error);
                     }
@@ -94,6 +97,10 @@ export default {
                     id: group
                 }
             });
+        },
+
+        updateCustomer(customer) {
+            this.model.customer_id = customer;
         }
     },
 

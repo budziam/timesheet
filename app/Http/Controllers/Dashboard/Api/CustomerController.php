@@ -6,7 +6,7 @@ use App\Datatables\CustomerDatatable;
 use App\Http\Requests\Dashboard\CustomerDestroyRequest;
 use App\Http\Requests\Dashboard\CustomerStoreUpdateRequest;
 use App\Models\Customer;
-use App\Transformers\CustomerTransformer;
+use App\Transformers\Dashboard\CustomerTransformer;
 use ModelShaper\Datatable\DatatableFormRequest;
 use ModelShaper\Datatable\DatatableShaper;
 use ModelShaper\Select2\Select2FormRequest;

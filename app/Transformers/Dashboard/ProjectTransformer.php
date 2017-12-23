@@ -7,6 +7,7 @@ use League\Fractal\TransformerAbstract;
 class ProjectTransformer extends TransformerAbstract
 {
     protected $defaultIncludes = [
+        'customer',
         'groups',
     ];
 
@@ -20,7 +21,6 @@ class ProjectTransformer extends TransformerAbstract
             'value'       => $project->value,
             'color'       => $project->color,
             'description' => $project->description,
-            'customer_id' => $project->customer_id,
             'ends_at'     => $project->ends_at ? $project->ends_at->toDateString() : null,
             'created_at'  => $project->created_at->toDateTimeString(),
             'updated_at'  => $project->updated_at->toDateTimeString(),
@@ -30,5 +30,14 @@ class ProjectTransformer extends TransformerAbstract
     public function includeGroups(Project $project)
     {
         return $this->collection($project->groups, new ProjectGroupTransformer());
+    }
+
+    public function includeCustomer(Project $project)
+    {
+        if ($project->customer === null) {
+            return null;
+        }
+
+        return $this->item($project->customer, new CustomerTransformer());
     }
 }

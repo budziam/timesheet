@@ -51,7 +51,7 @@ export default {
                 })
                 .catch(error => {
                     if (error.response.status === 422) {
-                        Event.notifyDanger(error.response.data.join('<br/>'));
+                        Event.notifyDanger(error.response.data.errors.join('<br/>'));
                     } else {
                         Event.requestError(error);
                     }
