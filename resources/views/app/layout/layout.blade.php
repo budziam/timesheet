@@ -13,9 +13,9 @@
 
     <script>
         window.Laravel = <?php echo json_encode([
-                'csrfToken' => csrf_token(),
-                'url'       => url('/'),
-                'lang'      => App::getLocale()
+            'csrfToken' => csrf_token(),
+            'url'       => url('/'),
+            'lang'      => App::getLocale()
         ]); ?>
     </script>
 </head>
@@ -29,6 +29,6 @@
     <loader></loader>
 </div>
 
-{!! Html::script(mix('js/app.js') . '?v=2') !!}
+{!! Html::script(mix('js/app.js')) !!}
 </body>
 </html>
