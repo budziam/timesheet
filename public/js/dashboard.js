@@ -66657,16 +66657,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_project_createedit__ = __webpack_require__(201);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_project_group_index__ = __webpack_require__(203);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_project_group_createedit__ = __webpack_require__(205);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_statistics_projects__ = __webpack_require__(207);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_statistics_project_groups__ = __webpack_require__(209);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_user_index__ = __webpack_require__(211);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_user_createedit__ = __webpack_require__(213);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_user_change_password__ = __webpack_require__(215);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_work_log_index__ = __webpack_require__(217);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_work_log_createedit__ = __webpack_require__(219);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_statistics_customers__ = __webpack_require__(207);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_statistics_projects__ = __webpack_require__(209);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_statistics_project_groups__ = __webpack_require__(211);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_user_index__ = __webpack_require__(213);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_user_createedit__ = __webpack_require__(215);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_user_change_password__ = __webpack_require__(217);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_work_log_index__ = __webpack_require__(219);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_work_log_createedit__ = __webpack_require__(221);
 __webpack_require__(135);
 __webpack_require__(191);
 __webpack_require__(167);
+
 
 
 
@@ -66692,13 +66694,14 @@ window.vueApp = new Vue({
         ProjectCreateedit: __WEBPACK_IMPORTED_MODULE_3__components_project_createedit__["a" /* default */],
         ProjectGroupIndex: __WEBPACK_IMPORTED_MODULE_4__components_project_group_index__["a" /* default */],
         ProjectGroupCreateedit: __WEBPACK_IMPORTED_MODULE_5__components_project_group_createedit__["a" /* default */],
-        StatisticsProjects: __WEBPACK_IMPORTED_MODULE_6__components_statistics_projects__["a" /* default */],
-        StatisticsProjectGroups: __WEBPACK_IMPORTED_MODULE_7__components_statistics_project_groups__["a" /* default */],
-        UserIndex: __WEBPACK_IMPORTED_MODULE_8__components_user_index__["a" /* default */],
-        UserCreateedit: __WEBPACK_IMPORTED_MODULE_9__components_user_createedit__["a" /* default */],
-        UserChangePassword: __WEBPACK_IMPORTED_MODULE_10__components_user_change_password__["a" /* default */],
-        WorkLogIndex: __WEBPACK_IMPORTED_MODULE_11__components_work_log_index__["a" /* default */],
-        WorkLogCreateedit: __WEBPACK_IMPORTED_MODULE_12__components_work_log_createedit__["a" /* default */]
+        StatisticsCustomers: __WEBPACK_IMPORTED_MODULE_6__components_statistics_customers__["a" /* default */],
+        StatisticsProjects: __WEBPACK_IMPORTED_MODULE_7__components_statistics_projects__["a" /* default */],
+        StatisticsProjectGroups: __WEBPACK_IMPORTED_MODULE_8__components_statistics_project_groups__["a" /* default */],
+        UserIndex: __WEBPACK_IMPORTED_MODULE_9__components_user_index__["a" /* default */],
+        UserCreateedit: __WEBPACK_IMPORTED_MODULE_10__components_user_createedit__["a" /* default */],
+        UserChangePassword: __WEBPACK_IMPORTED_MODULE_11__components_user_change_password__["a" /* default */],
+        WorkLogIndex: __WEBPACK_IMPORTED_MODULE_12__components_work_log_index__["a" /* default */],
+        WorkLogCreateedit: __WEBPACK_IMPORTED_MODULE_13__components_work_log_createedit__["a" /* default */]
     },
 
     created: function created() {
@@ -82593,13 +82596,73 @@ module.exports = "<div :class=\"formClass\" class=\"container\">\n    <div class
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_laravel___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__common_laravel__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_components_work_log_time__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_components_work_log_time___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__common_components_work_log_time__);
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    template: __webpack_require__(208),
+
+    data: function data() {
+        return {
+            customers: []
+        };
+    },
+    created: function created() {
+        this.fetch();
+    },
+
+
+    methods: {
+        fetch: function fetch() {
+            var _this = this;
+
+            var component = this;
+
+            axios.get(__WEBPACK_IMPORTED_MODULE_0__common_laravel___default.a.url('/dashboard/api/statistics/customers')).then(function (response) {
+                return component.customers = response.data.map(function (row) {
+                    return _this.parseRow(row);
+                });
+            }).catch(function (error) {
+                return Event.requestError(error);
+            });
+        },
+        parseRow: function parseRow(row) {
+            var total = row.office + row.fieldwork;
+
+            return {
+                customer: row.customer,
+                office: __WEBPACK_IMPORTED_MODULE_1__common_components_work_log_time___default.a.timePretty(row.office),
+                fieldwork: __WEBPACK_IMPORTED_MODULE_1__common_components_work_log_time___default.a.timePretty(row.fieldwork),
+                total: __WEBPACK_IMPORTED_MODULE_1__common_components_work_log_time___default.a.timePretty(total),
+                value: (row.value / 100).toFixed(2),
+                hour_value: __WEBPACK_IMPORTED_MODULE_1__common_components_work_log_time___default.a.getHourValue(row.value / 100, total).toFixed(2)
+            };
+        }
+    }
+});
+
+/***/ }),
+/* 208 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"statistics container-fluid\">\n    <div v-if=\"customers.length\">\n        <table class=\"table table-striped\">\n            <thead>\n            <tr>\n                <th>{{ $trans('Customer') }}</th>\n                <th>{{ $trans('Office') }}</th>\n                <th>{{ $trans('Fieldwork') }}</th>\n                <th>{{ $trans('Hours summary') }}</th>\n                <th>{{ $trans('Value') }}</th>\n                <th>{{ $trans('Hour value') }}</th>\n            </tr>\n            </thead>\n            <tbody>\n            <tr v-for=\"row in customers\">\n                <td>{{ row.customer }}</td>\n                <td>{{ row.office }}</td>\n                <td>{{ row.fieldwork }}</td>\n                <td>{{ row.total }}</td>\n                <td>{{ row.value }} PLN</td>\n                <td>{{ row.hour_value }} PLN</td>\n            </tr>\n            </tbody>\n        </table>\n    </div>\n\n    <div v-else>\n        Loading...\n    </div>\n</div>";
+
+/***/ }),
+/* 209 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_laravel__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_laravel___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__common_laravel__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_components_work_log_time__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_components_work_log_time___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__common_components_work_log_time__);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-    template: __webpack_require__(208),
+    template: __webpack_require__(210),
 
     data: function data() {
         return {
@@ -82672,13 +82735,13 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 });
 
 /***/ }),
-/* 208 */
+/* 210 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"statistics container-fluid\">\n    <div class=\"row form-group\">\n        <div class=\"col-xs-12 form-group\">\n            <label for=\"form_project_id\" v-text=\"$trans('Project')\"></label>\n            <v-select id=\"form_project_id\"\n                      name=\"project_id\"\n                      class=\"form-control input-lg\"\n                      :placeholder=\"$trans('Wybierz zlecenie')\"\n                      url=\"/dashboard/api/select2/projects\"\n                      v-model=\"projectId\"\n                      ref=\"project\"\n            >\n            </v-select>\n        </div>\n    </div>\n\n    <div v-if=\"project\">\n        <table class=\"table table-striped\">\n            <thead>\n            <tr>\n                <th>{{ $trans('Employee') }}</th>\n                <th>{{ $trans('Date') }}</th>\n                <th>{{ $trans('Office') }}</th>\n                <th>{{ $trans('Fieldwork') }}</th>\n            </tr>\n            </thead>\n            <tbody>\n            <tr v-for=\"row in statisticsFormatted\">\n                <td>{{ row.employee }}</td>\n                <td>{{ row.date }}</td>\n                <td>{{ row.office }}</td>\n                <td>{{ row.fieldwork }}</td>\n            </tr>\n            </tbody>\n        </table>\n\n        <strong>{{ $trans('Hours in office') }}</strong>: {{ summary.office }}<br/>\n        <strong>{{ $trans('Hours in fieldwork') }}</strong>: {{ summary.fieldwork }}<br/>\n        <strong>{{ $trans('Hours summary') }}</strong>: {{ summary.total }}<br/>\n        <strong>{{ $trans('Hour value') }}</strong>: {{ summary.value }} PLN\n    </div>\n\n    <div v-if=\"!project && projectId\">\n        Loading...\n    </div>\n</div>";
 
 /***/ }),
-/* 209 */
+/* 211 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -82690,7 +82753,7 @@ module.exports = "<div class=\"statistics container-fluid\">\n    <div class=\"r
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-    template: __webpack_require__(210),
+    template: __webpack_require__(212),
 
     data: function data() {
         return {
@@ -82744,13 +82807,13 @@ module.exports = "<div class=\"statistics container-fluid\">\n    <div class=\"r
 });
 
 /***/ }),
-/* 210 */
+/* 212 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"statistics container-fluid\">\n    <div v-if=\"statistics\">\n        <table class=\"table table-striped\">\n            <thead>\n            <tr>\n                <th>{{ $trans('Project group') }}</th>\n                <th>{{ $trans('Office') }}</th>\n                <th>{{ $trans('Fieldwork') }}</th>\n                <th>{{ $trans('Hours summary') }}</th>\n                <th>{{ $trans('Value') }}</th>\n                <th>{{ $trans('Hour value') }}</th>\n            </tr>\n            <tr>\n                <th></th>\n                <th>{{ all.office }}</th>\n                <th>{{ all.fieldwork }}</th>\n                <th>{{ all.total }}</th>\n                <th>{{ all.value }} PLN</th>\n                <th>{{ all.hour_value }} PLN</th>\n            </tr>\n            </thead>\n            <tbody>\n            <tr v-for=\"row in projectGroups\">\n                <td>{{ row.project_group }}</td>\n                <td>{{ row.office }}</td>\n                <td>{{ row.fieldwork }}</td>\n                <td>{{ row.total }}</td>\n                <td>{{ row.value }} PLN</td>\n                <td>{{ row.hour_value }} PLN</td>\n            </tr>\n            </tbody>\n        </table>\n    </div>\n\n    <div v-else>\n        Loading...\n    </div>\n</div>";
 
 /***/ }),
-/* 211 */
+/* 213 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -82762,7 +82825,7 @@ module.exports = "<div class=\"statistics container-fluid\">\n    <div v-if=\"st
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-    template: __webpack_require__(212),
+    template: __webpack_require__(214),
 
     components: {
         VDatatable: __WEBPACK_IMPORTED_MODULE_0__datatable___default.a
@@ -82790,13 +82853,13 @@ module.exports = "<div class=\"statistics container-fluid\">\n    <div v-if=\"st
 });
 
 /***/ }),
-/* 212 */
+/* 214 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"user-index container-fluid\">\n    <div class=\"row-margin\">\n        <div class=\"col-md-12\">\n            <a :href=\"userCreateUrl\" class=\"btn btn-success\">{{ $trans('Create') }}</a>\n        </div>\n    </div>\n\n    <div class=\"row\">\n        <div class=\"col-md-12\">\n            <v-datatable :columns=\"columns\"\n                         :options=\"options\"\n            >\n            </v-datatable>\n        </div>\n    </div>\n</div>";
 
 /***/ }),
-/* 213 */
+/* 215 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -82810,7 +82873,7 @@ module.exports = "<div class=\"user-index container-fluid\">\n    <div class=\"r
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-    template: __webpack_require__(214),
+    template: __webpack_require__(216),
 
     mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins_model_createedit__["a" /* default */]],
 
@@ -82878,13 +82941,13 @@ module.exports = "<div class=\"user-index container-fluid\">\n    <div class=\"r
 });
 
 /***/ }),
-/* 214 */
+/* 216 */
 /***/ (function(module, exports) {
 
 module.exports = "<div :class=\"formClass\" class=\"container\">\n    <div class=\"row\" v-if=\"isEditing\">\n        <div class=\"col-md-12 text-right\">\n            <a class=\"btn btn-lg btn-info\" :href=\"changePasswordUrl\">{{ $trans('Change password') }}</a>\n            <button class=\"btn btn-lg btn-danger\" @click=\"destroy\">{{ $trans('Delete') }}</button>\n        </div>\n    </div>\n\n    <v-form :method=\"formMethod\"\n            :action=\"formAction\"\n            :formData=\"getFormData\"\n            @success=\"onFormSuccess\"\n    >\n        <div class=\"row\" v-if=\"isEditing\">\n            <div class=\"form-group col-md-12\">\n                <label for=\"form_id\">{{ $trans('ID') }}</label>\n                <input type=\"text\"\n                       id=\"form_id\"\n                       class=\"form-control\"\n                       v-model=\"model.id\"\n                       disabled\n                >\n            </div>\n        </div>\n\n        <div class=\"row\">\n            <div class=\"form-group col-md-12\">\n                <label for=\"form_name\">{{ $trans('Name') }}</label>\n                <input type=\"text\"\n                       id=\"form_name\"\n                       name=\"name\"\n                       class=\"form-control\"\n                       v-model=\"model.name\"\n                       required\n                >\n            </div>\n        </div>\n\n        <div class=\"row\">\n            <div class=\"form-group col-md-12\">\n                <label for=\"form_fullname\">{{ $trans('Fullname') }}</label>\n                <input type=\"text\"\n                       id=\"form_fullname\"\n                       name=\"fullname\"\n                       class=\"form-control\"\n                       v-model=\"model.fullname\"\n                       required\n                >\n            </div>\n        </div>\n\n        <div class=\"row\" v-if=\"isEditing\">\n            <div class=\"form-group col-lg-6 col-sm-12\">\n                <label for=\"form_created_at\">{{ $trans('Created at') }}</label>\n                <input type=\"datetime-local\"\n                       id=\"form_created_at\"\n                       class=\"form-control\"\n                       v-model=\"model.created_at\"\n                       disabled\n                >\n            </div>\n\n            <div class=\"form-group col-lg-6 col-sm-12\">\n                <label for=\"form_updated_at\">{{ $trans('Updated at') }}</label>\n                <input type=\"datetime-local\"\n                       id=\"form_updated_at\"\n                       class=\"form-control\"\n                       v-model=\"model.updated_at\"\n                       disabled\n                >\n            </div>\n        </div>\n\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <button class=\"btn btn-success\" type=\"submit\" v-if=\"isEditing\">{{ $trans('Submit') }}</button>\n                <button class=\"btn btn-success\" type=\"submit\" v-if=\"isCreating\">{{ $trans('Create') }}</button>\n            </div>\n        </div>\n    </v-form>\n</div>";
 
 /***/ }),
-/* 215 */
+/* 217 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -82896,7 +82959,7 @@ module.exports = "<div :class=\"formClass\" class=\"container\">\n    <div class
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-    template: __webpack_require__(216),
+    template: __webpack_require__(218),
 
     props: {
         userId: [Number, String]
@@ -82927,13 +82990,13 @@ module.exports = "<div :class=\"formClass\" class=\"container\">\n    <div class
 });
 
 /***/ }),
-/* 216 */
+/* 218 */
 /***/ (function(module, exports) {
 
 module.exports = "<v-form class=\"user-change-password container\"\n        method=\"PATCH\"\n        :action=\"formAction\"\n        :formData=\"getFormData\"\n        @success=\"onFormSuccess\"\n>\n    <div class=\"row\">\n        <div class=\"form-group col-md-12\">\n            <label for=\"form_password\">{{ $trans('New password') }}</label>\n            <input type=\"password\"\n                   id=\"form_password\"\n                   class=\"form-control\"\n                   v-model=\"password\"\n            >\n        </div>\n    </div>\n\n    <div class=\"row\">\n        <div class=\"col-md-12\">\n            <button class=\"btn btn-success\" type=\"submit\">{{ $trans('Submit') }}</button>\n        </div>\n    </div>\n</v-form>";
 
 /***/ }),
-/* 217 */
+/* 219 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -82945,7 +83008,7 @@ module.exports = "<v-form class=\"user-change-password container\"\n        meth
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-    template: __webpack_require__(218),
+    template: __webpack_require__(220),
 
     components: {
         VDatatable: __WEBPACK_IMPORTED_MODULE_0__datatable___default.a
@@ -82979,13 +83042,13 @@ module.exports = "<v-form class=\"user-change-password container\"\n        meth
 });
 
 /***/ }),
-/* 218 */
+/* 220 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"project-index container-fluid\">\n    <div class=\"row-margin\">\n        <div class=\"col-md-12\">\n            <a :href=\"workLogCreateUrl\" class=\"btn btn-success\">{{ $trans('Create') }}</a>\n        </div>\n    </div>\n\n    <div class=\"row\">\n        <div class=\"col-md-12\">\n            <v-datatable :columns=\"columns\"\n                         :options=\"options\"\n            >\n            </v-datatable>\n        </div>\n    </div>\n</div>";
 
 /***/ }),
-/* 219 */
+/* 221 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -83002,7 +83065,7 @@ module.exports = "<div class=\"project-index container-fluid\">\n    <div class=
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-    template: __webpack_require__(220),
+    template: __webpack_require__(222),
 
     mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins_model_createedit__["a" /* default */]],
 
@@ -83083,7 +83146,7 @@ module.exports = "<div class=\"project-index container-fluid\">\n    <div class=
 });
 
 /***/ }),
-/* 220 */
+/* 222 */
 /***/ (function(module, exports) {
 
 module.exports = "<div :class=\"formClass\" class=\"container\">\n    <div class=\"row\" v-if=\"isEditing\">\n        <div class=\"col-md-12 text-right\">\n            <button class=\"btn btn-lg btn-danger\" @click=\"destroy\">{{ $trans('Delete') }}</button>\n        </div>\n    </div>\n\n    <v-form :method=\"formMethod\"\n            :action=\"formAction\"\n            :formData=\"getFormData\"\n            @success=\"onFormSuccess\"\n    >\n        <div class=\"row\" v-if=\"isEditing\">\n            <div class=\"form-group col-md-12\">\n                <label for=\"form_id\">{{ $trans('ID') }}</label>\n                <input type=\"text\"\n                       id=\"form_id\"\n                       class=\"form-control\"\n                       v-model=\"model.id\"\n                       disabled\n                >\n            </div>\n        </div>\n\n        <div class=\"row\">\n            <div class=\"form-group col-lg-6 col-sm-12\">\n                <label for=\"form_project_id\">{{ $trans('Project') }}</label>\n                <v-select id=\"form_project_id\"\n                          name=\"project_id\"\n                          class=\"form-control\"\n                          url=\"/dashboard/api/select2/projects\"\n                          v-model=\"model.project.id\"\n                          ref=\"project\"\n                          required\n                >\n                </v-select>\n            </div>\n\n            <div class=\"form-group col-lg-6 col-sm-12\">\n                <label for=\"form_user_id\">{{ $trans('User') }}</label>\n                <v-select id=\"form_user_id\"\n                          name=\"user_id\"\n                          class=\"form-control\"\n                          url=\"/dashboard/api/select2/users\"\n                          v-model=\"model.user.id\"\n                          ref=\"user\"\n                          required\n                >\n                </v-select>\n            </div>\n        </div>\n\n        <div class=\"row\">\n            <div class=\"form-group col-md-12\">\n                <label for=\"form_date\">{{ $trans('Date') }}</label>\n                <input type=\"date\"\n                       id=\"form_date\"\n                       name=\"date\"\n                       class=\"form-control\"\n                       v-model=\"model.date\"\n                       required\n                >\n            </div>\n\n            <div class=\"form-group col-lg-6 col-sm-12\">\n                <label for=\"form_time_fieldwork\">{{ $trans('Fieldwork') }}</label>\n                <input type=\"text\"\n                       id=\"form_time_fieldwork\"\n                       name=\"time_fieldwork\"\n                       class=\"form-control\"\n                       v-model=\"model.time_fieldwork\"\n                >\n            </div>\n\n            <div class=\"form-group col-lg-6 col-sm-12\">\n                <label for=\"form_time_office\">{{ $trans('Office') }}</label>\n                <input type=\"text\"\n                       id=\"form_time_office\"\n                       name=\"time_office\"\n                       class=\"form-control\"\n                       v-model=\"model.time_office\"\n                >\n            </div>\n        </div>\n\n        <div class=\"row\">\n            <div class=\"form-group col-md-12\">\n                <label for=\"form_comment\">{{ $trans('Comment') }}</label>\n                <textarea id=\"form_comment\"\n                          name=\"comment\"\n                          class=\"form-control\"\n                          v-model=\"model.comment\"\n                >\n                </textarea>\n            </div>\n        </div>\n\n        <div class=\"row\" v-if=\"isEditing\">\n            <div class=\"form-group col-lg-6 col-sm-12\">\n                <label for=\"form_created_at\">{{ $trans('Created at') }}</label>\n                <input type=\"datetime-local\"\n                       id=\"form_created_at\"\n                       class=\"form-control\"\n                       v-model=\"model.created_at\"\n                       disabled\n                >\n            </div>\n\n            <div class=\"form-group col-lg-6 col-sm-12\">\n                <label for=\"form_updated_at\">{{ $trans('Updated at') }}</label>\n                <input type=\"datetime-local\"\n                       id=\"form_updated_at\"\n                       class=\"form-control\"\n                       v-model=\"model.updated_at\"\n                       disabled\n                >\n            </div>\n        </div>\n\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <button class=\"btn btn-success\" type=\"submit\" v-if=\"isEditing\">{{ $trans('Submit') }}</button>\n                <button class=\"btn btn-success\" type=\"submit\" v-if=\"isCreating\">{{ $trans('Create') }}</button>\n            </div>\n        </div>\n    </v-form>\n</div>";
