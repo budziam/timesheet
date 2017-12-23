@@ -35,7 +35,7 @@ class ProjectTransformer extends TransformerAbstract
     public function includeCustomer(Project $project)
     {
         if ($project->customer === null) {
-            return null;
+            return $this->null();
         }
 
         return $this->item($project->customer, new CustomerTransformer());

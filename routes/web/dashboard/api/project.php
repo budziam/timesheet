@@ -8,6 +8,11 @@ $router->resource('projects', ProjectController::class, [
     'only' => ['show', 'store', 'update', 'destroy'],
 ]);
 
+$router->post('projects/{project}/complete', [
+    'as'   => 'projects.complete',
+    'uses' => ProjectController::class . '@complete',
+]);
+
 $router->get('datatable/projects', [
     'as'   => 'datatable.projects',
     'uses' => ProjectController::class . '@datatable',

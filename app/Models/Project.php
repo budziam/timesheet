@@ -114,4 +114,9 @@ class Project extends Model
     {
         $query->where('ends_at', '>=', Carbon::now())->orWhereNull('ends_at');
     }
+
+    public function complete()
+    {
+        $this->update(['ends_at' => Carbon::now()]);
+    }
 }

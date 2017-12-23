@@ -11,22 +11,22 @@ class UserDestroyRequest extends FormRequest
     {
         $errors = [];
 
-        if ($this->getRequestUser()->id === $this->user()->id) {
+        if ($this->requestUser()->is($this->user())) {
             $errors[] = __('Cannot delete your account.');
         }
 
-        if ($this->getRequestUser()->workLogs()->count() > 0) {
+        if ($this->requestUser()->workLogs()->count() > 0) {
             $errors[] = __('There are work logs connected to this user.');
         }
 
 
         if (count($errors)) {
-            throw new ValidationException(null, response($errors, 422));
+            throw ValidationException::withMessages($errors);
         }
     }
 
-    protected function getRequestUser() : User
+    protected function requestUser() : User
     {
-        return $this->user;
+        return $this->route('user');
     }
 }

@@ -1,6 +1,7 @@
 <div :class="formClass" class="container">
   <div class="row" v-if="isEditing">
     <div class="col-md-12 text-right">
+      <button v-if="!ended" class="btn btn-lg btn-success" @click="complete">{{ $trans('Complete') }}</button>
       <button class="btn btn-lg btn-danger" @click="destroy">{{ $trans('Delete') }}</button>
     </div>
   </div>
@@ -66,7 +67,7 @@
                   name="customer"
                   class="form-control"
                   url="/dashboard/api/select2/customers"
-                  v-model="model.customer.id"
+                  v-model="model.customer_id"
                   ref="customer"
         >
         </v-select>
@@ -94,9 +95,9 @@
       <div class="form-group col-md-12">
         <label for="form_ends_at">{{ $trans('End date') }}</label>
         <div class="input-group">
-                    <span class="input-group-addon">
-                        <input type="checkbox" v-model="endsAtEnabled">
-                    </span>
+          <span class="input-group-addon">
+              <input type="checkbox" v-model="endsAtEnabled">
+          </span>
           <input type="date"
                  id="form_ends_at"
                  name="ends_at"

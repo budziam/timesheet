@@ -23,7 +23,7 @@ export default {
 
     methods: {
         getModel() {
-            let component = this;
+            const component = this;
 
             axios.get(Laravel.url('/dashboard/api/projects/' + this.modelId))
                 .then(response => {
@@ -33,15 +33,18 @@ export default {
                     project.created_at = Moment(project.created_at).format('YYYY-MM-DDThh:mm:ss');
                     project.updated_at = Moment(project.updated_at).format('YYYY-MM-DDThh:mm:ss');
 
-                    component.$refs.customer.select({id: project.customer.id, text: project.customer.name});
                     component.$refs.groups.select(
-                        project.groups.map(group => {
-                            return {
-                                id: group.id,
-                                text: group.name
-                            }
-                        })
+                        project.groups.map(group => ({
+                            id: group.id,
+                            text: group.name
+                        }))
                     );
+
+                    project.customer_id = null;
+                    if (project.customer) {
+                        project.customer_id = project.customer.id;
+                        component.$refs.customer.select({id: project.customer.id, text: project.customer.name});
+                    }
 
                     if (project.ends_at) {
                         this.endsAtEnabled = true;
@@ -62,7 +65,6 @@ export default {
             formData.ends_at = this.endsAtEnabled ? Moment(formData.ends_at).format('YYYY-MM-DD') : null;
             formData.color = this.colorEnabled ? this.model.color : null;
             formData.groups = formData.groups.map(group => group.id);
-            formData.customer_id = formData.customer.id;
 
             return formData;
         },
@@ -78,10 +80,12 @@ export default {
         },
 
         destroy() {
-            axios.delete(Laravel.url('/dashboard/api/projects/' + this.modelId))
-                .then(() => {
-                    window.location = Laravel.url('/dashboard/projects');
-                })
+            if (!confirm(this.$trans('Do you really want to delete project?'))) {
+                return;
+            }
+
+            axios.delete(Laravel.url(`/dashboard/api/projects/${this.modelId}`))
+                .then(() => window.location = Laravel.url('/dashboard/projects'))
                 .catch(error => {
                     if (error.response.status === 422) {
                         Event.notifyDanger(error.response.data.errors.join('<br/>'));
@@ -91,17 +95,17 @@ export default {
                 });
         },
 
-        updateGroups(groups) {
-            this.model.groups = groups.map(group => {
-                return {
-                    id: group
-                }
-            });
+        complete() {
+            axios.post(Laravel.url(`/dashboard/api/projects/${this.modelId}/complete`))
+                .then(() => window.location = Laravel.url('/dashboard/projects'))
+                .catch(error => Event.requestError(error));
         },
 
-        updateCustomer(customer) {
-            this.model.customer_id = customer;
-        }
+        updateGroups(groups) {
+            this.model.groups = groups.map(group => ({
+                id: group
+            }));
+        },
     },
 
     computed: {
@@ -119,6 +123,10 @@ export default {
             }
 
             return 'project-edit';
+        },
+
+        ended() {
+            return this.model.ends_at !== null;
         }
     }
 };

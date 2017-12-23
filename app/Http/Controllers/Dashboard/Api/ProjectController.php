@@ -68,4 +68,11 @@ class ProjectController extends Controller
 
         return $this->responseSuccess();
     }
+
+    public function complete(Project $project)
+    {
+        $project->complete();
+
+        return $this->responseSuccess();
+    }
 }

@@ -11,17 +11,17 @@ class ProjectDestroyRequest extends FormRequest
     {
         $errors = [];
 
-        if ($this->getProject()->workLogs()->count() > 0) {
+        if ($this->project()->workLogs()->count() > 0) {
             $errors[] = __('There are work logs connected with this project');
         }
 
         if (count($errors)) {
-            throw new ValidationException(null, response($errors, 422));
+            throw ValidationException::withMessages($errors);
         }
     }
 
-    protected function getProject() : Project
+    protected function project() : Project
     {
-        return $this->project;
+        return $this->route('project');
     }
 }
