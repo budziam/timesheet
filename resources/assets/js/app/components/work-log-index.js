@@ -16,7 +16,7 @@ export default {
 
     methods: {
         onAllRender(calendar) {
-            let projects = new Map();
+            const projects = new Map();
 
             calendar.calendar.clientEvents().forEach(event => {
                 let project = event.project;

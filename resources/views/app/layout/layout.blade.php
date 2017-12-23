@@ -29,6 +29,6 @@
     <loader></loader>
 </div>
 
-{!! Html::script(mix('js/app.js') . '?v=3') !!}
+{!! Html::script(mix('js/app.js')) !!}
 </body>
 </html>

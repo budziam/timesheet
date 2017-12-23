@@ -16,3 +16,7 @@ mix
     .sass('resources/assets/sass/app/core.scss', 'public/css/app.css')
     .js('resources/assets/js/dashboard/core.js', 'public/js/dashboard.js')
     .sass('resources/assets/sass/dashboard/core.scss', 'public/css/dashboard.css');
+
+if (mix.inProduction()) {
+    mix.version();
+}

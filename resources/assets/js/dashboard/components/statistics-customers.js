@@ -7,6 +7,7 @@ export default {
     data() {
         return {
             customers: [],
+            loaded: false,
         };
     },
 
@@ -16,10 +17,12 @@ export default {
 
     methods: {
         fetch() {
-            const component = this;
-
+            this.loaded = false;
             axios.get(Laravel.url('/dashboard/api/statistics/customers'))
-                .then(response => component.customers = response.data.map(row => this.parseRow(row)))
+                .then(response => {
+                    this.customers = response.data.map(row => this.parseRow(row));
+                    this.loaded = true;
+                })
                 .catch(error => Event.requestError(error));
         },
 

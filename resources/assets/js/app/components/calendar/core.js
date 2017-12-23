@@ -134,7 +134,7 @@ export default {
         },
 
         renderAllWorkTime() {
-            let times = this.getDateTimeSum();
+            const times = this.getDateTimeSum();
 
             // Clear all work times
             $(this.$refs.calendar)
@@ -166,9 +166,9 @@ export default {
         },
 
         getArgs() {
-            let component = this;
+            const component = this;
 
-            let args = {
+            const args = {
                 locale: Laravel.lang,
                 header: {
                     left: 'prev,next today',
@@ -182,13 +182,13 @@ export default {
                 timeFormat: 'HH:mm',
 
                 dayClick(date, allDay, jsEvent, view) {
-                    component.$emit('dayClicked', date, allDay, jsEvent, view);
+                    component.$emit('day-clicked', date, allDay, jsEvent, view);
                 },
 
                 eventClick(calEvent, jsEvent, view) {
                     component.displayEventEdit(calEvent);
 
-                    component.$emit('eventClicked', calEvent, jsEvent, view);
+                    component.$emit('event-clicked', calEvent, jsEvent, view);
                 },
 
                 dayRender(date, cell) {
@@ -196,7 +196,7 @@ export default {
                         <div class="fc-work-time"></div>
                     `);
 
-                    component.$emit('dayRender', date, cell);
+                    component.$emit('day-render', date, cell);
                 },
 
                 eventRender(event, element) {
@@ -219,9 +219,8 @@ export default {
                 },
 
                 eventAfterAllRender() {
-                    component.renderAllWorkTime.bind(component)();
-
-                    component.$emit('eventAfterAllRender', this);
+                    component.renderAllWorkTime.call(component);
+                    component.$emit('all-render', this);
                 }
             };
 
