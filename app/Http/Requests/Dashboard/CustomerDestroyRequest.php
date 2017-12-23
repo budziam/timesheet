@@ -12,7 +12,7 @@ class CustomerDestroyRequest extends FormRequest
         $errors = [];
 
         if ($this->customer()->projects()->count() > 0) {
-            $errors[] = __('There are projects connected with this customer');
+            $errors[] = __('There are projects connected with this customer.');
         }
 
         if (count($errors)) {
