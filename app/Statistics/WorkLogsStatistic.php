@@ -20,10 +20,14 @@ class WorkLogsStatistic
                 DB::raw("MONTH($workLogTable.date) as month"),
                 DB::raw("SUM($workLogTable.time_office) as office"),
                 DB::raw("SUM($workLogTable.time_fieldwork) as fieldwork"),
+                DB::raw("SUBSTRING_INDEX($userTable.fullname, ' ', 1) as first_name"),
+                DB::raw("SUBSTRING_INDEX($userTable.fullname, ' ', -1) as last_name"),
             ])
             ->where("$workLogTable.project_id", $project->id)
             ->join($userTable, "$userTable.id", '=', "$workLogTable.user_id")
             ->groupBy("$workLogTable.user_id", 'year', 'month', 'employee')
+            ->orderBy('last_name')
+            ->orderBy('first_name')
             ->orderBy('year')
             ->orderBy('month')
             ->get()
