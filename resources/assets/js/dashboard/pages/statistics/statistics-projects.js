@@ -1,5 +1,5 @@
-import Laravel from "../../common/laravel";
-import WorkLogTime from "../../common/components/work-log-time";
+import Laravel from '../../../common/laravel';
+import WorkLogTime from '../../../common/components/work-log-time';
 
 export default {
     template: require('./statistics-projects.html'),

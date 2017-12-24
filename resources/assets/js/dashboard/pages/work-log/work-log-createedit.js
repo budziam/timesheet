@@ -1,6 +1,6 @@
-import Laravel from '../../common/laravel';
-import ModelCreateUpdateMixin from '../mixins/model-createedit';
-import WorkLogTime from '../../common/components/work-log-time';
+import Laravel from '../../../common/laravel';
+import ModelCreateUpdateMixin from '../../mixins/model-createedit';
+import WorkLogTime from '../../../common/components/work-log-time';
 import Moment from 'moment';
 
 export default {
@@ -53,8 +53,7 @@ export default {
         },
 
         onCreated(response) {
-            let id = response.data.id;
-
+            const id = response.data.id;
             window.location = Laravel.url(`/dashboard/work-logs/${id}/edit`);
         },
 
@@ -68,9 +67,7 @@ export default {
             }
 
             axios.delete(Laravel.url('/dashboard/api/work-logs/' + this.modelId))
-                .then(response => {
-                    window.location = Laravel.url('/dashboard/work-logs');
-                })
+                .then(() => window.location = Laravel.url('/dashboard/work-logs'))
                 .catch(error => Event.requestError(error));
         }
     },

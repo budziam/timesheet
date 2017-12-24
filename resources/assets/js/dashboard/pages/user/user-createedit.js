@@ -1,5 +1,5 @@
-import Laravel from '../../common/laravel';
-import ModelCreateUpdateMixin from '../mixins/model-createedit';
+import Laravel from '../../../common/laravel';
+import ModelCreateUpdateMixin from '../../mixins/model-createedit';
 import Moment from 'moment';
 
 export default {
@@ -50,9 +50,7 @@ export default {
             }
 
             axios.delete(Laravel.url(`/dashboard/api/users/${this.modelId}`))
-                .then(response => {
-                    window.location = Laravel.url('/dashboard/users');
-                })
+                .then(() => window.location = Laravel.url('/dashboard/users'))
                 .catch(error => {
                     if (error.response.status === 422) {
                         Event.notifyDanger(error.response.data.errors.join('<br/>'));

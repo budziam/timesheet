@@ -1,8 +1,8 @@
-import VDatatable from './datatable';
-import Laravel from '../../common/laravel';
+import VDatatable from '../../components/datatable';
+import Laravel from '../../../common/laravel';
 
 export default {
-    template: require('./project-group-index.html'),
+    template: require('./user-index.html'),
 
     components: {
         VDatatable
@@ -10,13 +10,14 @@ export default {
 
     data() {
         return {
-            createUrl: Laravel.url('/dashboard/project-groups/create'),
+            userCreateUrl: Laravel.url('/dashboard/users/create'),
             columns: [
                 'ID',
-                'Name'
+                'Name',
+                'Fullname'
             ],
             options: {
-                ajax: Laravel.url('/dashboard/api/datatable/project-groups'),
+                ajax: Laravel.url('/dashboard/api/datatable/users'),
                 columns: [
                     {
                         name: 'id',
@@ -26,6 +27,9 @@ export default {
                     },
                     {
                         data: 'name'
+                    },
+                    {
+                        data: 'fullname'
                     }
                 ],
             }

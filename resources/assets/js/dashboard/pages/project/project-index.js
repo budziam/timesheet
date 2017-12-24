@@ -1,5 +1,5 @@
-import VDatatable from './datatable';
-import Laravel from '../../common/laravel';
+import VDatatable from '../../components/datatable';
+import Laravel from '../../../common/laravel';
 
 export default {
     template: require('./project-index.html'),

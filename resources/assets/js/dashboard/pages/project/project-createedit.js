@@ -1,5 +1,5 @@
-import Laravel from '../../common/laravel';
-import ModelCreateUpdateMixin from '../mixins/model-createedit';
+import Laravel from '../../../common/laravel';
+import ModelCreateUpdateMixin from '../../mixins/model-createedit';
 import Moment from 'moment';
 
 export default {

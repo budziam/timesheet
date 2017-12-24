@@ -1,5 +1,5 @@
-import Laravel from '../../common/laravel';
-import VForm from '../../common/components/form';
+import Laravel from '../../../common/laravel';
+import VForm from '../../../common/components/form';
 
 export default {
     template: require('./user-change-password.html'),

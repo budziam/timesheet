@@ -1,9 +1,9 @@
-import Laravel from '../../common/laravel';
-import ModelCreateUpdateMixin from '../mixins/model-createedit';
+import Laravel from '../../../common/laravel';
+import ModelCreateUpdateMixin from '../../mixins/model-createedit';
 import Moment from 'moment';
 
 export default {
-    template: require('./project-group-createedit.html'),
+    template: require('./customer-createedit.html'),
 
     mixins: [
         ModelCreateUpdateMixin
@@ -21,14 +21,14 @@ export default {
         getModel() {
             let component = this;
 
-            axios.get(Laravel.url('/dashboard/api/project-groups/' + this.modelId))
+            axios.get(Laravel.url('/dashboard/api/customers/' + this.modelId))
                 .then(response => {
-                    let projectGroup = response.data;
+                    let customer = response.data;
 
-                    projectGroup.created_at = Moment(projectGroup.created_at).format('YYYY-MM-DDThh:mm:ss');
-                    projectGroup.updated_at = Moment(projectGroup.updated_at).format('YYYY-MM-DDThh:mm:ss');
+                    customer.created_at = Moment(customer.created_at).format('YYYY-MM-DDThh:mm:ss');
+                    customer.updated_at = Moment(customer.updated_at).format('YYYY-MM-DDThh:mm:ss');
 
-                    component.model = projectGroup;
+                    component.model = customer;
                 })
                 .catch(error => Event.requestError(error));
         },
@@ -39,11 +39,11 @@ export default {
 
         onCreated(response) {
             let id = response.data.id;
-            window.location = Laravel.url(`/dashboard/project-groups/${id}/edit`);
+            window.location = Laravel.url(`/dashboard/customers/${id}/edit`);
         },
 
         onEdited() {
-            window.location = Laravel.url('/dashboard/project-groups');
+            window.location = Laravel.url('/dashboard/customers');
         },
 
         destroy() {
@@ -51,8 +51,8 @@ export default {
                 return;
             }
 
-            axios.delete(Laravel.url('/dashboard/api/project-groups/' + this.modelId))
-                .then(response => window.location = Laravel.url('/dashboard/project-groups'))
+            axios.delete(Laravel.url('/dashboard/api/customers/' + this.modelId))
+                .then(response => window.location = Laravel.url('/dashboard/customers'))
                 .catch(error => {
                     if (error.response.status === 422) {
                         Event.notifyDanger(error.response.data.errors.join('<br/>'));
@@ -66,18 +66,18 @@ export default {
     computed: {
         formAction() {
             if (this.isCreating) {
-                return Laravel.url('/dashboard/api/project-groups');
+                return Laravel.url('/dashboard/api/customers');
             }
 
-            return Laravel.url(`/dashboard/api/project-groups/${this.modelId}`);
+            return Laravel.url(`/dashboard/api/customers/${this.modelId}`);
         },
 
         formClass() {
             if (this.isCreating) {
-                return 'project-group-create';
+                return 'customer-create';
             }
 
-            return 'project-group-edit';
+            return 'customer-edit';
         }
     }
 };
