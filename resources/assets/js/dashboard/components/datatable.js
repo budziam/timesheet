@@ -5,7 +5,8 @@ module.exports = {
 
     props: {
         columns: Array,
-        options: Object
+        options: Object,
+        url: String,
     },
 
     data() {
@@ -33,6 +34,12 @@ module.exports = {
          */
         getOptions() {
             return Object.assign({}, this.defaultOptions, this.options);
+        }
+    },
+
+    watch: {
+        url(value) {
+            this.dataTable.ajax.url(value).load();
         }
     }
 };

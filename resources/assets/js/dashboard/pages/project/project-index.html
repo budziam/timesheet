@@ -1,16 +1,25 @@
 <div class="project-index container-fluid">
-    <div class="row-margin">
-        <div class="col-md-12">
-            <a :href="projectCreateUrl" class="btn btn-success">{{ $trans('Create') }}</a>
-        </div>
+  <div class="row-margin">
+    <div class="col-xs-6">
+      <a :href="projectCreateUrl" class="btn btn-success">{{ $trans('Create') }}</a>
     </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <v-datatable :columns="columns"
-                         :options="options"
-            >
-            </v-datatable>
-        </div>
+    <div class="col-xs-6">
+      <ul class="nav nav-pills pull-right">
+        <li role="presentation" :class="{active: onlyActive}" @click="onlyActive = !onlyActive">
+          <a href="#">{{ $trans('Only active') }}</a>
+        </li>
+      </ul>
     </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <v-datatable :columns="columns"
+                   :options="options"
+                   :url="tableUrl"
+      >
+      </v-datatable>
+    </div>
+  </div>
 </div>

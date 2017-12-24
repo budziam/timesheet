@@ -3,11 +3,11 @@
 // Variables
 @import "variables";
 // Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
-@import "node_modules/bootstrap-sidebar/dist/css/sidebar";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "~bootstrap-sidebar/dist/css/sidebar";
 // Select2
-@import "node_modules/select2/src/scss/core";
-@import "node_modules/select2-bootstrap-theme/src/select2-bootstrap";
+@import "~select2/src/scss/core";
+@import "~select2-bootstrap-theme/src/select2-bootstrap";
 
 body {
   padding-top: 51px;
