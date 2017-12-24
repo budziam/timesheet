@@ -23,13 +23,16 @@ class ProjectDatatable extends BaseDatatable
 
     public function initBuilder()
     {
-        $builder = Project::query();
+        $this->builder = Project::query();
+    }
+
+    public function filter(array $search, array $columns)
+    {
+        parent::filter($search, $columns);
 
         if ($this->onlyActive) {
-            $builder->whereNull('ends_at');
+            $this->builder->whereNull('ends_at');
         }
-
-        $this->builder = $builder;
     }
 
     public function render() : Collection
