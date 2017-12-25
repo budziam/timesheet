@@ -42,8 +42,9 @@ export default {
                     },
                     {
                         data: 'time_office',
-                    }
+                    },
                 ],
+                order: [[0, 'desc']],
             }
         }
     }

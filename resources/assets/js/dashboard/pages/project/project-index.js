@@ -47,6 +47,7 @@ export default {
                         data: 'ends_at'
                     }
                 ],
+                order: [[0, 'desc']],
             };
         },
 
