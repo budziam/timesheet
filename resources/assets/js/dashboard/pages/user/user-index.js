@@ -32,6 +32,7 @@ export default {
                         data: 'fullname'
                     }
                 ],
+                iDisplayLength: 25,
             }
         }
     }

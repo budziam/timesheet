@@ -45,6 +45,7 @@ export default {
                     },
                 ],
                 order: [[0, 'desc']],
+                iDisplayLength: 50,
             }
         }
     }

@@ -28,6 +28,8 @@ export default {
                         data: 'name'
                     }
                 ],
+                order: [[1, 'asc']],
+                iDisplayLength: 25,
             }
         }
     }
