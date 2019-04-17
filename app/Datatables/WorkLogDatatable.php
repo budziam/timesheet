@@ -8,6 +8,7 @@ use App\Repositories\ProjectRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\WorkLogRepository;
 use App\Utils\DateUtils;
+use DB;
 use Illuminate\Support\Collection;
 use ModelShaper\Datatable\BaseDatatable;
 use ModelShaper\QueryUtils;
@@ -43,6 +44,19 @@ class WorkLogDatatable extends BaseDatatable
             ->leftJoin($pTable, "{$wTable}.project_id", '=', "{$pTable}.id")
             ->leftJoin($uTable, "{$wTable}.user_id", '=', "{$uTable}.id")
             ->select("{$wTable}.*");
+    }
+
+    protected function filterByFilters($query, array $filters)
+    {
+        $pTable = Project::table();
+
+        if (array_has($filters, 'start_years')) {
+            $query->whereIn(DB::raw("YEAR({$pTable}.created_at)"), $filters['start_years']);
+        }
+
+        if (array_has($filters, 'end_years')) {
+            $query->whereIn(DB::raw("YEAR({$pTable}.ends_at)"), $filters['end_years']);
+        }
     }
 
     public function render() : Collection

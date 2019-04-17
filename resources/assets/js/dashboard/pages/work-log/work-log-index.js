@@ -10,6 +10,8 @@ export default {
 
     data() {
         return {
+            startYears: [],
+            endYears: [],
             workLogCreateUrl: Laravel.url('/dashboard/work-logs/create'),
             columns: [
                 'ID',
@@ -20,7 +22,13 @@ export default {
                 'Office'
             ],
             options: {
-                ajax: Laravel.url('/dashboard/api/datatable/work-logs'),
+                ajax: {
+                    url: Laravel.url('/dashboard/api/datatable/work-logs'),
+                    data: (data) => ({
+                        ...data,
+                        filters: this.filters,
+                    }),
+                },
                 columns: [
                     {
                         name: 'id',
@@ -47,6 +55,25 @@ export default {
                 order: [[0, 'desc']],
                 iDisplayLength: 50,
             }
+        }
+    },
+
+    computed: {
+        years() {
+            return _.range(2017, new Date().getFullYear() + 1);
+        },
+
+        filters() {
+            return {
+                start_years: this.startYears,
+                end_years: this.endYears,
+            }
+        },
+    },
+
+    watch: {
+        filters() {
+            this.$refs.datatable.draw();
         }
     }
 };

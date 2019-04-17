@@ -26,12 +26,9 @@ class ProjectDatatable extends BaseDatatable
         $this->builder = Project::query();
     }
 
-    public function filter(array $search, array $columns)
-    {
-        parent::filter($search, $columns);
-
+    protected function filterByFilters($query, array $filters) {
         if ($this->onlyActive) {
-            $this->builder->whereNull('ends_at');
+            $query->whereNull('ends_at');
         }
     }
 

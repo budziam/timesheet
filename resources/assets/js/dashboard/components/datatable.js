@@ -34,7 +34,11 @@ module.exports = {
          */
         getOptions() {
             return Object.assign({}, this.defaultOptions, this.options);
-        }
+        },
+
+        draw() {
+            this.dataTable.draw();
+        },
     },
 
     watch: {
