@@ -1,6 +1,8 @@
 import VDatatable from '../../components/datatable';
 import Laravel from '../../../common/laravel';
 
+const ONLY_ACTIVE_KEY = "project-only-active";
+
 export default {
     template: require('./project-index.html'),
 
@@ -12,7 +14,7 @@ export default {
         return {
             startYears: [],
             endYears: [],
-            onlyActive: false,
+            onlyActive: JSON.parse(localStorage.getItem(ONLY_ACTIVE_KEY)) || false,
             projectCreateUrl: Laravel.url('/dashboard/projects/create'),
             columns: [
                 'ID',
@@ -53,6 +55,13 @@ export default {
                 iDisplayLength: 25,
             },
             years: yearsRange(),
+        }
+    },
+
+    methods: {
+        toggleOnlyActive() {
+            this.onlyActive = !this.onlyActive;
+            localStorage.setItem(ONLY_ACTIVE_KEY, JSON.stringify(this.onlyActive));
         }
     },
 
