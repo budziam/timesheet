@@ -9,6 +9,7 @@ use App\Statistics\CustomersStatistic;
 use App\Statistics\ProjectGroupsStatistic;
 use App\Statistics\WorkLogsStatistic;
 use DB;
+use Illuminate\Http\Request;
 
 class StatisticsController extends Controller
 {
@@ -17,9 +18,9 @@ class StatisticsController extends Controller
         return $statistic->get($project);
     }
 
-    public function projectGroups(ProjectGroupsStatistic $statistic)
+    public function projectGroups(Request $request, ProjectGroupsStatistic $statistic)
     {
-        return $statistic->get();
+        return $statistic->get($request->all());
     }
 
     public function customers(CustomersStatistic $statistic)

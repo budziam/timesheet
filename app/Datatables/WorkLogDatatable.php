@@ -7,6 +7,7 @@ use App\Models\WorkLog;
 use App\Repositories\ProjectRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\WorkLogRepository;
+use App\Services\ProjectFilterService;
 use App\Utils\DateUtils;
 use DB;
 use Illuminate\Support\Collection;
@@ -24,14 +25,19 @@ class WorkLogDatatable extends BaseDatatable
     /** @var UserRepository */
     protected $userRepository;
 
+    /** @var ProjectFilterService */
+    protected $projectFilterService;
+
     public function __construct(
         WorkLogRepository $workLogRepository,
         ProjectRepository $projectRepository,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        ProjectFilterService $projectFilterService
     ) {
         $this->workLogRepository = $workLogRepository;
         $this->projectRepository = $projectRepository;
         $this->userRepository = $userRepository;
+        $this->projectFilterService = $projectFilterService;
     }
 
     public function initBuilder()
@@ -48,15 +54,7 @@ class WorkLogDatatable extends BaseDatatable
 
     protected function filterByFilters($query, array $filters)
     {
-        $pTable = Project::table();
-
-        if (array_has($filters, 'start_years')) {
-            $query->whereIn(DB::raw("YEAR({$pTable}.created_at)"), $filters['start_years']);
-        }
-
-        if (array_has($filters, 'end_years')) {
-            $query->whereIn(DB::raw("YEAR({$pTable}.ends_at)"), $filters['end_years']);
-        }
+        $this->projectFilterService->filterByYear($query, $filters);
     }
 
     public function render() : Collection

@@ -6,10 +6,14 @@ export default {
 
     data() {
         return {
+            startYears: [],
+            endYears: [],
+            onlyCompleted: false,
             statistics: {
                 all: [],
                 project_groups: [],
             },
+            years: yearsRange(),
         };
     },
 
@@ -19,10 +23,10 @@ export default {
 
     methods: {
         fetch() {
-            const component = this;
+            const params = this.filters;
 
-            axios.get(Laravel.url('/dashboard/api/statistics/project-groups'))
-                .then(response => component.statistics = response.data)
+            axios.get(Laravel.url('/dashboard/api/statistics/project-groups'), {params})
+                .then(response => this.statistics = response.data)
                 .catch(error => Event.requestError(error));
         },
 
@@ -38,6 +42,10 @@ export default {
                 hour_value: WorkLogTime.getHourValue(row.value / 100, total).toFixed(2),
             };
         },
+
+        toggleOnlyCompleted() {
+            this.onlyCompleted = !this.onlyCompleted;
+        }
     },
 
     computed: {
@@ -46,6 +54,19 @@ export default {
         },
         projectGroups() {
             return this.statistics.project_groups.map(row => this.parseRow(row));
+        },
+        filters() {
+            return {
+                start_years: this.startYears,
+                end_years: this.endYears,
+                only_completed: this.onlyCompleted ? 1 : 0,
+            }
+        }
+    },
+
+    watch: {
+        filters() {
+            this.fetch();
         }
     }
 };

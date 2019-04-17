@@ -3,6 +3,7 @@ namespace App\Datatables;
 
 use App\Models\Project;
 use App\Repositories\ProjectRepository;
+use App\Services\ProjectFilterService;
 use App\Utils\DateUtils;
 use DB;
 use Illuminate\Support\Collection;
@@ -11,11 +12,17 @@ use ModelShaper\Datatable\BaseDatatable;
 class ProjectDatatable extends BaseDatatable
 {
     /** @var ProjectRepository */
-    protected $projectRepository;
+    private $projectRepository;
 
-    public function __construct(ProjectRepository $projectRepository)
-    {
+    /** @var ProjectFilterService */
+    private $projectFilterService;
+
+    public function __construct(
+        ProjectRepository $projectRepository,
+        ProjectFilterService $projectFilterService
+    ) {
         $this->projectRepository = $projectRepository;
+        $this->projectFilterService = $projectFilterService;
     }
 
     public function initBuilder()
@@ -23,18 +30,13 @@ class ProjectDatatable extends BaseDatatable
         $this->builder = Project::query();
     }
 
-    protected function filterByFilters($query, array $filters) {
+    protected function filterByFilters($query, array $filters)
+    {
         if (array_get($filters, "only_active")) {
             $query->whereNull('ends_at');
         }
 
-        if (array_has($filters, 'start_years')) {
-            $query->whereIn(DB::raw("YEAR(created_at)"), $filters['start_years']);
-        }
-
-        if (array_has($filters, 'end_years')) {
-            $query->whereIn(DB::raw("YEAR(ends_at)"), $filters['end_years']);
-        }
+        $this->projectFilterService->filterByYear($query, $filters);
     }
 
     public function render() : Collection
@@ -44,7 +46,8 @@ class ProjectDatatable extends BaseDatatable
             ->map(function (Project $project) {
                 return [
                     'id'      => [
-                        'display' => $this->projectRepository->getLink($project, '#' . $project->id),
+                        'display' => $this->projectRepository->getLink($project,
+                            '#' . $project->id),
                         'raw'     => $project->id,
                     ],
                     'lkz'     => $project->lkz,
