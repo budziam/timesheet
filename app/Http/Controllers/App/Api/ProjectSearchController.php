@@ -25,7 +25,9 @@ class ProjectSearchController extends Controller
     {
         $search = $request->input('q', '');
 
-        $pagination = $service->searchSelect2($search)->paginate();
+        $pagination = $service->searchSelect2($search)
+            ->latest("id")
+            ->paginate();
 
         $projects = fractal()
             ->collection($pagination->items(), new ProjectSelect2Transformer)

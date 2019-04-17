@@ -1,4 +1,3 @@
-import qs from 'qs';
 import VDatatable from '../../components/datatable';
 import Laravel from '../../../common/laravel';
 
@@ -11,6 +10,9 @@ export default {
 
     data() {
         return {
+            startYears: [],
+            endYears: [],
+            onlyActive: false,
             projectCreateUrl: Laravel.url('/dashboard/projects/create'),
             columns: [
                 'ID',
@@ -19,14 +21,14 @@ export default {
                 'Name',
                 'End date'
             ],
-            onlyActive: false,
-        }
-    },
-
-    computed: {
-        options() {
-            return {
-                ajax: this.tableUrl,
+            options: {
+                ajax: {
+                    url: Laravel.url('/dashboard/api/datatable/projects'),
+                    data: (data) => ({
+                        ...data,
+                        filters: this.filters,
+                    }),
+                },
                 columns: [
                     {
                         name: 'id',
@@ -49,16 +51,24 @@ export default {
                 ],
                 order: [[0, 'desc']],
                 iDisplayLength: 25,
-            };
-        },
-
-        tableUrl() {
-            let url = '/dashboard/api/datatable/projects';
-
-            const params = {only_active: this.onlyActive ? 1 : 0};
-            url += '?' + qs.stringify(params, {arrayFormat: 'brackets'});
-
-            return Laravel.url(url);
+            },
+            years: yearsRange(),
         }
     },
+
+    computed: {
+        filters() {
+            return {
+                start_years: this.startYears,
+                end_years: this.endYears,
+                only_active: this.onlyActive ? 1 : 0,
+            }
+        },
+    },
+
+    watch: {
+        filters() {
+            this.$refs.datatable.draw();
+        }
+    }
 };

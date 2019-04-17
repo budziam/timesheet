@@ -1,7 +1,7 @@
 /node_modules
 /public/hot
 /public/storage
-/public/mix-manifest
+/public/mix-manifest.json
 /storage/*.key
 /vendor
 /.idea

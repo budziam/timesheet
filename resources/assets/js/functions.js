@@ -1,3 +1,5 @@
+global.yearsRange = () => _.range(2017, new Date().getFullYear() + 1);
+
 global.str_replace = function (search, replace, subject, count) {
     //  discuss at: http://phpjs.org/functions/str_replace/
     // original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)

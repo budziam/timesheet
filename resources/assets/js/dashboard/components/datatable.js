@@ -1,12 +1,11 @@
-require('datatables.net');
+import 'datatables.net';
 
-module.exports = {
+export default {
     template: require('./datatable.html'),
 
     props: {
         columns: Array,
         options: Object,
-        url: String,
     },
 
     data() {
@@ -40,10 +39,4 @@ module.exports = {
             this.dataTable.draw();
         },
     },
-
-    watch: {
-        url(value) {
-            this.dataTable.ajax.url(value).load();
-        }
-    }
 };

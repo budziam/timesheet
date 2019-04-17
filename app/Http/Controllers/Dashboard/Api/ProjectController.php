@@ -18,7 +18,6 @@ class ProjectController extends Controller
 {
     public function datatable(ProjectDatatableRequest $request, ProjectDatatable $datatable)
     {
-        $datatable->onlyActive($request->input('only_active', false));
         $shaper = new DatatableShaper($datatable);
 
         return $shaper->shape($request);

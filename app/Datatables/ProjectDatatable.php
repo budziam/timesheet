@@ -13,9 +13,6 @@ class ProjectDatatable extends BaseDatatable
     /** @var ProjectRepository */
     protected $projectRepository;
 
-    /** @var bool */
-    protected $onlyActive = false;
-
     public function __construct(ProjectRepository $projectRepository)
     {
         $this->projectRepository = $projectRepository;
@@ -27,8 +24,16 @@ class ProjectDatatable extends BaseDatatable
     }
 
     protected function filterByFilters($query, array $filters) {
-        if ($this->onlyActive) {
+        if (array_get($filters, "only_active")) {
             $query->whereNull('ends_at');
+        }
+
+        if (array_has($filters, 'start_years')) {
+            $query->whereIn(DB::raw("YEAR(created_at)"), $filters['start_years']);
+        }
+
+        if (array_has($filters, 'end_years')) {
+            $query->whereIn(DB::raw("YEAR(ends_at)"), $filters['end_years']);
         }
     }
 
@@ -48,11 +53,6 @@ class ProjectDatatable extends BaseDatatable
                     'ends_at' => DateUtils::formatEndsAt($project->ends_at),
                 ];
             });
-    }
-
-    public function onlyActive(bool $value)
-    {
-        $this->onlyActive = $value;
     }
 
     protected function orderByEndsAt($query, string $order)

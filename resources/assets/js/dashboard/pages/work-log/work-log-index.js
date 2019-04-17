@@ -54,15 +54,12 @@ export default {
                 ],
                 order: [[0, 'desc']],
                 iDisplayLength: 50,
-            }
+            },
+            years: yearsRange(),
         }
     },
 
     computed: {
-        years() {
-            return _.range(2017, new Date().getFullYear() + 1);
-        },
-
         filters() {
             return {
                 start_years: this.startYears,
