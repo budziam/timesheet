@@ -25,3 +25,10 @@ if (!function_exists('source')) {
         return app()->environment('local') ? elixir($path) : $path;
     }
 }
+
+if (!function_exists('asset_url')) {
+    function asset_url($path)
+    {
+        return rtrim(env("APP_URL"), "/") . "/" . ltrim($path, "/");
+    }
+}

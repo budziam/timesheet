@@ -1,0 +1,37 @@
+version: '2'
+services:
+    nginx:
+        build:
+            context: ./docker
+            dockerfile: nginx.docker
+        volumes:
+            - ./:/var/www
+        ports:
+            - 80:80
+        links:
+            - client
+            - server
+
+    client:
+        build:
+            context: ./docker
+            dockerfile: client.docker
+        volumes:
+            - ./:/var/www
+
+    server:
+        build:
+            context: ./docker
+            dockerfile: server.docker
+        volumes:
+            - ./:/var/www
+        links:
+            - database
+
+    database:
+        image: mysql:5.7
+        environment:
+            MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
+            MYSQL_DATABASE: "${DB_DATABASE}"
+        ports:
+            - 33061:3306

@@ -9,7 +9,7 @@
 
     <title>{{ $pageTitle }}</title>
 
-    {!! Html::style(mix('css/app.css')) !!}
+    {!! Html::style(asset_url('css/app.css')) !!}
 
     <script>
         window.Laravel = <?php echo json_encode([
@@ -29,6 +29,6 @@
     <loader></loader>
 </div>
 
-{!! Html::script(mix('js/app.js')) !!}
+{!! Html::script(asset_url('js/app.js')) !!}
 </body>
 </html>

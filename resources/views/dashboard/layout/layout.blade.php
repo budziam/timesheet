@@ -9,7 +9,7 @@
 
     <title>{{ $pageTitle }}</title>
 
-    {!! Html::style(mix('css/dashboard.css')) !!}
+    {!! Html::style(asset_url('css/dashboard.css')) !!}
 
     <script>
         window.Laravel = <?php echo json_encode([
@@ -39,6 +39,6 @@
     </div>
 </div>
 
-{!! Html::script(mix('js/dashboard.js')) !!}
+{!! Html::script(asset_url('js/dashboard.js')) !!}
 </body>
 </html>
