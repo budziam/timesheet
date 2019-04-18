@@ -18,6 +18,7 @@ class ProjectSearchController extends Controller
         $projects = $service->searchDefault($search, $groups);
 
         return fractal()
+            ->parseIncludes(["customer"])
             ->collection($projects, new ProjectTransformer);
     }
 

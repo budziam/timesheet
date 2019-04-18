@@ -13,7 +13,7 @@ class ProjectSearchService
      */
     public function searchDefault(string $search, array $groups = [])
     {
-        $query = Project::with('groups')
+        $query = Project::with('groups', 'customer')
             ->active()
             ->where(function ($query) use ($search) {
                 $query->where('name', 'LIKE', QueryUtils::valueForLike($search))
