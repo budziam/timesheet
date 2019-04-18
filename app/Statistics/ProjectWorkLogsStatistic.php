@@ -70,6 +70,13 @@ class ProjectWorkLogsStatistic
             $newRecords []= $record;
         }
 
+        $newRecords []= [
+            'employee'  => $currentEmployee,
+            'date'      => null,
+            'office'    => $officeSum,
+            'fieldwork' => $fieldworkSum,
+        ];
+
         array_shift($newRecords);
 
         return $newRecords;

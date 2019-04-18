@@ -50,10 +50,12 @@ export default {
             let office = 0;
             let fieldwork = 0;
 
-            this.statistics.forEach(row => {
-                office += row.office;
-                fieldwork += row.fieldwork;
-            });
+            for (const row of this.statistics) {
+                if (row.date) {
+                    office += row.office;
+                    fieldwork += row.fieldwork;
+                }
+            }
 
             const total = office + fieldwork;
 
