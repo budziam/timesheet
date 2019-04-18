@@ -6,14 +6,14 @@ use App\Models\User;
 use App\Models\WorkLog;
 use DB;
 
-class WorkLogsStatistic
+class ProjectWorkLogsStatistic
 {
     public function get(Project $project) : array
     {
         $userTable = User::table();
         $workLogTable = WorkLog::table();
 
-        return DB::table($workLogTable)
+        $results = DB::table($workLogTable)
             ->select([
                 DB::raw("$userTable.fullname as employee"),
                 DB::raw("YEAR($workLogTable.date) as year"),
@@ -40,5 +40,38 @@ class WorkLogsStatistic
                 ];
             })
             ->all();
+
+        return $this->addSummaryRecords($results);
+    }
+
+    private function addSummaryRecords(array $records)
+    {
+        $newRecords = [];
+        $currentEmployee = null;
+        $officeSum = 0;
+        $fieldworkSum = 0;
+
+        foreach ($records as $record) {
+            if ($record['employee'] !== $currentEmployee) {
+                $newRecords []= [
+                    'employee'  => $currentEmployee,
+                    'date'      => null,
+                    'office'    => $officeSum,
+                    'fieldwork' => $fieldworkSum,
+                ];
+
+                $officeSum = 0;
+                $fieldworkSum = 0;
+                $currentEmployee = $record['employee'];
+            }
+
+            $officeSum += $record['office'];
+            $fieldworkSum += $record['fieldwork'];
+            $newRecords []= $record;
+        }
+
+        array_shift($newRecords);
+
+        return $newRecords;
     }
 }

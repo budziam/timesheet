@@ -26,10 +26,19 @@
             </thead>
             <tbody>
             <tr v-for="row in statisticsFormatted">
-                <td>{{ row.employee }}</td>
-                <td>{{ row.date }}</td>
-                <td>{{ row.office }}</td>
-                <td>{{ row.fieldwork }}</td>
+                <template v-if="row.date">
+                    <td>{{ row.employee }}</td>
+                    <td>{{ row.date }}</td>
+                    <td>{{ row.office }}</td>
+                    <td>{{ row.fieldwork }}</td>
+                </template>
+
+                <template v-else>
+                    <th>{{ row.employee }}</th>
+                    <th>--</th>
+                    <th>{{ row.office }}</th>
+                    <th>{{ row.fieldwork }}</th>
+                </template>
             </tr>
             </tbody>
         </table>

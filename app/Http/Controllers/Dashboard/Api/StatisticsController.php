@@ -7,13 +7,13 @@ use App\Models\User;
 use App\Models\WorkLog;
 use App\Statistics\CustomersStatistic;
 use App\Statistics\ProjectGroupsStatistic;
-use App\Statistics\WorkLogsStatistic;
+use App\Statistics\ProjectWorkLogsStatistic;
 use DB;
 use Illuminate\Http\Request;
 
 class StatisticsController extends Controller
 {
-    public function projectWorkLogs(Project $project, WorkLogsStatistic $statistic)
+    public function projectWorkLogs(Project $project, ProjectWorkLogsStatistic $statistic)
     {
         return $statistic->get($project);
     }
