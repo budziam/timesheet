@@ -1,9 +1,6 @@
 {
-    "/js/dashboard.js": "/js/dashboard.js",
-    "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css",
-    "/css/dashboard.css": "/css/dashboard.css",
-    "/1.232c32ab58d956a941aa.hot-update.js": "/1.232c32ab58d956a941aa.hot-update.js",
-    "/1.a760bc76d8aa10061e81.hot-update.js": "/1.a760bc76d8aa10061e81.hot-update.js",
-    "/1.7a7fd861c67ba878d821.hot-update.js": "/1.7a7fd861c67ba878d821.hot-update.js"
+    "/js/dashboard.js": "/js/dashboard.js?id=1c96e389c7187738ecc2",
+    "/js/app.js": "/js/app.js?id=af99842a5e26da8be42a",
+    "/css/app.css": "/css/app.css?id=f8a46085665baf38bd2e",
+    "/css/dashboard.css": "/css/dashboard.css?id=67b4b498edea7f8ac3f9"
 }
