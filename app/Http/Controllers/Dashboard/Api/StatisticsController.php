@@ -23,8 +23,8 @@ class StatisticsController extends Controller
         return $statistic->get($request->all());
     }
 
-    public function customers(CustomersStatistic $statistic)
+    public function customers(Request $request, CustomersStatistic $statistic)
     {
-        return $statistic->get();
+        return $statistic->get($request->all());
     }
 }

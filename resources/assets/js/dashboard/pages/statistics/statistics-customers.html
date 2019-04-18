@@ -1,4 +1,36 @@
 <div class="statistics container-fluid">
+    <div class="row-margin">
+        <div class="col-xs-4">
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation" :class="{active: onlyCompleted}" @click="toggleOnlyCompleted">
+                    <a href="#">{{ $trans('Only completed') }}</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-xs-4 form-group">
+            <label for="form_start_year" v-text="$trans('Start year')"></label>
+            <v-select id="form_start_year"
+                      class="form-control"
+                      v-model="startYears"
+                      :multiple="true"
+            >
+                <option v-for="year in years" v-text="year"></option>
+            </v-select>
+        </div>
+
+        <div class="col-xs-4 form-group">
+            <label for="form_end_year" v-text="$trans('End year')"></label>
+            <v-select id="form_end_year"
+                      class="form-control"
+                      v-model="endYears"
+                      :multiple="true"
+            >
+                <option v-for="year in years" v-text="year"></option>
+            </v-select>
+        </div>
+    </div>
+
     <div v-if="loaded">
         <table class="table table-striped">
             <thead>

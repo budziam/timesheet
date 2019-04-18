@@ -6,8 +6,12 @@ export default {
 
     data() {
         return {
+            startYears: [],
+            endYears: [],
+            onlyCompleted: false,
             customers: [],
             loaded: false,
+            years: yearsRange(),
         };
     },
 
@@ -18,7 +22,9 @@ export default {
     methods: {
         fetch() {
             this.loaded = false;
-            axios.get(Laravel.url('/dashboard/api/statistics/customers'))
+
+            const params = this.filters;
+            axios.get(Laravel.url('/dashboard/api/statistics/customers'), {params})
                 .then(response => {
                     this.customers = response.data.map(row => this.parseRow(row));
                     this.loaded = true;
@@ -38,5 +44,25 @@ export default {
                 hour_value: WorkLogTime.getHourValue(row.value / 100, total).toFixed(2),
             };
         },
+
+        toggleOnlyCompleted() {
+            this.onlyCompleted = !this.onlyCompleted;
+        },
     },
+
+    computed: {
+        filters() {
+            return {
+                start_years: this.startYears,
+                end_years: this.endYears,
+                only_completed: this.onlyCompleted ? 1 : 0,
+            }
+        }
+    },
+
+    watch: {
+        filters() {
+            this.fetch();
+        }
+    }
 };

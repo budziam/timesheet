@@ -4,15 +4,24 @@ namespace App\Statistics;
 use App\Models\Customer;
 use App\Models\Project;
 use App\Models\WorkLog;
+use App\Services\ProjectFilterService;
 use DB;
 use Illuminate\Support\Collection;
 
 class CustomersStatistic
 {
-    public function get() : array
+    /** @var ProjectFilterService */
+    private $projectFilterService;
+
+    public function __construct(ProjectFilterService $projectFilterService)
     {
-        $times = $this->getTimes();
-        $values = $this->getValues();
+        $this->projectFilterService = $projectFilterService;
+    }
+
+    public function get(array $filters = []) : array
+    {
+        $times = $this->getTimes($filters);
+        $values = $this->getValues($filters);
 
         return Customer::all()
             ->map(function (Customer $customer) use ($times, $values) {
@@ -26,21 +35,24 @@ class CustomersStatistic
             ->all();
     }
 
-    protected function getTimes() : Collection
+    protected function getTimes(array $filters) : Collection
     {
         $customerTable = Customer::table();
         $projectTable = Project::table();
         $workLogTable = WorkLog::table();
 
-        return DB::table($customerTable)
+        $query = DB::table($customerTable)
             ->select([
                 "$customerTable.id",
                 DB::raw("SUM($workLogTable.time_office) as office"),
                 DB::raw("SUM($workLogTable.time_fieldwork) as fieldwork"),
             ])
             ->join($projectTable, "$projectTable.customer_id", '=', "$customerTable.id")
-            ->join($workLogTable, "$projectTable.id", '=', "$workLogTable.project_id")
-            ->groupBy("$customerTable.id")
+            ->join($workLogTable, "$projectTable.id", '=', "$workLogTable.project_id");
+
+        $this->applyFilters($query, $filters);
+
+        return $query->groupBy("$customerTable.id")
             ->get()
             ->mapWithKeys(function ($result) {
                 return [
@@ -52,21 +64,31 @@ class CustomersStatistic
             });
     }
 
-    protected function getValues() : Collection
+    protected function getValues(array $filters) : Collection
     {
         $customerTable = Customer::table();
         $projectTable = Project::table();
 
-        return DB::table($customerTable)
+        $query = DB::table($customerTable)
             ->select([
                 "$customerTable.id",
                 DB::raw("SUM($projectTable.value) as value"),
             ])
-            ->join($projectTable, "$projectTable.customer_id", '=', "$customerTable.id")
+            ->join($projectTable, "$projectTable.customer_id", '=', "$customerTable.id");
+
+        $this->applyFilters($query, $filters);
+
+        return $query
             ->groupBy("$customerTable.id")
             ->get()
             ->mapWithKeys(function ($result) {
                 return [(int)$result->id => (int)$result->value];
             });
+    }
+
+    private function applyFilters($query, array $filters)
+    {
+        $this->projectFilterService->filterByYear($query, $filters);
+        $this->projectFilterService->filterByOnlyCompleted($query, $filters);
     }
 }
