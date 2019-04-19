@@ -14,6 +14,8 @@ export default {
         return {
             startYears: [],
             endYears: [],
+            projectGroups: [],
+            customers: [],
             onlyActive: JSON.parse(localStorage.getItem(ONLY_ACTIVE_KEY)) || false,
             projectCreateUrl: Laravel.url('/dashboard/projects/create'),
             columns: [
@@ -70,7 +72,15 @@ export default {
         toggleOnlyActive() {
             this.onlyActive = !this.onlyActive;
             localStorage.setItem(ONLY_ACTIVE_KEY, JSON.stringify(this.onlyActive));
-        }
+        },
+
+        updateProjectGroups(groups) {
+            this.projectGroups = groups;
+        },
+
+        updateCustomers(customers) {
+            this.customers = customers;
+        },
     },
 
     computed: {
@@ -78,6 +88,8 @@ export default {
             return {
                 start_years: this.startYears,
                 end_years: this.endYears,
+                project_groups: this.projectGroups,
+                customers: this.customers,
                 only_active: this.onlyActive ? 1 : 0,
             }
         },

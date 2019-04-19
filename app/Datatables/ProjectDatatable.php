@@ -2,6 +2,7 @@
 namespace App\Datatables;
 
 use App\Models\Project;
+use App\Models\ProjectGroup;
 use App\Repositories\ProjectRepository;
 use App\Services\ProjectFilterService;
 use App\Utils\DateUtils;
@@ -27,16 +28,23 @@ class ProjectDatatable extends BaseDatatable
 
     public function initBuilder()
     {
-        $this->builder = Project::query();
+        $projectTable = Project::table();
+        $projectGroupTable = ProjectGroup::table();
+        $pivotTable = "project_project_group";
+
+        $this->builder = Project::query()
+            ->select("$projectTable.*")
+            ->leftJoin($pivotTable, "$pivotTable.project_id", '=', "$projectTable.id")
+            ->leftJoin($projectGroupTable, "$pivotTable.project_group_id", '=', "$projectGroupTable.id")
+            ->groupBy("$projectTable.id");
     }
 
     protected function filterByFilters($query, array $filters)
     {
-        if (array_get($filters, "only_active")) {
-            $query->whereNull('ends_at');
-        }
-
+        $this->projectFilterService->filterByOnlyActive($query, $filters);
         $this->projectFilterService->filterByYear($query, $filters);
+        $this->projectFilterService->filterByCustomer($query, $filters);
+        $this->projectFilterService->filterByGroups($query, $filters);
     }
 
     public function render() : Collection
@@ -46,8 +54,9 @@ class ProjectDatatable extends BaseDatatable
             ->map(function (Project $project) {
                 return [
                     'id'      => [
-                        'display' => $this->projectRepository->getLink($project,
-                            '#' . $project->id),
+                        'display' => $this->projectRepository->getLink(
+                            $project, '#' . $project->id
+                        ),
                         'raw'     => $project->id,
                     ],
                     'lkz'     => $project->lkz,
