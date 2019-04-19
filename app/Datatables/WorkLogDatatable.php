@@ -52,11 +52,12 @@ class WorkLogDatatable extends BaseDatatable
 
         $this->builder = WorkLog::query()
             ->with("project", "user")
+            ->select("$workLogTable.*")
             ->leftJoin($projectTable, "$workLogTable.project_id", '=', "$projectTable.id")
             ->leftJoin($pivotTable, "$pivotTable.project_id", '=', "$projectTable.id")
             ->leftJoin($projectGroupTable, "$pivotTable.project_group_id", '=', "$projectGroupTable.id")
             ->leftJoin($userTable, "$workLogTable.user_id", '=', "$userTable.id")
-            ->select("$workLogTable.*");
+            ->groupBy("$workLogTable.id");
     }
 
     protected function filterByFilters($query, array $filters)
