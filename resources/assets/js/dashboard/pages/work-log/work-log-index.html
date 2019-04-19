@@ -1,6 +1,6 @@
 <div class="project-index container-fluid">
     <div class="row-margin">
-        <div class="col-xs-6 form-group">
+        <div class="col-xs-6 col-md-2 form-group">
             <label for="form_start_year" v-text="$trans('Start year')"></label>
             <v-select id="form_start_year"
                       class="form-control"
@@ -11,7 +11,7 @@
             </v-select>
         </div>
 
-        <div class="col-xs-6 form-group">
+        <div class="col-xs-6 col-md-2 form-group">
             <label for="form_end_year" v-text="$trans('End year')"></label>
             <v-select id="form_end_year"
                       class="form-control"
@@ -19,6 +19,28 @@
                       :multiple="true"
             >
                 <option v-for="year in years" v-text="year"></option>
+            </v-select>
+        </div>
+
+        <div class="col-xs-6 col-md-2 form-group">
+            <label for="form_project_group" v-text="$trans('Project group')"></label>
+            <v-select id="form_project_group"
+                      class="form-control"
+                      :multiple="true"
+                      url="/dashboard/api/select2/project-groups"
+                      @input="updateProjectGroups($event)"
+            >
+            </v-select>
+        </div>
+
+        <div class="col-xs-6 col-md-2 form-group">
+            <label for="form_customer" v-text="$trans('Customer')"></label>
+            <v-select id="form_customer"
+                      class="form-control"
+                      :multiple="true"
+                      url="/dashboard/api/select2/customers"
+                      @input="updateCustomers($event)"
+            >
             </v-select>
         </div>
     </div>

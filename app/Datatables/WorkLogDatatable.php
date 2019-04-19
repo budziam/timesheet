@@ -2,6 +2,7 @@
 namespace App\Datatables;
 
 use App\Models\Project;
+use App\Models\ProjectGroup;
 use App\Models\User;
 use App\Models\WorkLog;
 use App\Repositories\ProjectRepository;
@@ -10,6 +11,7 @@ use App\Repositories\WorkLogRepository;
 use App\Services\ProjectFilterService;
 use App\Utils\DateUtils;
 use DB;
+use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Support\Collection;
 use ModelShaper\Datatable\BaseDatatable;
 use ModelShaper\QueryUtils;
@@ -42,19 +44,26 @@ class WorkLogDatatable extends BaseDatatable
 
     public function initBuilder()
     {
-        $pTable = Project::table();
-        $uTable = User::table();
-        $wTable = WorkLog::table();
+        $userTable = User::table();
+        $workLogTable = WorkLog::table();
+        $projectTable = Project::table();
+        $projectGroupTable = ProjectGroup::table();
+        $pivotTable = "project_project_group";
 
         $this->builder = WorkLog::query()
-            ->leftJoin($pTable, "{$wTable}.project_id", '=', "{$pTable}.id")
-            ->leftJoin($uTable, "{$wTable}.user_id", '=', "{$uTable}.id")
-            ->select("{$wTable}.*");
+            ->with("project", "user")
+            ->leftJoin($projectTable, "$workLogTable.project_id", '=', "$projectTable.id")
+            ->leftJoin($pivotTable, "$pivotTable.project_id", '=', "$projectTable.id")
+            ->leftJoin($projectGroupTable, "$pivotTable.project_group_id", '=', "$projectGroupTable.id")
+            ->leftJoin($userTable, "$workLogTable.user_id", '=', "$userTable.id")
+            ->select("$workLogTable.*");
     }
 
     protected function filterByFilters($query, array $filters)
     {
         $this->projectFilterService->filterByYear($query, $filters);
+        $this->projectFilterService->filterByCustomer($query, $filters);
+        $this->projectFilterService->filterByGroups($query, $filters);
     }
 
     public function render() : Collection

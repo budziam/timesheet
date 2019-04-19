@@ -12,6 +12,8 @@ export default {
         return {
             startYears: [],
             endYears: [],
+            projectGroups: [],
+            customers: [],
             workLogCreateUrl: Laravel.url('/dashboard/work-logs/create'),
             columns: [
                 'ID',
@@ -59,18 +61,30 @@ export default {
         }
     },
 
+    methods: {
+        updateProjectGroups(groups) {
+            this.projectGroups = groups;
+        },
+
+        updateCustomers(customers) {
+            this.customers = customers;
+        },
+    },
+
     computed: {
         filters() {
             return {
                 start_years: this.startYears,
                 end_years: this.endYears,
-            }
+                project_groups: this.projectGroups,
+                customers: this.customers,
+            };
         },
     },
 
     watch: {
         filters() {
             this.$refs.datatable.draw();
-        }
-    }
+        },
+    },
 };
