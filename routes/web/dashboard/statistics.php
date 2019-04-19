@@ -4,7 +4,7 @@ use App\Http\Controllers\Dashboard\StatisticsController;
 
 /** @var \Illuminate\Routing\Router $router */
 
-$router->get('statistics/projects', [
+$router->get('statistics/projects/{project?}', [
     'as'   => 'statistics.projects',
     'uses' => StatisticsController::class . '@projects',
 ]);

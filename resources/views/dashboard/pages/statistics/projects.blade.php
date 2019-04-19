@@ -1,5 +1,5 @@
 @extends('dashboard.layout.layout')
 
 @section('content')
-    <statistics-projects></statistics-projects>
+    <statistics-projects initial-project="{{ $projectId }}"></statistics-projects>
 @endsection

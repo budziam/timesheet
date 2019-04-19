@@ -2,16 +2,19 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Bases\DashboardController;
+use App\Models\Project;
 
 class StatisticsController extends DashboardController
 {
-    public function projects()
+    public function projects(Project $project = null)
     {
         $this->breadcrumbBuilder
             ->attachNewBreadcrumb(__('Statistics: Projects'), route('dashboard.statistics.projects'));
         $this->navbarBuilder->setActive('statistics-projects');
 
-        return view('dashboard.pages.statistics.projects');
+        $projectId = $project->id ?? null;
+
+        return view('dashboard.pages.statistics.projects', compact("projectId"));
     }
 
     public function projectGroups()

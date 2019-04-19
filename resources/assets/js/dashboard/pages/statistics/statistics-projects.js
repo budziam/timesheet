@@ -4,12 +4,20 @@ import WorkLogTime from '../../../common/components/work-log-time';
 export default {
     template: require('./statistics-projects.html'),
 
+    props: {
+        initialProject: [Number, String],
+    },
+
     data() {
         return {
-            projectId: null,
+            projectId: this.initialProject,
             project: null,
             statistics: [],
         }
+    },
+
+    created() {
+         this.fetch();
     },
 
     methods: {

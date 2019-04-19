@@ -21,7 +21,8 @@ export default {
                 'L.K.Z',
                 'KERG/ID',
                 'Name',
-                'End date'
+                'End date',
+                'Actions',
             ],
             options: {
                 ajax: {
@@ -49,7 +50,14 @@ export default {
                     },
                     {
                         data: 'ends_at'
-                    }
+                    },
+                    {
+                        render(a, b, data) {
+                            return `<a href="/dashboard/statistics/projects/${data.id.raw}" class="btn" title="Pokaż statystykę">
+                              <span class="glyphicon glyphicon-stats"></span>
+                            </a>`;
+                        }
+                    },
                 ],
                 order: [[0, 'desc']],
                 iDisplayLength: 25,
