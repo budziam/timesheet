@@ -13,8 +13,9 @@ class StatisticsController extends DashboardController
         $this->navbarBuilder->setActive('statistics-projects');
 
         $projectId = $project->id ?? null;
+        $projectName = $project->name ?? null;
 
-        return view('dashboard.pages.statistics.projects', compact("projectId"));
+        return view('dashboard.pages.statistics.projects', compact("projectId", "projectName"));
     }
 
     public function projectGroups()

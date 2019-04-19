@@ -5,12 +5,13 @@ export default {
     template: require('./statistics-projects.html'),
 
     props: {
-        initialProject: [Number, String],
+        initialProjectId: [String],
+        initialProjectName: [String],
     },
 
     data() {
         return {
-            projectId: this.initialProject,
+            projectId: null,
             project: null,
             statistics: [],
         }
@@ -18,6 +19,15 @@ export default {
 
     created() {
          this.fetch();
+    },
+
+    mounted() {
+        if (this.initialProjectId) {
+            this.$refs.project.select({
+                id: this.initialProjectId,
+                text: this.initialProjectName,
+            });
+        }
     },
 
     methods: {
