@@ -11,20 +11,8 @@
           :form-data="getFormData"
           @success="onFormSuccess"
   >
-    <div class="row" v-if="isEditing">
-      <div class="form-group col-md-12">
-        <label for="form_id">{{ $trans('ID') }}</label>
-        <input type="text"
-               id="form_id"
-               class="form-control"
-               v-model="model.id"
-               disabled
-        >
-      </div>
-    </div>
-
     <div class="row">
-      <div class="form-group col-lg-6 col-sm-12">
+      <div class="form-group col-lg-4 col-sm-12">
         <label for="form_lkz">{{ $trans('L.K.Z') }}</label>
         <input type="text"
                id="form_lkz"
@@ -35,7 +23,7 @@
         >
       </div>
 
-      <div class="form-group col-lg-6 col-sm-12">
+      <div class="form-group col-lg-4 col-sm-12">
         <label for="form_kerg">{{ $trans('KERG/ID') }}</label>
         <input type="text"
                id="form_kerg"
@@ -43,6 +31,16 @@
                class="form-control"
                v-model="model.kerg"
                required
+        >
+      </div>
+
+      <div class="form-group col-lg-4 col-sm-12">
+        <label for="form_id">{{ $trans('ID') }}</label>
+        <input id="form_id"
+               type="text"
+               class="form-control"
+               v-model="model.id"
+               disabled
         >
       </div>
     </div>
@@ -61,7 +59,7 @@
     </div>
 
     <div class="row">
-      <div class="form-group col-md-12">
+      <div class="form-group col-md-4 col-sm-12">
         <label for="form_customer">{{ $trans('Customer') }}</label>
         <v-select id="form_customer"
                   name="customer"
@@ -72,10 +70,8 @@
         >
         </v-select>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="form-group col-md-12">
+      <div class="form-group col-md-4 col-sm-12">
         <label for="form_value">{{ $trans('Project value') }}</label>
         <div class="input-group">
           <input id="form_value"
@@ -89,10 +85,8 @@
           <span class="input-group-addon">PLN</span>
         </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="form-group col-md-12">
+      <div class="form-group col-md-4 col-sm-12">
         <label for="form_ends_at">{{ $trans('End date') }}</label>
         <div class="input-group">
           <span class="input-group-addon">
@@ -123,7 +117,7 @@
     </div>
 
     <div class="row">
-      <div class="form-group col-md-12">
+      <div class="form-group col-md-10">
         <label for="form_groups">{{ $trans('Project groups') }}</label>
         <v-select id="form_groups"
                   name="groups[]"
@@ -135,10 +129,8 @@
         >
         </v-select>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="form-group col-md-12">
+      <div class="form-group col-md-2">
         <label for="form_color">{{ $trans('Color') }}</label>
         <div class="input-group">
                     <span class="input-group-addon">
