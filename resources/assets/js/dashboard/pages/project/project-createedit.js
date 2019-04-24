@@ -32,6 +32,7 @@ export default {
                     project.ends_at = project.ends_at ? Moment(project.ends_at).format('YYYY-MM-DD') : null;
                     project.created_at = Moment(project.created_at).format('YYYY-MM-DDThh:mm:ss');
                     project.updated_at = Moment(project.updated_at).format('YYYY-MM-DDThh:mm:ss');
+                    project.value = project.value.toFixed(2);
 
                     component.$refs.groups.select(
                         project.groups.map(group => ({
