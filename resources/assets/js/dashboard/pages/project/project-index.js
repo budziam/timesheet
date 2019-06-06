@@ -58,7 +58,8 @@ export default {
                             return `<a href="/dashboard/statistics/projects/${data.id.raw}" class="btn" title="Pokaż statystykę">
                               <span class="glyphicon glyphicon-stats"></span>
                             </a>`;
-                        }
+                        },
+                        searchable: false
                     },
                 ],
                 order: [[0, 'desc']],
