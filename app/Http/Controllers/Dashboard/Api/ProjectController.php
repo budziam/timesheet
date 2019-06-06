@@ -9,10 +9,10 @@ use App\Http\Requests\Dashboard\ProjectStoreUpdateRequest;
 use App\Models\Project;
 use App\Transformers\Dashboard\ProjectTransformer;
 use App\Transformers\ProjectSelect2Transformer;
-use ModelShaper\Datatable\DatatableShaper;
-use ModelShaper\QueryUtils;
-use ModelShaper\Select2\Select2FormRequest;
-use ModelShaper\Select2\Select2Shaper;
+use App\ModelShaper\Datatable\DatatableShaper;
+use App\ModelShaper\QueryUtils;
+use App\ModelShaper\Select2\Select2FormRequest;
+use App\ModelShaper\Select2\Select2Shaper;
 
 class ProjectController extends Controller
 {

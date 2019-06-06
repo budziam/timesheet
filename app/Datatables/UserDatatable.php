@@ -4,7 +4,7 @@ namespace App\Datatables;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Collection;
-use ModelShaper\Datatable\BaseDatatable;
+use App\ModelShaper\Datatable\BaseDatatable;
 
 class UserDatatable extends BaseDatatable
 {

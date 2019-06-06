@@ -16,8 +16,7 @@
         "laravel/framework": "5.5.*",
         "laravelcollective/html": "5.5.*",
         "spatie/laravel-fractal": "^5.0",
-        "laravel/tinker": "^1.0",
-        "budziam/model-shaper": "^1.0"
+        "laravel/tinker": "^1.0"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

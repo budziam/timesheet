@@ -2,7 +2,7 @@
 namespace App\Services;
 
 use App\Models\Project;
-use ModelShaper\QueryUtils;
+use App\ModelShaper\QueryUtils;
 
 class ProjectSearchService
 {

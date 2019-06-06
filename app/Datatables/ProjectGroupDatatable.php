@@ -4,7 +4,7 @@ namespace App\Datatables;
 use App\Models\ProjectGroup;
 use App\Repositories\ProjectGroupRepository;
 use Illuminate\Support\Collection;
-use ModelShaper\Datatable\BaseDatatable;
+use App\ModelShaper\Datatable\BaseDatatable;
 
 class ProjectGroupDatatable extends BaseDatatable
 {

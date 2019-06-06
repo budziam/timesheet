@@ -8,7 +8,7 @@ use App\Services\ProjectFilterService;
 use App\Utils\DateUtils;
 use DB;
 use Illuminate\Support\Collection;
-use ModelShaper\Datatable\BaseDatatable;
+use App\ModelShaper\Datatable\BaseDatatable;
 
 class ProjectDatatable extends BaseDatatable
 {

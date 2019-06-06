@@ -7,10 +7,10 @@ use App\Http\Requests\Dashboard\CustomerDestroyRequest;
 use App\Http\Requests\Dashboard\CustomerStoreUpdateRequest;
 use App\Models\Customer;
 use App\Transformers\Dashboard\CustomerTransformer;
-use ModelShaper\Datatable\DatatableFormRequest;
-use ModelShaper\Datatable\DatatableShaper;
-use ModelShaper\Select2\Select2FormRequest;
-use ModelShaper\Select2\Select2Shaper;
+use App\ModelShaper\Datatable\DatatableFormRequest;
+use App\ModelShaper\Datatable\DatatableShaper;
+use App\ModelShaper\Select2\Select2FormRequest;
+use App\ModelShaper\Select2\Select2Shaper;
 
 class CustomerController extends Controller
 {

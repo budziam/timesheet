@@ -3,7 +3,7 @@ namespace App\Http\Requests\Dashboard;
 
 use App\Models\Project;
 use Illuminate\Validation\ValidationException;
-use ModelShaper\Datatable\DatatableFormRequest;
+use App\ModelShaper\Datatable\DatatableFormRequest;
 
 class ProjectDatatableRequest extends DatatableFormRequest
 {

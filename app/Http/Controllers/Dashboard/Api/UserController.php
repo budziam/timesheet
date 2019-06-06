@@ -9,10 +9,10 @@ use App\Http\Requests\Dashboard\UserStoreUpdateRequest;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Transformers\Dashboard\UserTransformer;
-use ModelShaper\Datatable\DatatableFormRequest;
-use ModelShaper\Datatable\DatatableShaper;
-use ModelShaper\Select2\Select2FormRequest;
-use ModelShaper\Select2\Select2Shaper;
+use App\ModelShaper\Datatable\DatatableFormRequest;
+use App\ModelShaper\Datatable\DatatableShaper;
+use App\ModelShaper\Select2\Select2FormRequest;
+use App\ModelShaper\Select2\Select2Shaper;
 
 class UserController extends Controller
 {

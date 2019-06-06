@@ -13,8 +13,8 @@ use App\Utils\DateUtils;
 use DB;
 use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Support\Collection;
-use ModelShaper\Datatable\BaseDatatable;
-use ModelShaper\QueryUtils;
+use App\ModelShaper\Datatable\BaseDatatable;
+use App\ModelShaper\QueryUtils;
 
 class WorkLogDatatable extends BaseDatatable
 {
