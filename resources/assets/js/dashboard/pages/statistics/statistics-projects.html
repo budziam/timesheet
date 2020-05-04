@@ -1,4 +1,10 @@
 <div class="statistics container-fluid">
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <a class="btn btn-info" :href="editUrl">{{ $trans('Edit') }}</a>
+        </div>
+    </div>
+
     <div class="row form-group">
         <div class="col-xs-12 form-group">
             <label for="form_project_id" v-text="$trans('Project')"></label>

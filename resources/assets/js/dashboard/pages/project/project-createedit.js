@@ -110,6 +110,10 @@ export default {
     },
 
     computed: {
+        statisticsUrl() {
+            return Laravel.url(`/dashboard/statistics/projects/${this.modelId}`);
+        },
+
         formAction() {
             if (this.isCreating) {
                 return Laravel.url('/dashboard/api/projects');

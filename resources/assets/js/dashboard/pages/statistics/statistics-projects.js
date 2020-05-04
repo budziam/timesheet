@@ -41,8 +41,8 @@ export default {
             const component = this;
 
             Promise.all([
-                axios.get(Laravel.url('/dashboard/api/statistics/project-work-logs/' + this.projectId)),
-                axios.get(Laravel.url('/dashboard/api/projects/' + this.projectId))
+                axios.get(Laravel.url(`/dashboard/api/statistics/project-work-logs/${this.projectId}`)),
+                axios.get(Laravel.url(`/dashboard/api/projects/${this.projectId}`))
             ])
                 .then(([statisticsResponse, projectResponse]) => {
                     component.statistics = statisticsResponse.data;
@@ -53,6 +53,10 @@ export default {
     },
 
     computed: {
+        editUrl() {
+            return Laravel.url(`/dashboard/projects/${this.projectId}/edit`);
+        },
+
         statisticsFormatted() {
             return this.statistics.map(row => {
                 return {
