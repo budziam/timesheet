@@ -23,6 +23,6 @@
     "select2": "^4.0.0",
     "select2-bootstrap-theme": "0.1.0-beta.10",
     "vue": "^2.5.0",
-    "qs": "latest"
+    "qs": "^6.9.4"
   }
 }
