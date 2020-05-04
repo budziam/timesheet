@@ -3,6 +3,7 @@
 // Variables
 @import "variables";
 // Bootstrap
+$bootstrap-sass-asset-helper: true;
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
 @import "~bootstrap-sidebar/dist/css/sidebar";
 // Select2

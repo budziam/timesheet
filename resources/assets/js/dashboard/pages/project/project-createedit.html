@@ -1,7 +1,7 @@
 <div :class="formClass" class="container">
   <div class="row" v-if="isEditing">
     <div class="col-md-12 text-right">
-      <a class="btn btn-info" :href="statisticsUrl">{{ $trans('Edit') }}</a>
+      <a class="btn btn-info" :href="statisticsUrl">{{ $trans('Statistics') }}</a>
       <button v-if="!ended" class="btn btn-success" @click="complete">{{ $trans('Complete') }}</button>
       <button class="btn btn-danger" @click="destroy">{{ $trans('Delete') }}</button>
     </div>
