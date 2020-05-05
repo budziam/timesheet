@@ -3,7 +3,7 @@
 // Variables
 @import "variables";
 // Bootstrap
-$bootstrap-sass-asset-helper: true;
+$icon-font-path: "../../../../bootstrap-sass/assets/fonts/bootstrap/";
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
 @import "~bootstrap-sidebar/dist/css/sidebar";
 // Select2
