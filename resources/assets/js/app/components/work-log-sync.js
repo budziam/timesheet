@@ -1,6 +1,6 @@
 import VCalendar from '../components/calendar/core';
 import ModalTime from '../components/calendar/modal-time';
-import Moment from 'moment';
+import moment from 'moment';
 
 export default {
     template: require('./work-log-sync.html'),
@@ -24,11 +24,11 @@ export default {
                 return;
             }
 
-            let title = this.$trans('Dodaj godziny');
+            const title = this.$trans('Dodaj godziny');
 
             $(`<button class="btn btn-default fc-log-time">${title}</button>`)
                 .appendTo(cell)
-                .click(() => this.displayEventAdd(date.format()));
+                .click(() => this.displayEventAdd(moment(date).format("YYYY-MM-DD")));
         },
 
         displayEventAdd(date) {
@@ -61,9 +61,9 @@ export default {
                 return;
             }
 
-            let component = this;
+            const component = this;
 
-            axios.get('/api/projects/' + this.projectId)
+            axios.get(`/api/projects/${this.projectId}`)
                 .then(response => {
                     component.project = response.data;
                     component.$refs.project.select({
@@ -88,11 +88,11 @@ export default {
         },
 
         isDateValid(date) {
-            if (Moment().endOf('day').isBefore(date)) {
+            if (moment().endOf('day').isBefore(date)) {
                 return false;
             }
 
-            if (Moment(this.project.ends_at).endOf('day').isBefore(Moment())) {
+            if (moment(this.project.ends_at).endOf('day').isBefore(moment())) {
                 return false;
             }
 
@@ -102,7 +102,7 @@ export default {
 
     computed: {
         workLogsUrl() {
-            return '/api/search/work-logs/fullcalendar-sync?project_id=' + this.projectId;
+            return `/api/search/work-logs/fullcalendar-sync?project_id=${this.projectId}`;
         }
     },
 

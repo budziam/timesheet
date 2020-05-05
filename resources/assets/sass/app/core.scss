@@ -88,6 +88,7 @@ $bootstrap-sass-asset-helper: true;
     .fc-work-time {
       color: #dd2c00;
       padding: 2px;
+      text-align: right;
 
       &:empty ~ .fc-log-time {
         display: block;
