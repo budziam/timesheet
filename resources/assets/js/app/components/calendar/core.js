@@ -1,5 +1,7 @@
-require('fullcalendar');
-require('fullcalendar/dist/locale/pl');
+import { Calendar } from '@fullcalendar/core';
+import interactionPlugin from '@fullcalendar/interaction';
+import dayGridPlugin from '@fullcalendar/daygrid';
+// require('fullcalendar/dist/locale/pl');
 
 import ModalTime from './modal-time';
 import WorkLogTime from '../../../common/components/work-log-time';
@@ -17,6 +19,7 @@ export default {
 
     data() {
         return {
+            calendar: null,
             showEventEdit: false,
             eventEdit: {},
             eventEditRaw: {},
@@ -24,12 +27,13 @@ export default {
     },
 
     mounted() {
-        $(this.$refs.calendar).fullCalendar(this.getArgs());
+        this.calendar = new Calendar(this.$refs.calendar, this.getArgs());
+        this.calendar.render();
     },
 
     methods: {
         displayEventEdit(event) {
-            if (!event.editable) {
+            if (!event.durationEditable) {
                 return;
             }
 
@@ -40,6 +44,7 @@ export default {
                 comment: this.eventEditRaw.comment
             };
             this.showEventEdit = true;
+            console.log("clicked");
         },
 
         onSaveEventEdit(data) {
@@ -180,31 +185,34 @@ export default {
                 slotEventOverlap: false,
                 firstDay: 1,
                 timeFormat: 'HH:mm',
+                plugins: [dayGridPlugin, interactionPlugin],
 
                 dayClick(date, allDay, jsEvent, view) {
                     component.$emit('day-clicked', date, allDay, jsEvent, view);
                 },
 
-                eventClick(calEvent, jsEvent, view) {
-                    component.displayEventEdit(calEvent);
-
-                    component.$emit('event-clicked', calEvent, jsEvent, view);
+                eventClick({event, jsEvent, view}) {
+                    component.displayEventEdit(event);
+                    component.$emit('event-clicked', event, jsEvent, view);
                 },
 
-                dayRender(date, cell) {
-                    cell.append(`
+                dayRender({date, el}) {
+                    $(el).append(`
                         <div class="fc-work-time"></div>
                     `);
 
-                    component.$emit('day-render', date, cell);
+                    component.$emit('day-render', date, $(el));
                 },
 
-                eventRender(event, element) {
-                    const fieldwork = WorkLogTime.timePretty(event.time_fieldwork);
-                    const office = WorkLogTime.timePretty(event.time_office);
+                eventRender({event, el}) {
+                    const element = $(el);
 
-                    element.find('.fc-title').text(`${event.project.lkz}, ${event.project.kerg}`);
-                    element.find('.fc-title').after(`<div>${event.project.name}</div>`);
+                    const props = event.extendedProps;
+                    const fieldwork = WorkLogTime.timePretty(props.time_fieldwork);
+                    const office = WorkLogTime.timePretty(props.time_office);
+
+                    element.find('.fc-title').text(`${props.project.lkz}, ${props.project.kerg}`);
+                    element.find('.fc-title').after(`<div>${props.project.name}</div>`);
 
                     element.find('.fc-content').append(`
                         <div class="fc-body">
@@ -219,6 +227,8 @@ export default {
                 },
 
                 eventAfterAllRender() {
+                    // TODO Move it
+                    console.log("Yoyoy");
                     component.renderAllWorkTime.call(component);
                     component.$emit('all-render', this);
                 }

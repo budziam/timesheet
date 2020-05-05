@@ -6,7 +6,7 @@ $bootstrap-sass-asset-helper: true;
 @import "~select2/src/scss/core";
 @import "~select2-bootstrap-theme/src/select2-bootstrap";
 // FullCalendar
-@import "~fullcalendar/dist/fullcalendar";
+@import "~@fullcalendar/core/main.css";
 
 .navbar-brand {
   font-weight: bold;
