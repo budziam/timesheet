@@ -1,12 +1,12 @@
 // Fonts
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
-$bootstrap-sass-asset-helper: true;
+$icon-font-path: "../../../../bootstrap-sass/assets/fonts/bootstrap/";
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
 // Select2
 @import "~select2/src/scss/core";
 @import "~select2-bootstrap-theme/src/select2-bootstrap";
 // FullCalendar
-@import "~fullcalendar/dist/fullcalendar";
+@import "~@fullcalendar/core/main.css";
 
 .navbar-brand {
   font-weight: bold;
@@ -88,6 +88,7 @@ $bootstrap-sass-asset-helper: true;
     .fc-work-time {
       color: #dd2c00;
       padding: 2px;
+      text-align: right;
 
       &:empty ~ .fc-log-time {
         display: block;

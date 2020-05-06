@@ -18,31 +18,36 @@ export default {
         onAllRender(calendar) {
             const projects = new Map();
 
-            calendar.calendar.clientEvents().forEach(event => {
-                let project = event.project;
+            for (const event of calendar.getEvents()) {
+                const props = event.extendedProps;
+                const project = props.project;
 
                 if (!projects.has(project.id)) {
-                    projects.set(project.id, Object.assign(project, {
-                        office: 0,
-                        fieldwork: 0,
-                    }));
+                    projects.set(project.id, {
+                        ...project,
+                        time_office: 0,
+                        time_fieldwork: 0,
+                    });
                 }
 
-                projects.get(project.id).office += event.time_office;
-                projects.get(project.id).fieldwork += event.time_fieldwork;
-            });
+                const projectNode = projects.get(project.id);
+                projects.set(project.id, {
+                    ...projectNode,
+                    time_office: projectNode.time_office + props.time_office,
+                    time_fieldwork: projectNode.time_fieldwork + props.time_fieldwork,
+                })
+            }
 
-            this.projects = Array.from(projects.values())
-                .map(project => {
-                    project.office = WorkLogTime.timePretty(project.office);
-                    project.fieldwork = WorkLogTime.timePretty(project.fieldwork);
-
-                    return project;
-                });
+            this.projects = [...projects.values()]
+                .map(project => ({
+                    ...project,
+                    time_office: WorkLogTime.timePretty(project.time_office),
+                    time_fieldwork: WorkLogTime.timePretty(project.time_fieldwork),
+                }));
         },
 
         getWorkLogUrl(project) {
-            return '/work-logs/sync#' + project.id;
+            return `/work-logs/sync#${project.id}`;
         },
     }
 }

@@ -1,5 +1,9 @@
-require('fullcalendar');
-require('fullcalendar/dist/locale/pl');
+import { Calendar } from '@fullcalendar/core';
+import interactionPlugin from '@fullcalendar/interaction';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import plLocale from '@fullcalendar/core/locales/pl';
+import { debounce } from "lodash";
+import moment from 'moment';
 
 import ModalTime from './modal-time';
 import WorkLogTime from '../../../common/components/work-log-time';
@@ -17,29 +21,32 @@ export default {
 
     data() {
         return {
-            showEventEdit: false,
-            eventEdit: {},
-            eventEditRaw: {},
+            calendar: null,
+            eventEdit: null,
+            renderAllWorkTimeDebounced: debounce(this.renderAllWorkTime, 50),
         }
     },
 
     mounted() {
-        $(this.$refs.calendar).fullCalendar(this.getArgs());
+        this.calendar = new Calendar(this.$refs.calendar, this.getArgs());
+        this.calendar.render();
     },
 
     methods: {
         displayEventEdit(event) {
-            if (!event.editable) {
+            if (!event.durationEditable) {
                 return;
             }
 
-            this.eventEditRaw = Object.assign({}, event);
+            const props = event.extendedProps;
+
             this.eventEdit = {
-                fieldwork: WorkLogTime.timePretty(this.eventEditRaw.time_fieldwork),
-                office: WorkLogTime.timePretty(this.eventEditRaw.time_office),
-                comment: this.eventEditRaw.comment
+                id: event.id,
+                comment: props.comment,
+                project_lkz: props.project.lkz,
+                fieldwork: WorkLogTime.timePretty(props.time_fieldwork),
+                office: WorkLogTime.timePretty(props.time_office),
             };
-            this.showEventEdit = true;
         },
 
         onSaveEventEdit(data) {
@@ -47,24 +54,25 @@ export default {
         },
 
         onDestroyEventEdit() {
-            const eventId = this.eventEditRaw.id;
+            const eventId = this.eventEdit.id;
 
-            axios.delete('/api/work-logs/' + eventId)
+            axios.delete(`/api/work-logs/${eventId}`)
                 .then(() => {
-                    $(this.$refs.calendar).fullCalendar('removeEvents', eventId);
+                    const eventNode = this.calendar.getEventById(eventId);
+                    if (eventNode) {
+                        eventNode.remove();
+                    }
                     Event.notifySuccess('Work log was removed');
                 })
                 .catch(error => Event.notifyDanger('Some problem occured while removing work log'));
         },
 
         onExitEventEdit() {
-            this.showEventEdit = false;
-            this.eventEdit = {};
-            this.eventEditRaw = {};
+            this.eventEdit = null;
         },
 
         createEvent(date, fieldwork, office, comment, project) {
-            let event = {
+            const event = {
                 title: project.name,
                 date: date,
                 project: project,
@@ -72,95 +80,101 @@ export default {
                 time_office: WorkLogTime.prettyToInt(office),
                 comment: comment,
                 backgroundColor: project.color,
+                editable: true,
             };
 
             if (event.time_fieldwork <= 0 && event.time_office <= 0) {
                 return false;
             }
 
-            axios.post('/api/projects/' + event.project.id + '/work-logs', {
+            axios.post(`/api/projects/${event.project.id}/work-logs`, {
                 date: event.date,
                 time_fieldwork: event.time_fieldwork,
                 time_office: event.time_office,
                 comment: event.comment
             })
                 .then(response => {
-                    event.id = response.data.id;
-                    event.editable = true;
-                    event.color = project.color;
-
-                    $(this.$refs.calendar).fullCalendar('renderEvent', event, false);
+                    this.calendar.addEvent({
+                        ...event,
+                        id: response.data.id,
+                    });
                     Event.notifySuccess('Work log was properly added');
                 })
                 .catch(error => Event.requestError(error));
         },
 
         updateEvent(data) {
-            const before = this.formatEvent(this.eventEditRaw);
-            const event = Object.assign({}, before, {
+            const before = {
+                id: this.eventEdit.id,
+                comment: this.eventEdit.comment,
+                time_fieldwork: WorkLogTime.prettyToInt(this.eventEdit.fieldwork),
+                time_office: WorkLogTime.prettyToInt(this.eventEdit.office),
+            };
+            const event = {
+                id: this.eventEdit.id,
                 comment: data.comment,
                 time_fieldwork: WorkLogTime.prettyToInt(data.fieldwork),
-                time_office: WorkLogTime.prettyToInt(data.office)
-            });
+                time_office: WorkLogTime.prettyToInt(data.office),
+            };
+
+            if (event.time_fieldwork <= 0 && event.time_office <= 0) {
+                return;
+            }
 
             // There are no changes
             if (JSON.stringify(event) === JSON.stringify(before)) {
                 return;
             }
 
-            if (event.time_fieldwork <= 0 && event.time_office <= 0) {
-                return;
-            }
-
-            axios.patch('/api/work-logs/' + event.id, {
+            axios.patch(`/api/work-logs/${event.id}`, {
                 time_fieldwork: event.time_fieldwork,
                 time_office: event.time_office,
                 comment: event.comment
             })
                 .then(() => {
-                    $(this.$refs.calendar).fullCalendar('updateEvent', Object.assign({}, this.eventEditRaw, event));
+                    const eventNode = this.calendar.getEventById(event.id);
+                    eventNode.setExtendedProp('comment', event.comment);
+                    eventNode.setExtendedProp('time_fieldwork', event.time_fieldwork);
+                    eventNode.setExtendedProp('time_office', event.time_office);
                     Event.notifySuccess('Work log was updated');
                 })
-                .catch(error => Event.notifyDanger('Some problem occured while updating work log'));
-        },
-
-        formatEvent(event) {
-            return {
-                id: event.id,
-                comment: event.comment,
-                time_fieldwork: event.time_fieldwork,
-                time_office: event.time_office,
-            }
+                .catch(error => {
+                    console.error(error);
+                    Event.notifyDanger('Some problem occured while updating work log');
+                });
         },
 
         renderAllWorkTime() {
+            const calendarEl = $(this.calendar.el);
             const times = this.getDateTimeSum();
 
             // Clear all work times
-            $(this.$refs.calendar)
+            calendarEl
                 .find('.fc-day .fc-work-time')
                 .html('');
 
-            $.each(times, (key, value) => {
+            for (const [key, value] of times.entries()) {
                 const time = WorkLogTime.timePretty(value);
-                $(this.$refs.calendar)
-                    .find('.fc-day[data-date="' + key + '"] .fc-work-time')
+                calendarEl
+                    .find(`.fc-day[data-date="${key}"] .fc-work-time`)
                     .html(`<span>${time}</span>`);
-            });
+            }
+
+            this.$emit('all-render', this.calendar);
         },
 
+        /**
+         * @returns {Map<string, number>}
+         */
         getDateTimeSum() {
-            let times = {};
+            const times = new Map();
 
-            $(this.$refs.calendar)
-                .fullCalendar('clientEvents')
-                .forEach(event => {
-                    if (!(event.date in times)) {
-                        times[event.date] = 0;
-                    }
-
-                    times[event.date] += event.time_fieldwork + event.time_office;
-                });
+            for (const event of this.calendar.getEvents()) {
+                const date = moment(event.start).format("YYYY-MM-DD");
+                const props = event.extendedProps;
+                const time = (times.get(date) || 0) + props.time_fieldwork + props.time_office;
+                times.set(date, time)
+            }
 
             return times;
         },
@@ -169,7 +183,7 @@ export default {
             const component = this;
 
             const args = {
-                locale: Laravel.lang,
+                locale: plLocale,
                 header: {
                     left: 'prev,next today',
                     center: 'title',
@@ -180,32 +194,29 @@ export default {
                 slotEventOverlap: false,
                 firstDay: 1,
                 timeFormat: 'HH:mm',
+                plugins: [dayGridPlugin, interactionPlugin],
 
-                dayClick(date, allDay, jsEvent, view) {
-                    component.$emit('day-clicked', date, allDay, jsEvent, view);
+                eventClick({event}) {
+                    component.displayEventEdit(event);
                 },
 
-                eventClick(calEvent, jsEvent, view) {
-                    component.displayEventEdit(calEvent);
-
-                    component.$emit('event-clicked', calEvent, jsEvent, view);
-                },
-
-                dayRender(date, cell) {
-                    cell.append(`
+                dayRender({date, el}) {
+                    $(el).append(`
                         <div class="fc-work-time"></div>
                     `);
 
-                    component.$emit('day-render', date, cell);
+                    component.$emit('day-render', date, $(el));
                 },
 
-                eventRender(event, element) {
-                    const fieldwork = WorkLogTime.timePretty(event.time_fieldwork);
-                    const office = WorkLogTime.timePretty(event.time_office);
+                eventRender({event, el}) {
+                    const element = $(el);
+                    const props = event.extendedProps;
 
-                    element.find('.fc-title').text(`${event.project.lkz}, ${event.project.kerg}`);
-                    element.find('.fc-title').after(`<div>${event.project.name}</div>`);
+                    const fieldwork = WorkLogTime.timePretty(props.time_fieldwork);
+                    const office = WorkLogTime.timePretty(props.time_office);
 
+                    element.find('.fc-title').text(`${props.project.lkz}, ${props.project.kerg}`);
+                    element.find('.fc-title').after(`<div>${props.project.name}</div>`);
                     element.find('.fc-content').append(`
                         <div class="fc-body">
                              Teren: ${fieldwork}<br />
@@ -213,15 +224,12 @@ export default {
                         </div>
                     `);
 
-                    if (event.editable) {
+                    if (event.durationEditable) {
                         element.addClass('fc-editable');
                     }
-                },
 
-                eventAfterAllRender() {
-                    component.renderAllWorkTime.call(component);
-                    component.$emit('all-render', this);
-                }
+                    component.renderAllWorkTimeDebounced();
+                },
             };
 
             if (this.url) {
@@ -247,7 +255,7 @@ export default {
 
     watch: {
         url() {
-            $(this.$refs.calendar).fullCalendar('refetchEvents');
+            this.calendar.refetchEvents();
         }
     }
 };

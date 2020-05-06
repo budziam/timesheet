@@ -1,10 +1,10 @@
 <div>
     <div ref="calendar"></div>
-    <modal-time v-if="showEventEdit"
+    <modal-time v-if="eventEdit"
                 @save="onSaveEventEdit"
                 @destroy="onDestroyEventEdit"
                 @exit="onExitEventEdit"
                 :event="eventEdit"
-                :title="$trans('Edit :project hours', { project: eventEditRaw.project.lkz })"
+                :title="$trans('Edit :project hours', { project: eventEdit.project_lkz })"
     ></modal-time>
 </div>
