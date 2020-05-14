@@ -1,5 +1,3 @@
-import 'datatables.net';
-
 export default {
     template: require('./datatable.html'),
 
@@ -36,7 +34,7 @@ export default {
         },
 
         draw() {
-            this.dataTable.draw();
+            this.dataTable.fnDraw();
         },
     },
 };

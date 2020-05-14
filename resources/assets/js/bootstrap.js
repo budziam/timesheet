@@ -7,6 +7,7 @@ window._ = require('lodash');
  */
 
 window.$ = window.jQuery = require('jquery');
+window.$.fn.DataTable = require('datatables.net');
 
 require('bootstrap-sass');
 require('select2/dist/js/select2.full');

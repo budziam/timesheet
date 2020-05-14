@@ -68,8 +68,8 @@
  * http://jquery.org/license
  */
 
-/*! DataTables 1.10.20
- * ©2008-2019 SpryMedia Ltd - datatables.net/license
+/*! DataTables 1.10.21
+ * ©2008-2020 SpryMedia Ltd - datatables.net/license
  */
 
 /*! Select2 4.0.13 | https://github.com/select2/select2/blob/master/LICENSE.md */
