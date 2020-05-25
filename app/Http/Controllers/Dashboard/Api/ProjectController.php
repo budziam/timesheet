@@ -5,7 +5,8 @@ use App\Bases\Controller;
 use App\Datatables\ProjectDatatable;
 use App\Http\Requests\Dashboard\ProjectDatatableRequest;
 use App\Http\Requests\Dashboard\ProjectDestroyRequest;
-use App\Http\Requests\Dashboard\ProjectStoreUpdateRequest;
+use App\Http\Requests\Dashboard\ProjectStoreRequest;
+use App\Http\Requests\Dashboard\ProjectUpdateRequest;
 use App\Models\Project;
 use App\Transformers\Dashboard\ProjectTransformer;
 use App\Transformers\ProjectSelect2Transformer;
@@ -44,7 +45,7 @@ class ProjectController extends Controller
             ->toArray();
     }
 
-    public function store(ProjectStoreUpdateRequest $request)
+    public function store(ProjectStoreRequest $request)
     {
         $project = Project::create($request->all());
         $project->groups()->sync($request->input('groups', []));
@@ -54,7 +55,7 @@ class ProjectController extends Controller
             ->toArray();
     }
 
-    public function update(ProjectStoreUpdateRequest $request, Project $project)
+    public function update(ProjectUpdateRequest $request, Project $project)
     {
         $project->update($request->all());
         $project->groups()->sync($request->input('groups', []));
