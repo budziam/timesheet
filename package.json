@@ -15,7 +15,7 @@
     "bootstrap-sass": "^3.4.1",
     "bootstrap-sidebar": "^0.2.2-retry",
     "cross-env": "^7.0.2",
-    "datatables.net": "^1.10.21",
+    "datatables.net": "^1.10.22",
     "debounce": "^1.1.0",
     "jquery": "3.4.1",
     "laravel-mix": "^5.0.4",
