@@ -32,10 +32,11 @@ $factory->define(User::class, function (Generator $faker) {
 
 $factory->define(Project::class, function (Generator $faker) {
     return [
-        'lkz'         => $faker->asciify(),
-        'kerg'        => $faker->asciify('****/**'),
+        'lkz'         => $faker->numerify('###/####'),
+        'kerg'        => $faker->numerify('####.####.####'),
         'name'        => ucfirst($faker->words(3, true)),
         'value'       => $faker->numberBetween(0, 10000),
+        'cost'        => $faker->numberBetween(0, 10000),
         'description' => $faker->paragraphs(5, true),
         'ends_at'     => $faker->boolean(80)
             ? Carbon::instance($faker->dateTimeBetween('-2 months', '+1 year'))->startOfDay()

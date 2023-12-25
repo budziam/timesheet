@@ -15,6 +15,7 @@ export default {
             colorEnabled: false,
             model: {
                 color: '#b0b0b0',
+                cost: '0.00',
                 customer: {},
                 groups: []
             }
@@ -33,6 +34,7 @@ export default {
                     project.created_at = Moment(project.created_at).format('YYYY-MM-DDThh:mm:ss');
                     project.updated_at = Moment(project.updated_at).format('YYYY-MM-DDThh:mm:ss');
                     project.value = project.value.toFixed(2);
+                    project.cost = project.cost.toFixed(2);
 
                     component.$refs.groups.select(
                         project.groups.map(group => ({
@@ -132,6 +134,11 @@ export default {
 
         ended() {
             return this.model.ends_at !== null;
-        }
+        },
+
+        valueNet() {
+            const valueNet = Number(this.model.value) - Number(this.model.cost);
+            return valueNet.toFixed(2);
+        },
     }
 };

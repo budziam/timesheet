@@ -15,6 +15,7 @@ class ProjectStoreRequest extends FormRequest
             'kerg'        => 'required|string',
             'name'        => 'required|string',
             'value'       => 'required|numeric',
+            'cost'        => 'required|numeric',
             'description' => 'string',
             'color'       => 'string|nullable',
             'ends_at'     => 'date|nullable',

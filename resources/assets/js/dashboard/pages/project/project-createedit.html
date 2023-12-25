@@ -61,19 +61,7 @@
 
     <div class="row">
       <div class="form-group col-md-4 col-sm-12">
-        <label for="form_customer">{{ $trans('Customer') }}</label>
-        <v-select id="form_customer"
-                  name="customer"
-                  class="form-control"
-                  url="/dashboard/api/select2/customers"
-                  v-model="model.customer_id"
-                  ref="customer"
-        >
-        </v-select>
-      </div>
-
-      <div class="form-group col-md-4 col-sm-12">
-        <label for="form_value">{{ $trans('Project value') }}</label>
+        <label for="form_value">{{ $trans('Project value gross') }}</label>
         <div class="input-group">
           <input id="form_value"
                  type="number"
@@ -85,6 +73,48 @@
           >
           <span class="input-group-addon">PLN</span>
         </div>
+      </div>
+
+      <div class="form-group col-md-4 col-sm-12">
+        <label for="form_cost">{{ $trans('Project cost') }}</label>
+        <div class="input-group">
+          <input id="form_cost"
+                 type="number"
+                 step="0.01"
+                 name="cost"
+                 class="form-control"
+                 v-model="model.cost"
+                 required
+          >
+          <span class="input-group-addon">PLN</span>
+        </div>
+      </div>
+
+      <div class="form-group col-md-4 col-sm-12">
+        <label for="form_cost">{{ $trans('Project value net') }}</label>
+        <div class="input-group">
+          <input id="form_value_net"
+                 type="number"
+                 class="form-control"
+                 v-model="valueNet"
+                 disabled
+          >
+          <span class="input-group-addon">PLN</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-4 col-sm-12">
+        <label for="form_customer">{{ $trans('Customer') }}</label>
+        <v-select id="form_customer"
+                  name="customer"
+                  class="form-control"
+                  url="/dashboard/api/select2/customers"
+                  v-model="model.customer_id"
+                  ref="customer"
+        >
+        </v-select>
       </div>
 
       <div class="form-group col-md-4 col-sm-12">
