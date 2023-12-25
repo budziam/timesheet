@@ -5,7 +5,7 @@
 // Bootstrap
 $icon-font-path: "../../../../bootstrap-sass/assets/fonts/bootstrap/";
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
-@import "~bootstrap-sidebar/dist/css/sidebar";
+@import "../../vendor/bootstrap-sidebar/css/sidebar";
 // Select2
 @import "~select2/src/scss/core";
 @import "~select2-bootstrap-theme/src/select2-bootstrap";

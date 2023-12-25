@@ -13,7 +13,6 @@
     "axios": "^0.19.2",
     "bootstrap-notify": "^3.1.3",
     "bootstrap-sass": "^3.4.1",
-    "bootstrap-sidebar": "^0.2.2-retry",
     "cross-env": "^7.0.2",
     "datatables.net": "^1.10.22",
     "debounce": "^1.1.0",

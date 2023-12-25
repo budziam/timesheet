@@ -1,5 +1,5 @@
 require('../bootstrap');
-require('bootstrap-sidebar/dist/js/sidebar');
+require('../../vendor/bootstrap-sidebar/js/sidebar');
 require('bootstrap-notify');
 
 import CustomerIndex from './pages/customer/customer-index';
