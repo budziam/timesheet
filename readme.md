@@ -18,3 +18,12 @@ http://localhost:8080
 ```
 
 Login using `admin:abc123`
+
+
+### Deployment
+
+```bash
+yarn prod
+git add .
+git commit -m "Build front"
+```
