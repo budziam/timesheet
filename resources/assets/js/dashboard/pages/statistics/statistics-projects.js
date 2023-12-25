@@ -79,13 +79,14 @@ export default {
                 }
             }
 
-            const total = office + fieldwork;
+            const totalTime = office + fieldwork;
+            const netValue = this.project.value - this.project.cost;
 
             return {
                 office: WorkLogTime.timePretty(office),
                 fieldwork: WorkLogTime.timePretty(fieldwork),
-                total: WorkLogTime.timePretty(total),
-                value: WorkLogTime.getHourValue(this.project.value, total).toFixed(2),
+                total: WorkLogTime.timePretty(totalTime),
+                net_value: WorkLogTime.getHourValue(netValue, totalTime).toFixed(2),
             }
         },
     },

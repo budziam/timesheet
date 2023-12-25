@@ -38,8 +38,8 @@ export default {
                 office: WorkLogTime.timePretty(row.office),
                 fieldwork: WorkLogTime.timePretty(row.fieldwork),
                 total: WorkLogTime.timePretty(total),
-                value: (row.value / 100).toFixed(2),
-                hour_value: WorkLogTime.getHourValue(row.value / 100, total).toFixed(2),
+                net_value: (row.net_value / 100).toFixed(2),
+                hour_net_value: WorkLogTime.getHourValue(row.net_value / 100, total).toFixed(2),
             };
         },
 
