@@ -39,16 +39,16 @@
                 <th>{{ $trans('Office') }}</th>
                 <th>{{ $trans('Fieldwork') }}</th>
                 <th>{{ $trans('Hours summary') }}</th>
-                <th>{{ $trans('Value') }}</th>
-                <th>{{ $trans('Hour value') }}</th>
+                <th>{{ $trans('Net value') }}</th>
+                <th>{{ $trans('Hour net value') }}</th>
             </tr>
             <tr>
                 <th></th>
                 <th>{{ all.office }}</th>
                 <th>{{ all.fieldwork }}</th>
                 <th>{{ all.total }}</th>
-                <th>{{ all.value }} PLN</th>
-                <th>{{ all.hour_value }} PLN</th>
+                <th>{{ all.net_value }} PLN</th>
+                <th>{{ all.hour_net_value }} PLN</th>
             </tr>
             </thead>
             <tbody>
@@ -57,8 +57,8 @@
                 <td>{{ row.office }}</td>
                 <td>{{ row.fieldwork }}</td>
                 <td>{{ row.total }}</td>
-                <td>{{ row.value }} PLN</td>
-                <td>{{ row.hour_value }} PLN</td>
+                <td>{{ row.net_value }} PLN</td>
+                <td>{{ row.hour_net_value }} PLN</td>
             </tr>
             </tbody>
         </table>

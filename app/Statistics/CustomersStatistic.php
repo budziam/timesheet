@@ -21,15 +21,15 @@ class CustomersStatistic
     public function get(array $filters = []) : array
     {
         $times = $this->getTimes($filters);
-        $values = $this->getValues($filters);
+        $netValues = $this->getNetValues($filters);
 
         return Customer::all()
-            ->map(function (Customer $customer) use ($times, $values) {
+            ->map(function (Customer $customer) use ($times, $netValues) {
                 return [
                     'customer'  => $customer->name,
                     'office'    => $times[$customer->id]['office'] ?? 0,
                     'fieldwork' => $times[$customer->id]['fieldwork'] ?? 0,
-                    'value'     => $values[$customer->id] ?? 0,
+                    'net_value' => $netValues[$customer->id] ?? 0,
                 ];
             })
             ->all();
@@ -64,7 +64,7 @@ class CustomersStatistic
             });
     }
 
-    protected function getValues(array $filters) : Collection
+    protected function getNetValues(array $filters) : Collection
     {
         $customerTable = Customer::table();
         $projectTable = Project::table();
@@ -72,7 +72,8 @@ class CustomersStatistic
         $query = DB::table($customerTable)
             ->select([
                 "$customerTable.id",
-                DB::raw("SUM($projectTable.value) as value"),
+                DB::raw("SUM($projectTable.value) as gross_value"),
+                DB::raw("SUM($projectTable.cost) as cost"),
             ])
             ->join($projectTable, "$projectTable.customer_id", '=', "$customerTable.id");
 
@@ -82,7 +83,7 @@ class CustomersStatistic
             ->groupBy("$customerTable.id")
             ->get()
             ->mapWithKeys(function ($result) {
-                return [(int)$result->id => (int)$result->value];
+                return [(int)$result->id => (int)$result->gross_value - (int)$result->cost];
             });
     }
 

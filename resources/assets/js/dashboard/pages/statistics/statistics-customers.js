@@ -33,15 +33,15 @@ export default {
         },
 
         parseRow(row) {
-            const total = row.office + row.fieldwork;
+            const totalTime = row.office + row.fieldwork;
 
             return {
                 customer: row.customer,
                 office: WorkLogTime.timePretty(row.office),
                 fieldwork: WorkLogTime.timePretty(row.fieldwork),
-                total: WorkLogTime.timePretty(total),
-                value: (row.value / 100).toFixed(2),
-                hour_value: WorkLogTime.getHourValue(row.value / 100, total).toFixed(2),
+                total: WorkLogTime.timePretty(totalTime),
+                net_value: (row.net_value / 100).toFixed(2),
+                hour_net_value: WorkLogTime.getHourValue(row.net_value / 100, totalTime).toFixed(2),
             };
         },
 

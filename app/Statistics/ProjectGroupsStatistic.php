@@ -21,14 +21,14 @@ class ProjectGroupsStatistic
     public function get(array $filters = [])
     {
         $totalTime = $this->getTotalTime($filters);
-        $totalValue = $this->getTotalValue($filters);
+        $totalNetValue = $this->getTotalNetValue($filters);
         $results = $this->getResults($filters);
 
         return [
             'all'            => [
                 'office'    => (int)$totalTime['office'],
                 'fieldwork' => (int)$totalTime['fieldwork'],
-                'value'     => $totalValue,
+                'net_value'     => $totalNetValue,
             ],
             'project_groups' => $results,
         ];
@@ -51,29 +51,29 @@ class ProjectGroupsStatistic
         return (array)$query->first();
     }
 
-    protected function getTotalValue(array $filters) : int
+    protected function getTotalNetValue(array $filters) : int
     {
         $projectTable = Project::table();
 
         $query = DB::table($projectTable);
         $this->applyFilters($query, $filters);
 
-        return (int)$query->sum('value');
+        return (int)$query->sum('value') - (int)$query->sum('cost');
     }
 
     protected function getResults(array $filters) : Collection
     {
         $times = $this->getTimes($filters);
-        $values = $this->getValues($filters);
+        $netValues = $this->getNetValues($filters);
 
         return ProjectGroup::all()
             ->toBase()
-            ->map(function (ProjectGroup $projectGroup) use ($times, $values) {
+            ->map(function (ProjectGroup $projectGroup) use ($times, $netValues) {
                 return [
                     'project_group' => $projectGroup->name,
                     'office'        => $times[$projectGroup->id]['office'] ?? 0,
                     'fieldwork'     => $times[$projectGroup->id]['fieldwork'] ?? 0,
-                    'value'         => $values[$projectGroup->id] ?? 0,
+                    'net_value'     => $netValues[$projectGroup->id] ?? 0,
                 ];
             });
     }
@@ -110,7 +110,7 @@ class ProjectGroupsStatistic
             });
     }
 
-    protected function getValues(array $filters) : Collection
+    protected function getNetValues(array $filters) : Collection
     {
         $projectGroupTable = ProjectGroup::table();
         $projectTable = Project::table();
@@ -119,7 +119,8 @@ class ProjectGroupsStatistic
         $query = DB::table($projectGroupTable)
             ->select([
                 "$projectGroupTable.id",
-                DB::raw("SUM($projectTable.value) as value"),
+                DB::raw("SUM($projectTable.value) as gross_value"),
+                DB::raw("SUM($projectTable.cost) as cost"),
             ])
             ->join($pivotTable, "$pivotTable.project_group_id", '=', "$projectGroupTable.id")
             ->join($projectTable, "$pivotTable.project_id", '=', "$projectTable.id");
@@ -130,7 +131,7 @@ class ProjectGroupsStatistic
             ->groupBy("$projectGroupTable.id")
             ->get()
             ->mapWithKeys(function ($result) {
-                return [(int)$result->id => (int)$result->value];
+                return [(int)$result->id => (int)$result->gross_value - (int)$result->cost];
             });
     }
 

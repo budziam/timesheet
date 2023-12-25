@@ -12,6 +12,7 @@ use Carbon\Carbon;
  * @property string                                                                   $kerg
  * @property string                                                                   $name
  * @property int                                                                      $value
+ * @property int                                                                      $cost
  * @property string                                                                   $description
  * @property string                                                                   $color
  * @property null|Customer                                                            $customer_id
@@ -44,6 +45,7 @@ class Project extends Model
         'name',
         'description',
         'value',
+        'cost',
         'color',
         'ends_at',
         'customer_id',
@@ -55,6 +57,7 @@ class Project extends Model
 
     protected $attributes = [
         'description' => '',
+        'cost'        => 0,
         'value'       => 0,
     ];
 
@@ -81,6 +84,16 @@ class Project extends Model
     public function setValueAttribute($value)
     {
         $this->attributes['value'] = (int)($value * 100);
+    }
+
+    public function getCostAttribute($cost) : float
+    {
+        return round($cost / 100, 2);
+    }
+
+    public function setCostAttribute($cost)
+    {
+        $this->attributes['cost'] = (int)($cost * 100);
     }
 
     public function getActiveAttribute() : bool
